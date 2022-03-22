@@ -13,12 +13,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.regex.PatternSyntaxException;
+
 public class MyTasksActivity extends AppCompatActivity {
 
     public final String TAG = "MainActivity";
-    public static String DO_TAXES_TAG = "DO TAXES";
-    public final String GROCERIES_TAG = "GROCERIES";
-    public final String DOG_FOOD_TAG = "DOG FOOD";
+    public static String TASK_DETAIL_TITLE_TAG = "TASK DETAIL TITLE";
     SharedPreferences userPreferences;
 
     @Override
@@ -96,9 +96,9 @@ public class MyTasksActivity extends AppCompatActivity {
                     Log.e(TAG, "onClick: Do Taxes Button!");
                     Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
                     startActivity(goToTaskDetails);
-                    String doTaxesTaskTitle = "Do Taxes";
+                    String taskTitle = "Do Taxes";
                     SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
-                    userPreferencesEditor.putString(DO_TAXES_TAG, doTaxesTaskTitle);
+                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
                     userPreferencesEditor.apply();
                 }
             });
@@ -113,6 +113,10 @@ public class MyTasksActivity extends AppCompatActivity {
                     Log.e(TAG, "onClick: Groceries Button!");
                     Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
                     startActivity(goToTaskDetails);
+                    String taskTitle = "Groceries";
+                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
+                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
+                    userPreferencesEditor.apply();
                 }
             });
         }
@@ -125,6 +129,10 @@ public class MyTasksActivity extends AppCompatActivity {
                     Log.e(TAG, "onClick: Dog Food Button!");
                     Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
                     startActivity(goToTaskDetails);
+                    String taskTitle = "Dog Food";
+                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
+                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
+                    userPreferencesEditor.apply();
                 }
             });
         }

@@ -21,7 +21,7 @@ public class TaskDetailActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
 
-        String taskTitle = userPreferences.getString(MyTasksActivity.DO_TAXES_TAG, "No Task");
+        String taskTitle = userPreferences.getString(MyTasksActivity.TASK_DETAIL_TITLE_TAG, "No Task");
         ((TextView)findViewById(R.id.titleTaskDetailTextView)).setText(getString(R.string.task_title, taskTitle));
     }
 

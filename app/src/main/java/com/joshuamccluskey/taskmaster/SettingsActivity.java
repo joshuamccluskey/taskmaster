@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 public class SettingsActivity extends AppCompatActivity {
     SharedPreferences userPreferences;
-    public static final String USERNAME_TAG = "userName";
+    public static final String USERNAME_TAG = "username";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

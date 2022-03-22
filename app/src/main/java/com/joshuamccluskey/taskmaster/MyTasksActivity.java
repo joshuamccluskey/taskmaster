@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MyTasksActivity extends AppCompatActivity {
 
     public final String TAG = "MainActivity";
+    public static String DO_TAXES_TAG = "DO TAXES";
+    public final String GROCERIES_TAG = "GROCERIES";
+    public final String DOG_FOOD_TAG = "DOG FOOD";
     SharedPreferences userPreferences;
 
     @Override
@@ -92,6 +96,10 @@ public class MyTasksActivity extends AppCompatActivity {
                     Log.e(TAG, "onClick: Do Taxes Button!");
                     Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
                     startActivity(goToTaskDetails);
+                    String doTaxesTaskTitle = "Do Taxes";
+                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
+                    userPreferencesEditor.putString(DO_TAXES_TAG, doTaxesTaskTitle);
+                    userPreferencesEditor.apply();
                 }
             });
         }

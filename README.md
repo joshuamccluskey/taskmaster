@@ -1,5 +1,5 @@
 # Task Master
-Andorid task management application. Manage all your taksk from one place.
+Andorid task management application. Manage all your tasks from one app.
 
 ## Implementation
 - You can run in app from app/
@@ -40,11 +40,11 @@ Wireframe build of the TaskMaster Android app. My Tasks page, Add Tasks page, Al
   
 ### Updates
 
-- My Tasks page built
-![My Tasks Page](screenshots/myTasksLab26.png)
-- Add Task page built
+#### My Tasks page built
+![My Tasks Page](screenshots/myTasksLab26.png) 
+#### Add Task page built
 ![Add Task Page](screenshots/addTaskLab26.png)
-- All Tasks page built
+#### All Tasks page built
 ![My Tasks Page](screenshots/myTasksLab26.png)
 
 ### Features

@@ -11,7 +11,7 @@
     <string name="do_taxes">Do Taxes</string>
     <string name="groceries">Groceries</string>
     <string name="dog_food">Dog Food</string>
-    <string name="username_username">Username: username</string>
+    <string name="username_username">Username: %1$s</string>
     <string name="all_tasks">ALL TASKS</string>
     <string name="username">Username</string>
     <string name="save">Save</string>

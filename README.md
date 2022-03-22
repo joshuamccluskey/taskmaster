@@ -26,4 +26,4 @@ Wireframe build of the TaskMaster Android app. My Tasks page, Add Tasks page, Al
   
 #### Work Time
 
-- 4.5 hours
+- 5 hours

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +20,8 @@ public class MyTasksActivity extends AppCompatActivity {
 
         Button addTaskButton = findViewById(R.id.goToAddTaskButton);
         Button addAllTasksButton = findViewById(R.id.allTasksButton);
+        ImageButton addSettingsImageButton = findViewById(R.id.settingsImageButton);
+
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,6 +39,16 @@ public class MyTasksActivity extends AppCompatActivity {
                 Log.e(TAG, "onClick: All Tasks Button!");
                 Intent goToAllTasksIntent = new Intent(MyTasksActivity.this, AllTasksActivity.class);
                 startActivity(goToAllTasksIntent);
+            }
+        });
+
+        addSettingsImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Settings Image Button!");
+                Log.e(TAG, "onClick: Settings Image Button!");
+                Intent goToSettingsIntent = new Intent(MyTasksActivity.this, SettingsActivity.class);
+                startActivity(goToSettingsIntent);
             }
         });
     }

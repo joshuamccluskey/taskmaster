@@ -9,11 +9,14 @@ Andorid task management application. Manage all your taksk from one place.
 
 #### Overview
 
-- TBD
+Wireframe build of the TaskMaster Android app. My Tasks page, Add Tasks page, All Tasks page built
   
 #### Updates
 
-- TBD
+- My Tasks page built
+![My Tasks Page](screenshots/myTasksLab26.png)
+- Add Task page built
+- All Tasks page built
 
 #### Features
 - Add a homepage: As a user I want to be able to see my taks on the homepage with buttons to add and see all tasks
@@ -23,4 +26,4 @@ Andorid task management application. Manage all your taksk from one place.
   
 #### Work Time
 
-- TBD
+- 4.5 hours

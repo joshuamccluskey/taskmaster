@@ -24,14 +24,17 @@ public class MyTasksActivity extends AppCompatActivity {
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         addTaskButtonSetUp();
-        addAllTasksButtonSetUp();
-        addSettingsImageButtonSetUp();
+        allTasksButtonSetUp();
+        settingsImageButtonSetUp();
+        doTaxesButtonSetUp();
+        groceriesButtonSetUp();
+        dogFoodButtonSetUp();
 
 
     }
 
 
-
+        // onResume needs to be outside of on Create all methods taken out of onCreate
         @Override
         public void onResume(){
             super.onResume();
@@ -53,10 +56,10 @@ public class MyTasksActivity extends AppCompatActivity {
             });
         }
 
-        public void addAllTasksButtonSetUp() {
+        public void allTasksButtonSetUp() {
 
-            Button addAllTasksButton = findViewById(R.id.allTasksButton);
-            addAllTasksButton.setOnClickListener(new View.OnClickListener() {
+            Button allTasksButton = findViewById(R.id.allTasksButton);
+            allTasksButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     System.out.println("All Tasks Button!");
@@ -67,15 +70,53 @@ public class MyTasksActivity extends AppCompatActivity {
             });
         }
 
-        public void addSettingsImageButtonSetUp() {
-            ImageButton addSettingsImageButton = findViewById(R.id.settingsImageButton);
-            addSettingsImageButton.setOnClickListener(new View.OnClickListener() {
+        public void settingsImageButtonSetUp() {
+            ImageButton settingsImageButton = findViewById(R.id.settingsImageButton);
+            settingsImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     System.out.println("Settings Image Button!");
                     Log.e(TAG, "onClick: Settings Image Button!");
                     Intent goToSettingsIntent = new Intent(MyTasksActivity.this, SettingsActivity.class);
                     startActivity(goToSettingsIntent);
+                }
+            });
+        }
+
+        public void doTaxesButtonSetUp(){
+            Button doTaxesButton = findViewById(R.id.doTaxesButton);
+            doTaxesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Do Taxes Button!");
+                    Log.e(TAG, "onClick: Do Taxes Button!");
+                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
+                    startActivity(goToTaskDetails);
+                }
+            });
+        }
+
+        public void groceriesButtonSetUp(){
+            Button groceriesButton = findViewById(R.id.groceriesButton);
+            groceriesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Groceries Button!");
+                    Log.e(TAG, "onClick: Groceries Button!");
+                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
+                    startActivity(goToTaskDetails);
+                }
+            });
+        }
+        public void dogFoodButtonSetUp(){
+            Button dogFoodButton = findViewById(R.id.dogFoodButton);
+            dogFoodButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Dog Food Button!");
+                    Log.e(TAG, "onClick: Dog Food Button!");
+                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
+                    startActivity(goToTaskDetails);
                 }
             });
         }

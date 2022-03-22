@@ -7,4 +7,5 @@
     <string name="task_title">Task title</string>
     <string name="total_tasks_0">Total tasks: 0</string>
     <string name="task_description">Task Description</string>
+    <string name="settings">Settings</string>
 </resources>

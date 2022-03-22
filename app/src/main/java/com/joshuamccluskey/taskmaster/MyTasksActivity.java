@@ -17,7 +17,7 @@ public class MyTasksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
 
-        Button addTaskButton = findViewById(R.id.submitTaskButton);
+        Button addTaskButton = findViewById(R.id.goToAddTaskButton);
         Button addAllTasksButton = findViewById(R.id.allTasksButton);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +34,7 @@ public class MyTasksActivity extends AppCompatActivity {
             public void onClick(View view) {
                 System.out.println("All Tasks Button!");
                 Log.e(TAG, "onClick: All Tasks Button!");
-                Intent goToAllTasksIntent = new Intent(MyTasksActivity.this, AddTaskActivity.class);
+                Intent goToAllTasksIntent = new Intent(MyTasksActivity.this, AllTasksActivity.class);
                 startActivity(goToAllTasksIntent);
             }
         });

@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/submitTaskButton"
+        android:id="@+id/goToAddTaskButton"
         android:layout_width="118dp"
         android:layout_height="54dp"
         android:layout_marginStart="48dp"

@@ -29,6 +29,9 @@ Adding the SharedPreferences and intents for data to be added to our Task Master
 - Add Task Title Button: As a user I want to be able to click my tasks on the homepage to see specific task details. The
 Title should upodate on the task detail page.
   
+### Tests
+- [AllButtonTasksTaskDetailsMyTasksActivityTest](app/src/androidTest/java/com/joshuamccluskey/taskmaster/AllButtonTasksTaskDetailsMyTasksActivityTest.java)
+- [DoTaxesTest](app/src/androidTest/java/com/joshuamccluskey/taskmaster/DoTaxesTest.java)
 
 ### Work Time
 

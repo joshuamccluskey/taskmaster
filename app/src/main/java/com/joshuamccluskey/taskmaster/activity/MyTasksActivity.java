@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.joshuamccluskey.taskmaster.R;
 
@@ -134,5 +136,13 @@ public class MyTasksActivity extends AppCompatActivity {
                     userPreferencesEditor.apply();
                 }
             });
+        }
+
+        public void myTasksListRecycleViewSetUp(){
+            RecyclerView myTasksListRecycleView = findViewById(R.id.tasksListRecycleView);
+
+            RecyclerView.LayoutManager taskLayoutManager =  new LinearLayoutManager(this);
+
+            myTasksListRecycleView.setLayoutManager(taskLayoutManager);
         }
     }

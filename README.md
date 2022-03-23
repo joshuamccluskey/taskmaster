@@ -13,13 +13,15 @@ Andorid task management application. Manage all your tasks from one app.
 Adding the SharedPreferences and intents for data to be added to our Task Master app.
 
 ### Updates
-
-- My Tasks page built
-  ![My Tasks Page TBD]()
-- Add Task page built
-  ![Add Task Page TBD]()
-- All Tasks page built
-  ![My Tasks Page TBD]()
+- Settings built
+  ![Settings Page](screenshots/settingsLab27.png)
+- My Tasks with username and task buttons built
+  ![Before Username](screenshots/hompageBeforeUSernameLab27.png)
+  ![After Username](screenshots/homepageUsernameLab27.png)
+- Task Details built
+  ![Do Taxes](screenshots/doTaxesLab27.png)
+  ![Groceries](screenshots/groceriesLab27.png)
+  ![Dog Food](screenshots/dogFoodLab27.png)
 
 ### Features
 - Add Task Detail Page: As a user I want to be able to see details of individual tasks on the homepage with a buttons or link to see deatils
@@ -30,7 +32,7 @@ Title should upodate on the task detail page.
 
 ### Work Time
 
-- TBD
+- 3.5 Hours
 
 # Daily Log 03.21.2022
 

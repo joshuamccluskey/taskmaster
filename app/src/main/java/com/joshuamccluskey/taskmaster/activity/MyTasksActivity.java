@@ -15,12 +15,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.joshuamccluskey.taskmaster.R;
+import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
+import com.joshuamccluskey.taskmaster.model.Task;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyTasksActivity extends AppCompatActivity {
 
     public final String TAG = "MainActivity";
     public static String TASK_DETAIL_TITLE_TAG = "TASK DETAIL TITLE";
     SharedPreferences userPreferences;
+    MyTasksListRecyclerViewAdapter myTasksListRecyclerViewAdapter;
+    List<Task> taskList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,5 +151,9 @@ public class MyTasksActivity extends AppCompatActivity {
             RecyclerView.LayoutManager taskLayoutManager =  new LinearLayoutManager(this);
 
             myTasksListRecycleView.setLayoutManager(taskLayoutManager);
+
+            myTasksListRecyclerViewAdapter = new MyTasksListRecyclerViewAdapter(taskList, this);
+
+            myTasksListRecycleView.setAdapter(myTasksListRecyclerViewAdapter);
         }
     }

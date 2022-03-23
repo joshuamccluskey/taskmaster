@@ -21,4 +21,6 @@
         diam venenatis tempus. Vivamus sed vehicula mauris, non gravida arcu.</string>
     <string name="submitted">Submitted!</string>
     <string name="task_title_label">Task Title</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

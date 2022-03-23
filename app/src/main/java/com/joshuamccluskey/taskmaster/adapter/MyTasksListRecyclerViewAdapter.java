@@ -1,11 +1,14 @@
 package com.joshuamccluskey.taskmaster.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.model.Task;
 
 import java.util.List;
@@ -22,7 +25,9 @@ public class MyTasksListRecyclerViewAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View taskListFragment = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_my_tasks_list, parent, false);
+
+        return new MyTasksListViewHolder(taskListFragment);
     }
 
     @Override
@@ -32,6 +37,13 @@ public class MyTasksListRecyclerViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return 100;
+    }
+
+    public static class MyTasksListViewHolder extends RecyclerView.ViewHolder{
+
+        public MyTasksListViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
     }
 }

@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout/activity_my_tasks.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.6549807610089782" />
         <entry key="app/src/main/res/layout/activity_task_detail.xml" value="0.6549807610089782" />
+        <entry key="app/src/main/res/layout/fragment_my_tasks_list.xml" value="0.3373493975903614" />
       </map>
     </option>
   </component>

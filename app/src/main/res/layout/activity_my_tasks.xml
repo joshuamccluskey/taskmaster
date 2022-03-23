@@ -94,9 +94,9 @@
         android:id="@+id/tasksListRecycleView"
         android:layout_width="333dp"
         android:layout_height="215dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginBottom="236dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dogFoodButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

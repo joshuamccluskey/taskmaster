@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
+import com.joshuamccluskey.taskmaster.model.State;
 import com.joshuamccluskey.taskmaster.model.Task;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class MyTasksActivity extends AppCompatActivity {
         doTaxesButtonSetUp();
         groceriesButtonSetUp();
         dogFoodButtonSetUp();
+        myTasksListRecycleViewSetUp();
 
 
     }
@@ -151,6 +153,10 @@ public class MyTasksActivity extends AppCompatActivity {
             RecyclerView.LayoutManager taskLayoutManager =  new LinearLayoutManager(this);
 
             myTasksListRecycleView.setLayoutManager(taskLayoutManager);
+
+            taskList.add(new Task("Do Taxes", "Do this weekend", State.NEW));
+            taskList.add(new Task("Groceries", "See Trello List For Snacks", State.NEW));
+            taskList.add(new Task("Dog Food", "Don't get whole grain", State.NEW));
 
             myTasksListRecyclerViewAdapter = new MyTasksListRecyclerViewAdapter(taskList, this);
 

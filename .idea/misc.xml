@@ -8,6 +8,8 @@
         <entry key="app/src/main/res/layout/activity_all_tasks.xml" value="0.4640625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.7536458333333333" />
         <entry key="app/src/main/res/layout/activity_my_tasks.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.6549807610089782" />
+        <entry key="app/src/main/res/layout/activity_task_detail.xml" value="0.6549807610089782" />
       </map>
     </option>
   </component>
@@ -16,5 +18,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.6549807610089782" />
+      </ProjectState>
+    </option>
   </component>
 </project>

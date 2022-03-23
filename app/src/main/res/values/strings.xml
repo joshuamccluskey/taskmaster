@@ -3,8 +3,22 @@
     <string name="my_task">My Task</string>
     <string name="add_task">Add Task</string>
     <string name="do_something">Do Something</string>
-    <string name="all_tasks">All Tasks</string>
-    <string name="task_title">Task title</string>
+    <string name="task_title">%1$s</string>
     <string name="total_tasks_0">Total tasks: 0</string>
     <string name="task_description">Task Description</string>
+    <string name="settings">Settings</string>
+    <string name="my_tasks">My Tasks</string>
+    <string name="do_taxes">Do Taxes</string>
+    <string name="groceries">Groceries</string>
+    <string name="dog_food">Dog Food</string>
+    <string name="username_username">Username: %1$s</string>
+    <string name="all_tasks">ALL TASKS</string>
+    <string name="username">Username</string>
+    <string name="save">Save</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget lacinia dolor,
+        laoreet finibus leo. Nullam in eros leo. Proin efficitur tristique consequat. Morbi ultricies est nulla,
+        non vehicula tortor laoreet vitae. Ut pharetra eget lectus ut tempor. Aenean sollicitudin lectus vel
+        diam venenatis tempus. Vivamus sed vehicula mauris, non gravida arcu.</string>
+    <string name="submitted">Submitted!</string>
+    <string name="task_title_label">Task Title</string>
 </resources>

@@ -4,29 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyTasksActivity">
+    tools:context=".TaskDetailActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/titleTaskDetailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/all_tasks"
+        android:layout_marginTop="40dp"
+        android:text="@string/task_title"
         android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.179"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.utils.widget.MockView
-        android:id="@+id/mockView"
-        android:layout_width="336dp"
-        android:layout_height="530dp"
-        android:layout_marginTop="116dp"
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="224dp"
+        android:layout_height="197dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/lorem_ipsum"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTaskDetailTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

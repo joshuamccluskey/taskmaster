@@ -18,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/descriptionTaskDetail"
-        android:layout_width="257dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="116dp"
+        android:id="@+id/textView4"
+        android:layout_width="224dp"
+        android:layout_height="197dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/lorem_ipsum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTaskDetailTextView"
-        tools:lines="5"
-        tools:text="@tools:sample/lorem/random" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTaskDetailTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,4 +15,8 @@
     <string name="all_tasks">ALL TASKS</string>
     <string name="username">Username</string>
     <string name="save">Save</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget lacinia dolor,
+        laoreet finibus leo. Nullam in eros leo. Proin efficitur tristique consequat. Morbi ultricies est nulla,
+        non vehicula tortor laoreet vitae. Ut pharetra eget lectus ut tempor. Aenean sollicitudin lectus vel
+        diam venenatis tempus. Vivamus sed vehicula mauris, non gravida arcu.</string>
 </resources>

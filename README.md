@@ -6,6 +6,30 @@ Andorid task management application. Manage all your tasks from one app.
 - If needed app-debug.apk file in root taskmaster/
 - [app-debug.apk](app-debug.apk)
 
+# Daily Log 03.23.2022
+
+### Overview
+
+Adding RecyclerViews in order to display a list of data on the homepage.
+
+### Updates
+- Add recycler views to My Tasks page
+  ![TBD](TBD)
+  
+- Add tap feature to list item to take you to task deatils page
+  ![TBD](TBD)
+
+### Features
+- Add Task Model Class: As a user I want to create a taks with a title, body, and state: “new”, “assigned”, “in progress”, or “complete”.
+- Add RecycleViewer to Display List of Tasks: As a user I want to see my list of task on the My Tasks Page.
+- Add Tap Task Item: As a user I want to be able to tap my tasks on the homepage to see specific task details. 
+
+### Tests
+- TBD
+
+### Work Time
+- TBD
+
 # Daily Log 03.22.2022
 
 ### Overview

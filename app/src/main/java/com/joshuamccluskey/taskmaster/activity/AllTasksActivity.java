@@ -1,9 +1,11 @@
-package com.joshuamccluskey.taskmaster;
+package com.joshuamccluskey.taskmaster.activity;
 
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.joshuamccluskey.taskmaster.R;
 
 public class AllTasksActivity  extends AppCompatActivity {
 

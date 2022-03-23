@@ -1,4 +1,4 @@
-package com.joshuamccluskey.taskmaster;
+package com.joshuamccluskey.taskmaster.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.joshuamccluskey.taskmaster.R;
 
 public class SettingsActivity extends AppCompatActivity {
     SharedPreferences userPreferences;

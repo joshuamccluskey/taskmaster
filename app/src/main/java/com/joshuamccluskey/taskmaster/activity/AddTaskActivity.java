@@ -1,4 +1,4 @@
-package com.joshuamccluskey.taskmaster;
+package com.joshuamccluskey.taskmaster.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.joshuamccluskey.taskmaster.R;
 
 public class AddTaskActivity extends AppCompatActivity {
 

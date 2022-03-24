@@ -8,6 +8,8 @@ Andorid task management application. Manage all your tasks from one app.
 
 # Daily Log 03.22.2022
 
+## Refactor 03.23.2022 Fixed Bug updating Task Detail Title from RecyclerView items
+
 ### Overview
 
 Adding RecyclerViews in order to display a list of data on the homepage.
@@ -16,9 +18,11 @@ Adding RecyclerViews in order to display a list of data on the homepage.
 - Add recycler views to My Tasks page
   ![RecyclerView](screenshots/recycleViewLab28.png)
   ![RecyclerViewScroll](screenshots/recycleViewScrollLab28.png)
+  
 - Add tap feature to list item to take you to task deatils page
   ![RecycleVeiwTapTaskDetailTitle](screenshots/recycleViewTaskDetailTitleLab28.png)
-
+  ![RecycleVeiwTapTaskDetailTitle](screenshots/recycleViewTaskDetailTitleGroceriesLab28.png)
+  ![RecycleVeiwTapTaskDetailTitle](screenshots/recycleViewTaskDetailTitlePuppyLab28.png)
 ### Features
 - Add Task Model Class: As a user I want to create a taks with a title, body, and state: “new”, “assigned”, “in progress”, or “complete”.
 - Add RecycleViewer to Display List of Tasks: As a user I want to see my list of task on the My Tasks Page.
@@ -29,6 +33,7 @@ Adding RecyclerViews in order to display a list of data on the homepage.
 
 ### Work Time
 - 6 Hours
+- 30 minutes Fixed Bug; Updated README with more screenshots; Built new APK
 
 # Daily Log 03.22.2022
 

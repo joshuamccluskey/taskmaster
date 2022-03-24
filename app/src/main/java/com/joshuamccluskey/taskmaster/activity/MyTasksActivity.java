@@ -28,7 +28,7 @@ public class MyTasksActivity extends AppCompatActivity {
     public static String TASK_DETAIL_TITLE_TAG = "TASK DETAIL TITLE";
     SharedPreferences userPreferences;
     MyTasksListRecyclerViewAdapter myTasksListRecyclerViewAdapter;
-    List<Task> taskList = new ArrayList<>();
+    List<Task> tasksList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,11 +154,14 @@ public class MyTasksActivity extends AppCompatActivity {
 
             myTasksListRecycleView.setLayoutManager(taskLayoutManager);
 
-            taskList.add(new Task("Do Taxes", "Do this weekend", State.NEW));
-            taskList.add(new Task("Groceries", "See Trello List For Snacks", State.NEW));
-            taskList.add(new Task("Dog Food", "Don't get whole grain", State.NEW));
+            tasksList.add(new Task("Do Taxes", "Do this weekend", State.NEW));
+            tasksList.add(new Task("Groceries", "See Trello List For Snacks", State.NEW));
+            tasksList.add(new Task("Dog Food", "Don't get whole grain", State.NEW));
+            tasksList.add(new Task("Give Puppy Bath", "Don't use hot water bad for fur and skin", State.NEW));
+            tasksList.add(new Task("Code Challenge", "Time box for 1 hour", State.NEW));
+            tasksList.add(new Task("Learning Journal", "Don't Forget before signing off for the day", State.NEW));
 
-            myTasksListRecyclerViewAdapter = new MyTasksListRecyclerViewAdapter(taskList, this);
+            myTasksListRecyclerViewAdapter = new MyTasksListRecyclerViewAdapter(tasksList, this);
 
             myTasksListRecycleView.setAdapter(myTasksListRecyclerViewAdapter);
         }

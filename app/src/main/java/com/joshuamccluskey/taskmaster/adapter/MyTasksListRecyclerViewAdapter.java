@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.joshuamccluskey.taskmaster.R;
+import com.joshuamccluskey.taskmaster.activity.MyTasksActivity;
 import com.joshuamccluskey.taskmaster.activity.TaskDetailActivity;
 import com.joshuamccluskey.taskmaster.model.Task;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public class MyTasksListRecyclerViewAdapter extends RecyclerView.Adapter<MyTasksListRecyclerViewAdapter.MyTasksListViewHolder> {
     List<Task> tasksList;
     Context gettingActivity;
-    String TASK_DETAIL_TITLE_TAG = "Task Title";
+
 
     public MyTasksListRecyclerViewAdapter(List<Task> tasksList, Context gettingActivity) {
         this.tasksList = tasksList;
@@ -46,7 +47,7 @@ public class MyTasksListRecyclerViewAdapter extends RecyclerView.Adapter<MyTasks
             @Override
             public void onClick(View view) {
                 Intent goTasksDetailsIntent = new Intent(gettingActivity, TaskDetailActivity.class);
-                goTasksDetailsIntent.putExtra(TASK_DETAIL_TITLE_TAG, taskTitle);
+                goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_TITLE_TAG, taskTitle);
                 gettingActivity.startActivity(goTasksDetailsIntent);
             }
         });

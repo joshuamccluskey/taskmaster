@@ -39,9 +39,9 @@ public class MyTasksActivity extends AppCompatActivity {
         addTaskButtonSetUp();
         allTasksButtonSetUp();
         settingsImageButtonSetUp();
-        doTaxesButtonSetUp();
-        groceriesButtonSetUp();
-        dogFoodButtonSetUp();
+//        doTaxesButtonSetUp();
+//        groceriesButtonSetUp();
+//        dogFoodButtonSetUp();
         myTasksListRecycleViewSetUp();
 
 
@@ -97,55 +97,55 @@ public class MyTasksActivity extends AppCompatActivity {
             });
         }
 
-        public void doTaxesButtonSetUp(){
-            Button doTaxesButton = findViewById(R.id.doTaxesButton);
-            doTaxesButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    System.out.println("Do Taxes Button!");
-                    Log.e(TAG, "onClick: Do Taxes Button!");
-                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
-                    startActivity(goToTaskDetails);
-                    String taskTitle = "Do Taxes";
-                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
-                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
-                    userPreferencesEditor.apply();
-                }
-            });
-        }
+//        public void doTaxesButtonSetUp(){
+//            Button doTaxesButton = findViewById(R.id.doTaxesButton);
+//            doTaxesButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    System.out.println("Do Taxes Button!");
+//                    Log.e(TAG, "onClick: Do Taxes Button!");
+//                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
+//                    startActivity(goToTaskDetails);
+//                    String taskTitle = "Do Taxes";
+//                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
+//                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
+//                    userPreferencesEditor.apply();
+//                }
+//            });
+//        }
 
-        public void groceriesButtonSetUp(){
-            Button groceriesButton = findViewById(R.id.groceriesButton);
-            groceriesButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    System.out.println("Groceries Button!");
-                    Log.e(TAG, "onClick: Groceries Button!");
-                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
-                    startActivity(goToTaskDetails);
-                    String taskTitle = "Groceries";
-                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
-                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
-                    userPreferencesEditor.apply();
-                }
-            });
-        }
-        public void dogFoodButtonSetUp(){
-            Button dogFoodButton = findViewById(R.id.dogFoodButton);
-            dogFoodButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    System.out.println("Dog Food Button!");
-                    Log.e(TAG, "onClick: Dog Food Button!");
-                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
-                    startActivity(goToTaskDetails);
-                    String taskTitle = "Dog Food";
-                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
-                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
-                    userPreferencesEditor.apply();
-                }
-            });
-        }
+//        public void groceriesButtonSetUp(){
+//            Button groceriesButton = findViewById(R.id.groceriesButton);
+//            groceriesButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    System.out.println("Groceries Button!");
+//                    Log.e(TAG, "onClick: Groceries Button!");
+//                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
+//                    startActivity(goToTaskDetails);
+//                    String taskTitle = "Groceries";
+//                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
+//                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
+//                    userPreferencesEditor.apply();
+//                }
+//            });
+//        }
+//        public void dogFoodButtonSetUp(){
+//            Button dogFoodButton = findViewById(R.id.dogFoodButton);
+//            dogFoodButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    System.out.println("Dog Food Button!");
+//                    Log.e(TAG, "onClick: Dog Food Button!");
+//                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
+//                    startActivity(goToTaskDetails);
+//                    String taskTitle = "Dog Food";
+//                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
+//                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
+//                    userPreferencesEditor.apply();
+//                }
+//            });
+//        }
 
         public void myTasksListRecycleViewSetUp(){
             RecyclerView myTasksListRecycleView = findViewById(R.id.tasksListRecycleView);

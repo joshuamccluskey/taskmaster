@@ -14,10 +14,10 @@ Adding RecyclerViews in order to display a list of data on the homepage.
 
 ### Updates
 - Add recycler views to My Tasks page
-  ![TBD](TBD)
-  
+  ![RecyclerView](screenshots/recycleViewLab28.png)
+  ![RecyclerViewScroll](screenshots/recycleViewScrollLab28.png)
 - Add tap feature to list item to take you to task deatils page
-  ![TBD](TBD)
+  ![RecycleVeiwTapTaskDetailTitle](screenshots/recycleViewTaskDetailTitleLab28.png)
 
 ### Features
 - Add Task Model Class: As a user I want to create a taks with a title, body, and state: “new”, “assigned”, “in progress”, or “complete”.
@@ -25,10 +25,10 @@ Adding RecyclerViews in order to display a list of data on the homepage.
 - Add Tap Task Item: As a user I want to be able to tap my tasks on the homepage to see specific task details. 
 
 ### Tests
-- TBD
+- Espresso test goPagesTest Test all "goToPages" intents on buttons and recycler view taps
 
 ### Work Time
-- TBD
+- 6 Hours
 
 # Daily Log 03.22.2022
 

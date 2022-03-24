@@ -10,6 +10,30 @@ Andorid task management application. Manage all your tasks from one app.
 
 ### Overview
 
+Adding RecyclerViews in order to display a list of data on the homepage.
+
+### Updates
+- Add recycler views to My Tasks page
+  ![RecyclerView](screenshots/recycleViewLab28.png)
+  ![RecyclerViewScroll](screenshots/recycleViewScrollLab28.png)
+- Add tap feature to list item to take you to task deatils page
+  ![RecycleVeiwTapTaskDetailTitle](screenshots/recycleViewTaskDetailTitleLab28.png)
+
+### Features
+- Add Task Model Class: As a user I want to create a taks with a title, body, and state: “new”, “assigned”, “in progress”, or “complete”.
+- Add RecycleViewer to Display List of Tasks: As a user I want to see my list of task on the My Tasks Page.
+- Add Tap Task Item: As a user I want to be able to tap my tasks on the homepage to see specific task details. 
+
+### Tests
+- Espresso test goPagesTest Test all "goToPages" intents on buttons and recycler view taps
+
+### Work Time
+- 6 Hours
+
+# Daily Log 03.22.2022
+
+### Overview
+
 Adding the SharedPreferences and intents for data to be added to our Task Master app.
 
 ### Updates

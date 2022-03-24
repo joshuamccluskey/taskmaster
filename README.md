@@ -6,9 +6,9 @@ Andorid task management application. Manage all your tasks from one app.
 - If needed app-debug.apk file in root taskmaster/
 - [app-debug.apk](app-debug.apk)
 
-# Daily Log 03.22.2022
+# Daily Log 03.23.2022
 
-## Refactor 03.23.2022 Fixed Bug updating Task Detail Title from RecyclerView items
+## Refactor 03.24.2022 Fixed Bug updating Task Detail Title from RecyclerView items
 
 ### Overview
 

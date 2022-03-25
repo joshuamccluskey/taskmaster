@@ -3,9 +3,9 @@ package com.joshuamccluskey.taskmaster.model;
 public class Task {
     String title;
     String body;
-    State state;
+    StateEnum state;
 
-    public Task(String title, String body, State state) {
+    public Task(String title, String body, StateEnum state) {
         this.title = title;
         this.body = body;
         this.state = state;
@@ -27,11 +27,11 @@ public class Task {
         this.body = body;
     }
 
-    public State getState() {
+    public StateEnum getState() {
         return state;
     }
 
-    public void setState(State state) {
+    public void setState(StateEnum state) {
         this.state = state;
     }
 

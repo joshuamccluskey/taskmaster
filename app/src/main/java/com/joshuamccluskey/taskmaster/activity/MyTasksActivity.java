@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
-import com.joshuamccluskey.taskmaster.model.State;
+import com.joshuamccluskey.taskmaster.model.StateEnum;
 import com.joshuamccluskey.taskmaster.model.Task;
 
 import java.util.ArrayList;
@@ -154,12 +154,12 @@ public class MyTasksActivity extends AppCompatActivity {
 
             myTasksListRecycleView.setLayoutManager(taskLayoutManager);
 
-            tasksList.add(new Task("Do Taxes", "Do this weekend", State.NEW));
-            tasksList.add(new Task("Groceries", "See Trello List For Snacks", State.NEW));
-            tasksList.add(new Task("Dog Food", "Don't get whole grain", State.NEW));
-            tasksList.add(new Task("Give Puppy Bath", "Don't use hot water bad for fur and skin", State.NEW));
-            tasksList.add(new Task("Code Challenge", "Time box for 1 hour", State.NEW));
-            tasksList.add(new Task("Learning Journal", "Don't Forget before signing off for the day", State.NEW));
+            tasksList.add(new Task("Do Taxes", "Do this weekend", StateEnum.NEW));
+            tasksList.add(new Task("Groceries", "See Trello List For Snacks", StateEnum.NEW));
+            tasksList.add(new Task("Dog Food", "Don't get whole grain", StateEnum.NEW));
+            tasksList.add(new Task("Give Puppy Bath", "Don't use hot water bad for fur and skin", StateEnum.NEW));
+            tasksList.add(new Task("Code Challenge", "Time box for 1 hour", StateEnum.NEW));
+            tasksList.add(new Task("Learning Journal", "Don't Forget before signing off for the day", StateEnum.NEW));
 
             myTasksListRecyclerViewAdapter = new MyTasksListRecyclerViewAdapter(tasksList, this);
 

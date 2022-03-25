@@ -3,6 +3,9 @@ package com.joshuamccluskey.taskmaster.model;
 import java.util.Date;
 
 public class Task {
+
+
+    Long id;
     String title;
     String body;
     StateEnum state;

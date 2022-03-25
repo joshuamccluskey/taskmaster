@@ -13,11 +13,9 @@ Andorid task management application. Manage all your tasks from one app.
 Adding RecyclerViews in order to display a list of data on the homepage.
 
 ### Updates
-- Set up a Room and save Task in Lcoal Database
-  ![TBD](TBD)
-  
+- Set up a Room database and save Tasks in Lcoal Database
 - Update My Tasks page to display from local database your task in recyclerView
-  ![TBD](TBD)
+  ![recyclerViewTaskDetailRoomDatabaseLab29](screenshots/recyclerViewTaskDetailRoomDatabaseLab29.png)
   
 - When Task is tapped, the Deatils page appears and the Title is set and description
   ![TBD](TBD)
@@ -31,7 +29,8 @@ Adding RecyclerViews in order to display a list of data on the homepage.
 - Espresso test goPagesTest Test all "goToPages" intents on buttons and recycler view taps
 
 ### Work Time
--TBD
+-6 hours
+
 
 # Daily Log 03.23.2022
 

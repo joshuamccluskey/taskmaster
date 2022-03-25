@@ -1,11 +1,14 @@
 package com.joshuamccluskey.taskmaster.model;
 
-import java.util.Date;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import java.util.Date;
+@Entity
 public class Task {
 
-
-    Long id;
+    @PrimaryKey(autoGenerate = true)
+    public Long id;
     String title;
     String body;
     StateEnum state;

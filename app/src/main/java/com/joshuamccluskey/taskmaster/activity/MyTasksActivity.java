@@ -44,15 +44,15 @@ public class MyTasksActivity extends AppCompatActivity {
                 getApplicationContext(),
                 TaskMasterDatabase.class,
                 "josh_task_master")
-                .allowMainThreadQueries()  // Don't do this in a real app!
+                .allowMainThreadQueries()  // Caution don't use in a real app
                 .fallbackToDestructiveMigration()
                 .build();
-        taskMasterDatabase.taskDao().insertTask(new Task("Do Taxes", "Do this weekend", StateEnum.NEW, new Date()));
+        tasksList = taskMasterDatabase.taskDao().findAll();
 
         addTaskButtonSetUp();
         allTasksButtonSetUp();
         settingsImageButtonSetUp();
-//        myTasksListRecycleViewSetUp();
+        myTasksListRecycleViewSetUp();
 
 
     }
@@ -108,24 +108,24 @@ public class MyTasksActivity extends AppCompatActivity {
         }
 
 
-//        public void myTasksListRecycleViewSetUp(){
-//            RecyclerView myTasksListRecycleView = findViewById(R.id.tasksListRecycleView);
-//
-//            RecyclerView.LayoutManager taskLayoutManager =  new LinearLayoutManager(this);
-//
-//            myTasksListRecycleView.setLayoutManager(taskLayoutManager);
-//
-//
-//
+        public void myTasksListRecycleViewSetUp(){
+            RecyclerView myTasksListRecycleView = findViewById(R.id.tasksListRecycleView);
+
+            RecyclerView.LayoutManager taskLayoutManager =  new LinearLayoutManager(this);
+
+            myTasksListRecycleView.setLayoutManager(taskLayoutManager);
+
+
+
 //            tasksList.add(new Task("Do Taxes", "Do this weekend", StateEnum.NEW, new Date()));
 //            tasksList.add(new Task("Groceries", "See Trello List For Snacks", StateEnum.NEW, new Date()));
 //            tasksList.add(new Task("Dog Food", "Don't get whole grain", StateEnum.NEW, new Date()));
 //            tasksList.add(new Task("Give Puppy Bath", "Don't use hot water bad for fur and skin", StateEnum.NEW, new Date()));
 //            tasksList.add(new Task("Code Challenge", "Time box for 1 hour", StateEnum.NEW, new Date()));
 //            tasksList.add(new Task("Learning Journal", "Don't Forget before signing off for the day", StateEnum.NEW, new Date()));
-//
-//            myTasksListRecyclerViewAdapter = new MyTasksListRecyclerViewAdapter(tasksList, this);
-//
-//            myTasksListRecycleView.setAdapter(myTasksListRecyclerViewAdapter);
-//        }
+
+            myTasksListRecyclerViewAdapter = new MyTasksListRecyclerViewAdapter(tasksList, this);
+
+            myTasksListRecycleView.setAdapter(myTasksListRecyclerViewAdapter);
+        }
     }

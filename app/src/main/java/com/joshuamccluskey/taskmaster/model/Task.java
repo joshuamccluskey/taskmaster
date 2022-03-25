@@ -1,14 +1,20 @@
 package com.joshuamccluskey.taskmaster.model;
 
+import java.util.Date;
+
 public class Task {
     String title;
     String body;
     StateEnum state;
+    Date date;
 
-    public Task(String title, String body, StateEnum state) {
+
+
+    public Task(String title, String body, StateEnum state, Date date) {
         this.title = title;
         this.body = body;
         this.state = state;
+        this.date = date;
     }
 
     public String getTitle() {
@@ -33,6 +39,14 @@ public class Task {
 
     public void setState(StateEnum state) {
         this.state = state;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
 }

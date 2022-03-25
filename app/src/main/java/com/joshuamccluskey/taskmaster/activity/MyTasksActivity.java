@@ -20,6 +20,7 @@ import com.joshuamccluskey.taskmaster.model.StateEnum;
 import com.joshuamccluskey.taskmaster.model.Task;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MyTasksActivity extends AppCompatActivity {
@@ -154,12 +155,12 @@ public class MyTasksActivity extends AppCompatActivity {
 
             myTasksListRecycleView.setLayoutManager(taskLayoutManager);
 
-            tasksList.add(new Task("Do Taxes", "Do this weekend", StateEnum.NEW));
-            tasksList.add(new Task("Groceries", "See Trello List For Snacks", StateEnum.NEW));
-            tasksList.add(new Task("Dog Food", "Don't get whole grain", StateEnum.NEW));
-            tasksList.add(new Task("Give Puppy Bath", "Don't use hot water bad for fur and skin", StateEnum.NEW));
-            tasksList.add(new Task("Code Challenge", "Time box for 1 hour", StateEnum.NEW));
-            tasksList.add(new Task("Learning Journal", "Don't Forget before signing off for the day", StateEnum.NEW));
+            tasksList.add(new Task("Do Taxes", "Do this weekend", StateEnum.NEW, new Date()));
+            tasksList.add(new Task("Groceries", "See Trello List For Snacks", StateEnum.NEW, new Date()));
+            tasksList.add(new Task("Dog Food", "Don't get whole grain", StateEnum.NEW, new Date()));
+            tasksList.add(new Task("Give Puppy Bath", "Don't use hot water bad for fur and skin", StateEnum.NEW, new Date()));
+            tasksList.add(new Task("Code Challenge", "Time box for 1 hour", StateEnum.NEW, new Date()));
+            tasksList.add(new Task("Learning Journal", "Don't Forget before signing off for the day", StateEnum.NEW, new Date()));
 
             myTasksListRecyclerViewAdapter = new MyTasksListRecyclerViewAdapter(tasksList, this);
 

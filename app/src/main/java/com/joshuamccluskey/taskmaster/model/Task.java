@@ -8,7 +8,7 @@ import java.util.Date;
 public class Task {
 
     @PrimaryKey(autoGenerate = true)
-    public Long id;
+    public long id;
     String title;
     String body;
     StateEnum state;

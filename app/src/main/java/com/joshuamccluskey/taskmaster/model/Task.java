@@ -12,7 +12,7 @@ public class Task {
     String title;
     String body;
     StateEnum state;
-    Date date;
+    java.util.Date date;
 
 
 

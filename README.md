@@ -6,6 +6,36 @@ Andorid task management application. Manage all your tasks from one app.
 - If needed app-debug.apk file in root taskmaster/
 - [app-debug.apk](app-debug.apk)
 
+# Daily Log 03.24.2022
+
+### Overview
+
+Adding RecyclerViews in order to display a list of data on the homepage.
+
+### Updates
+- Set up a Room database and save Tasks in Lcoal Database
+  ![RoomData](screenshots/roomDataLab29.png)
+- Update My Tasks page to display from local database your task in recyclerView
+  ![recycleViewRoomDataLab29](screenshots/recycleViewRoomDataLab29.png)
+  ![AddTaskLabSpinner29](screenshots/AddTaskLabSpinner29.png)
+  ![recycleViewNewTaskLab29](screenshots/recycleViewNewTaskLab29.png)
+  
+- When Task is tapped, the Deatils page appears and the Title is set and description
+  *Still needs description and status to appear*
+  ![TaskDetail](screenshots/TaskDetailLab29.png)
+
+### Features
+- Add Task Model Class: As a user I want to create a task and save it top the  local database
+- Add RecycleViewer to Display List of Tasks: As a user I want to see my list of task on the My Tasks Page in local database
+- Add Tap Task Item: As a user I want to be able to tap my tasks on the homepage to see specific task details like title and description.
+
+### Tests
+- Espresso test goPagesTest Test all "goToPages" intents on buttons and recycler view taps
+
+### Work Time
+-6 hours
+
+
 # Daily Log 03.23.2022
 
 ## Refactor 03.24.2022 Fixed Bug updating Task Detail Title from RecyclerView items

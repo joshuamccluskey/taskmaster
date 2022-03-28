@@ -2,6 +2,7 @@ package com.joshuamccluskey.taskmaster.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -29,6 +30,8 @@ public class SettingsActivity extends AppCompatActivity {
                 String usernameStringify = usernameEditText.getText().toString();
                 userPreferencesEditor.putString(USERNAME_TAG, usernameStringify);
                 userPreferencesEditor.apply();
+                Intent goToMyTasksActivityIntent = new Intent(SettingsActivity.this, MyTasksActivity.class);
+                startActivity(goToMyTasksActivityIntent);
             }
         });
 

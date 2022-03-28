@@ -13,35 +13,46 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Insert;
+import androidx.room.Room;
 
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
-import com.joshuamccluskey.taskmaster.model.State;
+import com.joshuamccluskey.taskmaster.database.TaskMasterDatabase;
+import com.joshuamccluskey.taskmaster.model.StateEnum;
 import com.joshuamccluskey.taskmaster.model.Task;
 
-import java.util.ArrayList;
+
+import java.util.Date;
 import java.util.List;
 
 public class MyTasksActivity extends AppCompatActivity {
 
     public final String TAG = "MainActivity";
     public static String TASK_DETAIL_TITLE_TAG = "TASK DETAIL TITLE";
+    public static String TASK_DETAIL_BODY_TAG = "TASK DESCRIPTION TITLE";
     SharedPreferences userPreferences;
     MyTasksListRecyclerViewAdapter myTasksListRecyclerViewAdapter;
-    List<Task> tasksList = new ArrayList<>();
+    List<Task> tasksList = null;
+    TaskMasterDatabase taskMasterDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        taskMasterDatabase = Room.databaseBuilder(
+                getApplicationContext(),
+                TaskMasterDatabase.class,
+                "josh_task_master")
+                .allowMainThreadQueries()  // Caution don't use in a real app
+                .fallbackToDestructiveMigration()
+                .build();
+        tasksList = taskMasterDatabase.taskDao().findAll();
 
         addTaskButtonSetUp();
         allTasksButtonSetUp();
         settingsImageButtonSetUp();
-//        doTaxesButtonSetUp();
-//        groceriesButtonSetUp();
-//        dogFoodButtonSetUp();
         myTasksListRecycleViewSetUp();
 
 
@@ -97,55 +108,6 @@ public class MyTasksActivity extends AppCompatActivity {
             });
         }
 
-//        public void doTaxesButtonSetUp(){
-//            Button doTaxesButton = findViewById(R.id.doTaxesButton);
-//            doTaxesButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    System.out.println("Do Taxes Button!");
-//                    Log.e(TAG, "onClick: Do Taxes Button!");
-//                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
-//                    startActivity(goToTaskDetails);
-//                    String taskTitle = "Do Taxes";
-//                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
-//                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
-//                    userPreferencesEditor.apply();
-//                }
-//            });
-//        }
-
-//        public void groceriesButtonSetUp(){
-//            Button groceriesButton = findViewById(R.id.groceriesButton);
-//            groceriesButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    System.out.println("Groceries Button!");
-//                    Log.e(TAG, "onClick: Groceries Button!");
-//                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
-//                    startActivity(goToTaskDetails);
-//                    String taskTitle = "Groceries";
-//                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
-//                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
-//                    userPreferencesEditor.apply();
-//                }
-//            });
-//        }
-//        public void dogFoodButtonSetUp(){
-//            Button dogFoodButton = findViewById(R.id.dogFoodButton);
-//            dogFoodButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    System.out.println("Dog Food Button!");
-//                    Log.e(TAG, "onClick: Dog Food Button!");
-//                    Intent goToTaskDetails = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
-//                    startActivity(goToTaskDetails);
-//                    String taskTitle = "Dog Food";
-//                    SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
-//                    userPreferencesEditor.putString(TASK_DETAIL_TITLE_TAG, taskTitle);
-//                    userPreferencesEditor.apply();
-//                }
-//            });
-//        }
 
         public void myTasksListRecycleViewSetUp(){
             RecyclerView myTasksListRecycleView = findViewById(R.id.tasksListRecycleView);
@@ -154,12 +116,14 @@ public class MyTasksActivity extends AppCompatActivity {
 
             myTasksListRecycleView.setLayoutManager(taskLayoutManager);
 
-            tasksList.add(new Task("Do Taxes", "Do this weekend", State.NEW));
-            tasksList.add(new Task("Groceries", "See Trello List For Snacks", State.NEW));
-            tasksList.add(new Task("Dog Food", "Don't get whole grain", State.NEW));
-            tasksList.add(new Task("Give Puppy Bath", "Don't use hot water bad for fur and skin", State.NEW));
-            tasksList.add(new Task("Code Challenge", "Time box for 1 hour", State.NEW));
-            tasksList.add(new Task("Learning Journal", "Don't Forget before signing off for the day", State.NEW));
+
+
+//            tasksList.add(new Task("Do Taxes", "Do this weekend", StateEnum.NEW, new Date()));
+//            tasksList.add(new Task("Groceries", "See Trello List For Snacks", StateEnum.NEW, new Date()));
+//            tasksList.add(new Task("Dog Food", "Don't get whole grain", StateEnum.NEW, new Date()));
+//            tasksList.add(new Task("Give Puppy Bath", "Don't use hot water bad for fur and skin", StateEnum.NEW, new Date()));
+//            tasksList.add(new Task("Code Challenge", "Time box for 1 hour", StateEnum.NEW, new Date()));
+//            tasksList.add(new Task("Learning Journal", "Don't Forget before signing off for the day", StateEnum.NEW, new Date()));
 
             myTasksListRecyclerViewAdapter = new MyTasksListRecyclerViewAdapter(tasksList, this);
 

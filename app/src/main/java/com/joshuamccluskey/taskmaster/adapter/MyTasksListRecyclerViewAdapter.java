@@ -39,15 +39,16 @@ public class MyTasksListRecyclerViewAdapter extends RecyclerView.Adapter<MyTasks
     @Override
     public void onBindViewHolder(@NonNull MyTasksListViewHolder holder, int position) {
         TextView taskFragmentTextView = holder.itemView.findViewById(R.id.taskFragmentTextView);
-        String taskTitle = tasksList.get(position).getTitle();
-        taskFragmentTextView.setText(taskTitle);
+        Task task = tasksList.get(position);
+        taskFragmentTextView.setText( position+1 +" "+ task.getTitle() +
+                "\n" + task.getState());
 
         View myTaskViewHolder = holder.itemView;
         myTaskViewHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent goTasksDetailsIntent = new Intent(gettingActivity, TaskDetailActivity.class);
-                goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_TITLE_TAG, taskTitle);
+                goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_TITLE_TAG, task.getTitle());
                 gettingActivity.startActivity(goTasksDetailsIntent);
             }
         });

@@ -30,7 +30,8 @@ public class MyTasksActivity extends AppCompatActivity {
 
     public final String TAG = "MainActivity";
     public static String TASK_DETAIL_TITLE_TAG = "TASK DETAIL TITLE";
-    public static String TASK_DETAIL_BODY_TAG = "TASK DESCRIPTION TITLE";
+    public static String TASK_DETAIL_BODY_TAG = "TASK BODY";
+    public static String TASK_DETAIL_STATE_TAG = "TASK STATE";
     SharedPreferences userPreferences;
     MyTasksListRecyclerViewAdapter myTasksListRecyclerViewAdapter;
     List<Task> tasksList = null;

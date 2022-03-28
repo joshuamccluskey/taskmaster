@@ -14,11 +14,15 @@ Adding RecyclerViews in order to display a list of data on the homepage.
 
 ### Updates
 - Set up a Room database and save Tasks in Lcoal Database
+  ![RoomData](screenshots/roomDataLab29.png)
 - Update My Tasks page to display from local database your task in recyclerView
-  ![recyclerViewTaskDetailRoomDatabaseLab29](screenshots/recyclerViewTaskDetailRoomDatabaseLab29.png)
+  ![recycleViewRoomDataLab29](screenshots/recycleViewRoomDataLab29.png)
+  ![AddTaskLabSpinner29](screenshots/AddTaskLabSpinner29.png)
+  ![recycleViewNewTaskLab29](screenshots/recycleViewNewTaskLab29.png)
   
 - When Task is tapped, the Deatils page appears and the Title is set and description
-  ![TBD](TBD)
+  *Still needs description and status to appear*
+  ![TaskDetail](screenshots/TaskDetailLab29.png)
 
 ### Features
 - Add Task Model Class: As a user I want to create a task and save it top the  local database

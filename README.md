@@ -33,6 +33,8 @@ Integrate AWS for Cloud Data Storage and for scalable backend
 ### Work Time
 TBD
 
+[Adobe Color](https://color.adobe.com/search?q=light%20blue)
+[Gradient Color](https://evangelidis.medium.com/android-how-to-set-gradient-color-as-background-7812c4cf06ec)
 
 
 

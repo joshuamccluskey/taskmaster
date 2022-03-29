@@ -39,13 +39,13 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class taskNameTest {
+public class taksNameTest {
 
     @Rule
     public ActivityTestRule<MyTasksActivity> mActivityTestRule = new ActivityTestRule<>(MyTasksActivity.class);
 
     @Test
-    public void taskNameTest() {
+    public void taksNameTest() {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.goToAddTaskButton), withText("Add Task"),
                         childAtPosition(
@@ -64,7 +64,7 @@ public class taskNameTest {
                                         0),
                                 3),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("Taxes"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("Task"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.doSomethingEditText),
@@ -74,7 +74,7 @@ public class taskNameTest {
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("Taxes"), closeSoftKeyboard());
+        appCompatEditText2.perform(replaceText("Task"), closeSoftKeyboard());
 
         ViewInteraction appCompatSpinner = onView(
                 allOf(withId(R.id.statusSpinner),
@@ -82,7 +82,7 @@ public class taskNameTest {
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                8),
+                                7),
                         isDisplayed()));
         appCompatSpinner.perform(click());
 
@@ -90,11 +90,11 @@ public class taskNameTest {
                 .inAdapterView(childAtPosition(
                         withClassName(is("android.widget.PopupWindow$PopupBackgroundView")),
                         0))
-                .atPosition(2);
+                .atPosition(0);
         materialTextView.perform(click());
 
         ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.doSomethingEditText), withText("Taxes"),
+                allOf(withId(R.id.doSomethingEditText), withText("Task"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -109,7 +109,7 @@ public class taskNameTest {
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                7),
+                                6),
                         isDisplayed()));
         materialButton2.perform(click());
 
@@ -121,10 +121,10 @@ public class taskNameTest {
         recyclerView.perform(actionOnItemAtPosition(0, click()));
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.titleTaskDetailTextView), withText("Taxes"),
+                allOf(withId(R.id.titleTaskDetailTextView), withText("Task"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
-        textView.check(matches(withText("Taxes")));
+        textView.check(matches(withText("Task")));
     }
 
     private static Matcher<View> childAtPosition(

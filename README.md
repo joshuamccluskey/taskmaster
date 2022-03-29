@@ -8,6 +8,40 @@ Andorid task management application. Manage all your tasks from one app.
 
 
 
+
+# Daily Log 03.29.2022
+
+### Overview
+
+Integrate AWS for Cloud Data Storage and for scalable backend
+
+### Updates
+- Style
+  
+
+
+
+
+### Features
+- As a user I want an app that uses cloud services on the backend
+
+### Espresso Tests
+- taskNameTest assertion test that checks task name equals textView on Task Details page
+- uiElementsMyTaskActivityTest assertion test checking if critical elements exist on page rebuilt for reliability
+- usernameTest assertion test checking textview of username matches username entered on setting page
+
+### Work Time
+TBD
+
+
+
+
+
+
+
+
+
+
 # Daily Log 03.28.2022
 
 ### Overview

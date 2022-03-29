@@ -21,8 +21,8 @@
         diam venenatis tempus. Vivamus sed vehicula mauris, non gravida arcu.</string>
     <string name="task_body">%1$s</string>
     <string name="task_state">%1$s</string>
-    <string name="notes">Notes</string>
-    <string name="state">State</string>
+    <string name="notes">Notes: </string>
+    <string name="state">State: </string>
     <string name="submitted">Submitted!</string>
     <string name="task_title_label">Task Title</string>
     <!-- TODO: Remove or change this placeholder text -->

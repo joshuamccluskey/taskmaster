@@ -62,15 +62,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksListRecycleView"
-        android:layout_width="334dp"
-        android:layout_height="139dp"
+        android:layout_width="304dp"
+        android:layout_height="133dp"
         android:layout_marginTop="142dp"
         android:layout_marginBottom="536dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.376"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameTextView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.053" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

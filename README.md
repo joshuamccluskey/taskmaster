@@ -20,7 +20,7 @@ Polish up app and add test main components with Espresso. Make sure to polish us
   
 - When Task is tapped, the Deatils page appears and the Title is set and description
   - Note:  Debug fix when using putExtra approach Enums are an object and require toString
-  ![TaskDetail](screenshots/TaskDetailLab29.png)
+  ![TaskDetail](screenshots/taskDetailLab31.png)
 
 ### Features
 - As a user I want a polished site that functions without error and is automated with good user experience.

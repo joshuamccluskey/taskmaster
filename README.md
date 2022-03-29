@@ -12,30 +12,27 @@ Andorid task management application. Manage all your tasks from one app.
 
 ### Overview
 
-Adding RecyclerViews in order to display a list of data on the homepage.
+Polish up app and add test main components with Espresso
 
 ### Updates
-- Set up a Room database and save Tasks in Lcoal Database
-  ![RoomData](screenshots/roomDataLab29.png)
-- Update My Tasks page to display from local database your task in recyclerView
-  ![recycleViewRoomDataLab29](screenshots/recycleViewRoomDataLab29.png)
-  ![AddTaskLabSpinner29](screenshots/AddTaskLabSpinner29.png)
-  ![recycleViewNewTaskLab29](screenshots/recycleViewNewTaskLab29.png)
-
+- Auto update recyclerView from Room Database and Auto rredirect to MyTasks from Add Task when submitted.
+  ![myTasksAutoUpdateAddTaskLab31](screenshots/myTasksAutoUpdateAddTaskLab31.png)
+  
 - When Task is tapped, the Deatils page appears and the Title is set and description
-  *Still needs description and status to appear*
+  - Note:  Debug fix when using putExtra approach Enums are an object and require toString
   ![TaskDetail](screenshots/TaskDetailLab29.png)
 
 ### Features
-- Add Task Model Class: As a user I want to create a task and save it top the  local database
-- Add RecycleViewer to Display List of Tasks: As a user I want to see my list of task on the My Tasks Page in local database
-- Add Tap Task Item: As a user I want to be able to tap my tasks on the homepage to see specific task details like title and description.
+- As a user I want a polished site that functions without error and is automated with good user experience.
+- Espresso tests created for all critical elements
 
-### Tests
-- Espresso test goPagesTest Test all "goToPages" intents on buttons and recycler view taps
+### Espresso Tests
+- taskNameTest assertion test that checks task name equals textView on Task Details page
+- uiElementsMyTaskActivityTest assertion test checking if critical elements exist on page
+- usernameTest assertion test checking textview of username matches username entered on setting page
 
 ### Work Time
--6 hours
+-4 hours
 
 
 # Daily Log 03.24.2022

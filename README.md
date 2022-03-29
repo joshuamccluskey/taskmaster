@@ -12,7 +12,7 @@ Andorid task management application. Manage all your tasks from one app.
 
 ### Overview
 
-Polish up app and add test main components with Espresso
+Polish up app and add test main components with Espresso tests for critical components
 
 ### Updates
 - Auto update recyclerView from Room Database and Auto rredirect to MyTasks from Add Task when submitted.

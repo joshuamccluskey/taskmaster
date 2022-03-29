@@ -6,6 +6,35 @@ Andorid task management application. Manage all your tasks from one app.
 - If needed app-debug.apk file in root taskmaster/
 - [app-debug.apk](app-debug.apk)
 
+
+
+# Daily Log 03.28.2022
+
+### Overview
+
+Polish up app and add test main components with Espresso. Make sure to polish user experience
+
+### Updates
+- Auto update recyclerView from Room Database and Auto rredirect to MyTasks from Add Task when submitted.
+  ![myTasksAutoUpdateAddTaskLab31](screenshots/myTasksAutoUpdateAddTaskLab31.png)
+  
+- When Task is tapped, the Deatils page appears and the Title is set and description
+  - Note:  Debug fix when using putExtra approach Enums are an object and require toString
+  ![TaskDetail](screenshots/TaskDetailLab29.png)
+
+### Features
+- As a user I want a polished site that functions without error and is automated with good user experience.
+- Espresso tests created for all critical elements
+
+### Espresso Tests
+- taskNameTest assertion test that checks task name equals textView on Task Details page
+- uiElementsMyTaskActivityTest assertion test checking if critical elements exist on page
+- usernameTest assertion test checking textview of username matches username entered on setting page
+
+### Work Time
+-4 hours
+
+
 # Daily Log 03.24.2022
 
 ### Overview

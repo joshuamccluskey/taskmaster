@@ -1,21 +1,28 @@
 package com.joshuamccluskey.taskmaster.activity;
 
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
+import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -32,13 +39,13 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class goPagesTest {
+public class taskNameTest {
 
     @Rule
     public ActivityTestRule<MyTasksActivity> mActivityTestRule = new ActivityTestRule<>(MyTasksActivity.class);
 
     @Test
-    public void goPagesTest() {
+    public void taskNameTest() {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.goToAddTaskButton), withText("Add Task"),
                         childAtPosition(
@@ -49,29 +56,62 @@ public class goPagesTest {
                         isDisplayed()));
         materialButton.perform(click());
 
-        ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.submitTaskButton), withText("Add Task"),
+        ViewInteraction appCompatEditText = onView(
+                allOf(withId(R.id.taskTitleEditText),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                3),
+                        isDisplayed()));
+        appCompatEditText.perform(replaceText("Taxes"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText2 = onView(
+                allOf(withId(R.id.doSomethingEditText),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
                                 1),
                         isDisplayed()));
-        materialButton2.perform(click());
+        appCompatEditText2.perform(replaceText("Taxes"), closeSoftKeyboard());
 
-        pressBack();
-
-        ViewInteraction materialButton3 = onView(
-                allOf(withId(R.id.allTasksButton), withText("ALL TASKS"),
+        ViewInteraction appCompatSpinner = onView(
+                allOf(withId(R.id.statusSpinner),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                2),
+                                8),
                         isDisplayed()));
-        materialButton3.perform(click());
+        appCompatSpinner.perform(click());
 
-        pressBack();
+        DataInteraction materialTextView = onData(anything())
+                .inAdapterView(childAtPosition(
+                        withClassName(is("android.widget.PopupWindow$PopupBackgroundView")),
+                        0))
+                .atPosition(2);
+        materialTextView.perform(click());
+
+        ViewInteraction appCompatEditText3 = onView(
+                allOf(withId(R.id.doSomethingEditText), withText("Taxes"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatEditText3.perform(pressImeActionButton());
+
+        ViewInteraction materialButton2 = onView(
+                allOf(withId(R.id.submitTaskButton), withText("Save"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                7),
+                        isDisplayed()));
+        materialButton2.perform(click());
 
         ViewInteraction recyclerView = onView(
                 allOf(withId(R.id.tasksListRecycleView),
@@ -79,6 +119,12 @@ public class goPagesTest {
                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                 5)));
         recyclerView.perform(actionOnItemAtPosition(0, click()));
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.titleTaskDetailTextView), withText("Taxes"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        textView.check(matches(withText("Taxes")));
     }
 
     private static Matcher<View> childAtPosition(

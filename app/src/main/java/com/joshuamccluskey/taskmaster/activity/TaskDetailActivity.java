@@ -27,9 +27,11 @@ public class TaskDetailActivity extends AppCompatActivity {
         super.onResume();
         Intent callingIntent = getIntent();
         String taskTitle = callingIntent.getStringExtra(MyTasksActivity.TASK_DETAIL_TITLE_TAG);
-//        String taskBody= callingIntent.getStringExtra(MyTasksActivity.TASK_DETAIL_BODY_TAG);
+        String taskBody = callingIntent.getStringExtra(MyTasksActivity.TASK_DETAIL_BODY_TAG);
+        String taskState = callingIntent.getStringExtra(MyTasksActivity.TASK_DETAIL_STATE_TAG);
         ((TextView)findViewById(R.id.titleTaskDetailTextView)).setText(getString(R.string.task_title, taskTitle));
-//        ((TextView)findViewById(R.id.descriptionTextView)).setText(getString(R.string.lorem_ipsum, taskBody));
+        ((TextView)findViewById(R.id.taskBodyTextView)).setText(getString(R.string.task_body, taskBody));
+        ((TextView)findViewById(R.id.taskStateTextView)).setText(getString(R.string.task_state, taskState));
 
     }
 

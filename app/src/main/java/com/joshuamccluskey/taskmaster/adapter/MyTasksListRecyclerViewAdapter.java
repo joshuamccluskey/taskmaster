@@ -49,6 +49,8 @@ public class MyTasksListRecyclerViewAdapter extends RecyclerView.Adapter<MyTasks
             public void onClick(View view) {
                 Intent goTasksDetailsIntent = new Intent(gettingActivity, TaskDetailActivity.class);
                 goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_TITLE_TAG, task.getTitle());
+                goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_BODY_TAG, task.getBody());
+                goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_STATE_TAG, task.getState().toString());
                 gettingActivity.startActivity(goTasksDetailsIntent);
             }
         });

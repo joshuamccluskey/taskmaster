@@ -67,6 +67,8 @@ public class MyTasksActivity extends AppCompatActivity {
 
             String username = userPreferences.getString(SettingsActivity.USERNAME_TAG, "No Username");
             ((TextView)findViewById(R.id.usernameTextView)).setText(getString(R.string.username_username, username));
+            tasksList = taskMasterDatabase.taskDao().findAll();
+            myTasksListRecycleViewSetUp();
         }
 
         public void addTaskButtonSetUp(){
@@ -116,15 +118,6 @@ public class MyTasksActivity extends AppCompatActivity {
             RecyclerView.LayoutManager taskLayoutManager =  new LinearLayoutManager(this);
 
             myTasksListRecycleView.setLayoutManager(taskLayoutManager);
-
-
-
-//            tasksList.add(new Task("Do Taxes", "Do this weekend", StateEnum.NEW, new Date()));
-//            tasksList.add(new Task("Groceries", "See Trello List For Snacks", StateEnum.NEW, new Date()));
-//            tasksList.add(new Task("Dog Food", "Don't get whole grain", StateEnum.NEW, new Date()));
-//            tasksList.add(new Task("Give Puppy Bath", "Don't use hot water bad for fur and skin", StateEnum.NEW, new Date()));
-//            tasksList.add(new Task("Code Challenge", "Time box for 1 hour", StateEnum.NEW, new Date()));
-//            tasksList.add(new Task("Learning Journal", "Don't Forget before signing off for the day", StateEnum.NEW, new Date()));
 
             myTasksListRecyclerViewAdapter = new MyTasksListRecyclerViewAdapter(tasksList, this);
 

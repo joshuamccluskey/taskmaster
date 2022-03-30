@@ -17,13 +17,18 @@ Integrate AWS for Cloud Data Storage and for scalable backend
 
 ### Updates
 - Style
-  
-
-
-
-
+- AWS - DynamoDB
+- Overhauled Backend took out Room DB and Replaced with all AWS
+![MyTaskActivityLab32](screenshots/MyTaskActivityLab32.png)
+- Add Task Adds Task to DynamoDB
+  ![AddTaskActivtyLab32](screenshots/AddTaskActivtyLab32.png)
+- onResume Pulls tasks from DynamoDB
+  ![MyTaskActivtyUpdatedResumeLab32](screenshots/MyTaskActivtyUpdatedResumeLab32.png)
 ### Features
-- As a user I want an app that uses cloud services on the backend
+- As a user I want an app that uses cloud services on the backend using DynamoDB
+- As a user I want an app that adds a task to DynamoDB
+- As a user I want an app that shows my current list of tasks automatically
+- As a user I want a clean design and style and smooth and intuitive user experience
 
 ### Espresso Tests
 - taskNameTest assertion test that checks task name equals textView on Task Details page
@@ -31,17 +36,11 @@ Integrate AWS for Cloud Data Storage and for scalable backend
 - usernameTest assertion test checking textview of username matches username entered on setting page
 
 ### Work Time
-TBD
+- Work time: 7 Hours
 
+### Links
 [Adobe Color](https://color.adobe.com/search?q=light%20blue)
 [Gradient Color](https://evangelidis.medium.com/android-how-to-set-gradient-color-as-background-7812c4cf06ec)
-
-
-
-
-
-
-
 
 
 # Daily Log 03.28.2022

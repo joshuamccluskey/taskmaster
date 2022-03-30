@@ -1,10 +1,14 @@
-type Task @model {
+type Task @model @auth(rules: [{allow: public}] {
   id: ID!
   title: String!
-  description: String
-  status: String
+  body: String
+  state: StateEnum
+  date: AWSDateTime
 }
-type Note @model {
-  id: ID!
-  content: String!
+
+enum StateEnum {
+    New,
+    Assigned,
+    In Progress,
+    Complete;
 }

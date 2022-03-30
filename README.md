@@ -7,8 +7,6 @@ Andorid task management application. Manage all your tasks from one app.
 - [app-debug.apk](app-debug.apk)
 
 
-
-
 # Daily Log 03.29.2022
 
 ### Overview
@@ -179,7 +177,7 @@ Wireframe build of the TaskMaster Android app. My Tasks page, Add Tasks page, Al
 - Add a homepage: As a user I want to be able to see my tasks on the homepage with buttons to add and see all tasks
 - Add a task: As a user I want to be able to add a task and see its been submitted.
 - Add Task Title and Description: As a user I want to be able to add the task title and description.
-- Taks page only contains an image no function
+- Task page only contains an image no function
   
 ### Work Time
 

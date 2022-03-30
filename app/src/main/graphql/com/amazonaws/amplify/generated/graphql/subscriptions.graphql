@@ -8,9 +8,6 @@ subscription OnCreateTask {
     date
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateTask {
@@ -22,9 +19,6 @@ subscription OnUpdateTask {
     date
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteTask {
@@ -36,8 +30,5 @@ subscription OnDeleteTask {
     date
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }

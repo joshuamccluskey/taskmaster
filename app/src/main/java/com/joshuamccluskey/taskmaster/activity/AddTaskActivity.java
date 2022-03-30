@@ -11,9 +11,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amplifyframework.core.model.temporal.Temporal;
+import com.amplifyframework.datastore.generated.model.StateEnum;
+import com.amplifyframework.datastore.generated.model.Task;
 import com.joshuamccluskey.taskmaster.R;
-import com.joshuamccluskey.taskmaster.model.StateEnum;
-import com.joshuamccluskey.taskmaster.model.Task;
 
 import java.util.Date;
 import java.util.List;
@@ -41,12 +42,17 @@ public class AddTaskActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Task newTask  =  new Task(
-                        ((EditText)findViewById(R.id.taskTitleEditText)).getText().toString(),
-                        ((EditText)findViewById(R.id.doSomethingEditText)).getText().toString(),
-                        StateEnum.fromString(statusSpinner.getSelectedItem().toString()),
-                        new Date()
-                );
+                String title = ((EditText)findViewById(R.id.taskTitleEditText)).getText().toString();
+                String body = ((EditText)findViewById(R.id.doSomethingEditText)).getText().toString();
+                String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
+                Task newTask  = Task.builder()
+                        .title(title)
+                        .body(body)
+                        .state((StateEnum)statusSpinner.getSelectedItem())
+                        .date(new Temporal.DateTime(currentDate))
+                        .build();
+
+
 //                  TODO Refactor for Dynomo
 //                taskMasterDatabase.taskDao().insertTask(newTask);
                 submittedText.setVisibility(View.VISIBLE);

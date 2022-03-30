@@ -11,9 +11,6 @@ mutation CreateTask(
     date
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateTask(
@@ -28,9 +25,6 @@ mutation UpdateTask(
     date
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteTask(
@@ -45,8 +39,5 @@ mutation DeleteTask(
     date
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }

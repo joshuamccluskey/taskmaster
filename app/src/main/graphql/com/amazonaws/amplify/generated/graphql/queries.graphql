@@ -3,8 +3,9 @@ query GetTask($id: ID!) {
   getTask(id: $id) {
     id
     title
-    description
-    status
+    body
+    state
+    date
     createdAt
     updatedAt
     _version
@@ -21,8 +22,9 @@ query ListTasks(
     items {
       id
       title
-      description
-      status
+      body
+      state
+      date
       createdAt
       updatedAt
       _version
@@ -48,63 +50,9 @@ query SyncTasks(
     items {
       id
       title
-      description
-      status
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    nextToken
-    startedAt
-  }
-}
-query GetNote($id: ID!) {
-  getNote(id: $id) {
-    id
-    content
-    createdAt
-    updatedAt
-    _version
-    _deleted
-    _lastChangedAt
-  }
-}
-query ListNotes(
-  $filter: ModelNoteFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listNotes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      content
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    nextToken
-    startedAt
-  }
-}
-query SyncNotes(
-  $filter: ModelNoteFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncNotes(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      content
+      body
+      state
+      date
       createdAt
       updatedAt
       _version

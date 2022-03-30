@@ -13,17 +13,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Insert;
-import androidx.room.Room;
 
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
-import com.joshuamccluskey.taskmaster.database.TaskMasterDatabase;
 import com.joshuamccluskey.taskmaster.model.StateEnum;
 import com.joshuamccluskey.taskmaster.model.Task;
 
-
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyTasksActivity extends AppCompatActivity {
@@ -35,22 +31,17 @@ public class MyTasksActivity extends AppCompatActivity {
     SharedPreferences userPreferences;
     MyTasksListRecyclerViewAdapter myTasksListRecyclerViewAdapter;
     List<Task> tasksList = null;
-    TaskMasterDatabase taskMasterDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        taskMasterDatabase = Room.databaseBuilder(
-                getApplicationContext(),
-                TaskMasterDatabase.class,
-                "josh_task_master")
-                .allowMainThreadQueries()  // Caution don't use in a real app
-                .fallbackToDestructiveMigration()
-                .build();
-        tasksList = taskMasterDatabase.taskDao().findAll();
-
+//              TODO Change to Dynomo
+//        tasksList = taskMasterDatabase.taskDao().findAll();
+        tasksList = new ArrayList<>();
+        tasksList.add(new Task("Test", "Test", StateEnum.NEW, new java.util.Date()));
         addTaskButtonSetUp();
         allTasksButtonSetUp();
         settingsImageButtonSetUp();
@@ -67,7 +58,9 @@ public class MyTasksActivity extends AppCompatActivity {
 
             String username = userPreferences.getString(SettingsActivity.USERNAME_TAG, "No Username");
             ((TextView)findViewById(R.id.usernameTextView)).setText(getString(R.string.username_username, username));
-            tasksList = taskMasterDatabase.taskDao().findAll();
+            //              TODO Change to Dynomo
+//            tasksList = taskMasterDatabase.taskDao().findAll();
+
             myTasksListRecycleViewSetUp();
         }
 

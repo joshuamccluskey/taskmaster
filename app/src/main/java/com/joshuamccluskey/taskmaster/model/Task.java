@@ -1,13 +1,10 @@
 package com.joshuamccluskey.taskmaster.model;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 import java.util.Date;
-@Entity
+
 public class Task {
 
-    @PrimaryKey(autoGenerate = true)
     public long id;
     String title;
     String body;

@@ -10,10 +10,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import com.joshuamccluskey.taskmaster.R;
-import com.joshuamccluskey.taskmaster.database.TaskMasterDatabase;
 import com.joshuamccluskey.taskmaster.model.StateEnum;
 import com.joshuamccluskey.taskmaster.model.Task;
 
@@ -29,15 +27,8 @@ public class AddTaskActivity extends AppCompatActivity {
 
         TextView submittedText = findViewById(R.id.submittedText);
         List<Task> tasksList = null;
-        TaskMasterDatabase taskMasterDatabase;
 
-        taskMasterDatabase = Room.databaseBuilder(
-                getApplicationContext(),
-                TaskMasterDatabase.class,
-                "josh_task_master")
-                .allowMainThreadQueries()  // Caution don't use in a real app
-                .fallbackToDestructiveMigration()
-                .build();
+
 
         Spinner statusSpinner =  findViewById(R.id.statusSpinner);
         statusSpinner.setAdapter(new ArrayAdapter<>(
@@ -56,8 +47,8 @@ public class AddTaskActivity extends AppCompatActivity {
                         StateEnum.fromString(statusSpinner.getSelectedItem().toString()),
                         new Date()
                 );
-
-                taskMasterDatabase.taskDao().insertTask(newTask);
+//                  TODO Refactor for Dynomo
+//                taskMasterDatabase.taskDao().insertTask(newTask);
                 submittedText.setVisibility(View.VISIBLE);
                 Intent goToAllTasksIntent = new Intent(AddTaskActivity.this, MyTasksActivity.class);
 

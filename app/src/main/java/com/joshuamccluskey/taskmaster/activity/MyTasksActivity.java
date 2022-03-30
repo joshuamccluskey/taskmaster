@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Task;
@@ -45,22 +46,39 @@ public class MyTasksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_tasks);
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         tasksList = new ArrayList<>();
+        Amplify.API.query(
+                ModelQuery.list(Task.class),
+                success -> {
+                    Log.i(TAG, "Task successfully created");
+                    for (Task databaseTask :success.getData()) {
+                        tasksList.add(databaseTask);
+                    }
+                    runOnUiThread(() ->{
+                        myTasksListRecyclerViewAdapter.notifyDataSetChanged();
+                    });
+
+                },
+                failure -> Log.i(TAG, "Task creation failed ")
+        );
+
+
 
 //        tasksList = taskMasterDatabase.taskDao().findAll();
-        String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
-        com.amplifyframework.datastore.generated.model.Task tasker =
-            com.amplifyframework.datastore.generated.model.Task.builder()
-                .title("Taxes")
-                .body("Due this week!")
-                .state(com.amplifyframework.datastore.generated.model.StateEnum.New)
-                .date(new Temporal.DateTime(currentDate))
-                .build();
-        Amplify.API.mutate(
-                ModelMutation.create(tasker),
-                successResponse -> Log.i(TAG, "MyTaskActivity.onCreate: made a Task"),
-                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
-        );
-//        tasksList.add(new Task("Test", "Test", StateEnum.NEW, new java.util.Date()));
+//        String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
+//        com.amplifyframework.datastore.generated.model.Task tasker =
+//            com.amplifyframework.datastore.generated.model.Task.builder()
+//                .title("Taxes")
+//                .body("Due this week!")
+//                .state(com.amplifyframework.datastore.generated.model.StateEnum.New)
+//                .date(new Temporal.DateTime(currentDate))
+//                .build();
+//        Amplify.API.mutate(
+//                ModelMutation.create(tasker),
+//                successResponse -> Log.i(TAG, "MyTaskActivity.onCreate: made a Task"),
+//                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
+//        );
+
+
         addTaskButtonSetUp();
         allTasksButtonSetUp();
         settingsImageButtonSetUp();

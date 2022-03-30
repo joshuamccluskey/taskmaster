@@ -13,18 +13,21 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Insert;
-import androidx.room.Room;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.temporal.Temporal;
+import com.amplifyframework.datastore.generated.model.Task;
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
-import com.joshuamccluskey.taskmaster.database.TaskMasterDatabase;
-import com.joshuamccluskey.taskmaster.model.StateEnum;
-import com.joshuamccluskey.taskmaster.model.Task;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+
 
 public class MyTasksActivity extends AppCompatActivity {
 
@@ -35,21 +38,29 @@ public class MyTasksActivity extends AppCompatActivity {
     SharedPreferences userPreferences;
     MyTasksListRecyclerViewAdapter myTasksListRecyclerViewAdapter;
     List<Task> tasksList = null;
-    TaskMasterDatabase taskMasterDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        taskMasterDatabase = Room.databaseBuilder(
-                getApplicationContext(),
-                TaskMasterDatabase.class,
-                "josh_task_master")
-                .allowMainThreadQueries()  // Caution don't use in a real app
-                .fallbackToDestructiveMigration()
-                .build();
-        tasksList = taskMasterDatabase.taskDao().findAll();
+        tasksList = new ArrayList<>();
+//        tasksList = taskMasterDatabase.taskDao().findAll();
+//        String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
+//        com.amplifyframework.datastore.generated.model.Task tasker =
+//            com.amplifyframework.datastore.generated.model.Task.builder()
+//                .title("Taxes")
+//                .body("Due this week!")
+//                .state(com.amplifyframework.datastore.generated.model.StateEnum.New)
+//                .date(new Temporal.DateTime(currentDate))
+//                .build();
+//        Amplify.API.mutate(
+//                ModelMutation.create(tasker),
+//                successResponse -> Log.i(TAG, "MyTaskActivity.onCreate: made a Task"),
+//                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
+//        );
+
 
         addTaskButtonSetUp();
         allTasksButtonSetUp();
@@ -67,7 +78,24 @@ public class MyTasksActivity extends AppCompatActivity {
 
             String username = userPreferences.getString(SettingsActivity.USERNAME_TAG, "No Username");
             ((TextView)findViewById(R.id.usernameTextView)).setText(getString(R.string.username_username, username));
-            tasksList = taskMasterDatabase.taskDao().findAll();
+
+            Amplify.API.query(
+                    ModelQuery.list(Task.class),
+                    success -> {
+                        Log.i(TAG, "Task successfully created");
+                        tasksList.clear();
+                        for (Task databaseTask :success.getData()) {
+                            tasksList.add(databaseTask);
+                        }
+                        runOnUiThread(() ->{
+                            myTasksListRecyclerViewAdapter.notifyDataSetChanged();
+                        });
+
+                    },
+                    failure -> Log.i(TAG, "Task creation failed ")
+            );
+
+
             myTasksListRecycleViewSetUp();
         }
 

@@ -31,7 +31,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.377"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taskTitleEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/taskTitleEditText"
+        tools:ignore="TextContrastCheck"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textTaskDescription"
@@ -57,7 +59,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.394"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="TextContrastCheck"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textTaskTitle"
@@ -95,16 +99,17 @@
         app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusSpinner"
-        app:layout_constraintVertical_bias="0.0" />
+        tools:ignore="TextContrastCheck" />
 
     <Spinner
         android:id="@+id/statusSpinner"
         android:layout_width="303dp"
-        android:layout_height="46dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="376dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.398"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

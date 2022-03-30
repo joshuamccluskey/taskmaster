@@ -2,6 +2,7 @@ package com.joshuamccluskey.taskmaster.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -10,18 +11,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.temporal.Temporal;
+import com.amplifyframework.datastore.generated.model.StateEnum;
+import com.amplifyframework.datastore.generated.model.Task;
 import com.joshuamccluskey.taskmaster.R;
-import com.joshuamccluskey.taskmaster.database.TaskMasterDatabase;
-import com.joshuamccluskey.taskmaster.model.StateEnum;
-import com.joshuamccluskey.taskmaster.model.Task;
 
 import java.util.Date;
 import java.util.List;
 
 public class AddTaskActivity extends AppCompatActivity {
-
+    public static final String TAG = "ADD TASK";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,15 +31,8 @@ public class AddTaskActivity extends AppCompatActivity {
 
         TextView submittedText = findViewById(R.id.submittedText);
         List<Task> tasksList = null;
-        TaskMasterDatabase taskMasterDatabase;
 
-        taskMasterDatabase = Room.databaseBuilder(
-                getApplicationContext(),
-                TaskMasterDatabase.class,
-                "josh_task_master")
-                .allowMainThreadQueries()  // Caution don't use in a real app
-                .fallbackToDestructiveMigration()
-                .build();
+
 
         Spinner statusSpinner =  findViewById(R.id.statusSpinner);
         statusSpinner.setAdapter(new ArrayAdapter<>(
@@ -50,14 +45,22 @@ public class AddTaskActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Task newTask  =  new Task(
-                        ((EditText)findViewById(R.id.taskTitleEditText)).getText().toString(),
-                        ((EditText)findViewById(R.id.doSomethingEditText)).getText().toString(),
-                        StateEnum.fromString(statusSpinner.getSelectedItem().toString()),
-                        new Date()
-                );
+                String title = ((EditText)findViewById(R.id.taskTitleEditText)).getText().toString();
+                String body = ((EditText)findViewById(R.id.doSomethingEditText)).getText().toString();
+                String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
+                Task newTask  = Task.builder()
+                        .title(title)
+                        .body(body)
+                        .state((StateEnum)statusSpinner.getSelectedItem())
+                        .date(new Temporal.DateTime(currentDate))
+                        .build();
 
-                taskMasterDatabase.taskDao().insertTask(newTask);
+        Amplify.API.mutate(
+                ModelMutation.create(newTask),
+                successResponse -> Log.i(TAG, "AddTaskActivity.onClick: made a Task"),
+                failureResponse -> Log.i(TAG, "AddTaskActivity.onClick: failed" + failureResponse)
+        );
+
                 submittedText.setVisibility(View.VISIBLE);
                 Intent goToAllTasksIntent = new Intent(AddTaskActivity.this, MyTasksActivity.class);
 

@@ -1,0 +1,14 @@
+type Task @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String!
+  body: String
+  state: StateEnum
+  date: AWSDateTime
+}
+
+enum StateEnum {
+    New
+    Assigned
+    In_Progress
+    Complete
+}

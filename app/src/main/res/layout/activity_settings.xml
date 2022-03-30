@@ -31,7 +31,8 @@
         app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameText"
-        tools:ignore="DuplicateSpeakableTextCheck" />
+        tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/usernameText"
@@ -51,5 +52,6 @@
         android:layout_marginTop="32dp"
         android:text="@string/save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameInputEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameInputEditText"
+        tools:ignore="TextContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

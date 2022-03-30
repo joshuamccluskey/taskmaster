@@ -46,23 +46,6 @@ public class MyTasksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_tasks);
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         tasksList = new ArrayList<>();
-        Amplify.API.query(
-                ModelQuery.list(Task.class),
-                success -> {
-                    Log.i(TAG, "Task successfully created");
-                    for (Task databaseTask :success.getData()) {
-                        tasksList.add(databaseTask);
-                    }
-                    runOnUiThread(() ->{
-                        myTasksListRecyclerViewAdapter.notifyDataSetChanged();
-                    });
-
-                },
-                failure -> Log.i(TAG, "Task creation failed ")
-        );
-
-
-
 //        tasksList = taskMasterDatabase.taskDao().findAll();
 //        String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
 //        com.amplifyframework.datastore.generated.model.Task tasker =
@@ -95,8 +78,22 @@ public class MyTasksActivity extends AppCompatActivity {
 
             String username = userPreferences.getString(SettingsActivity.USERNAME_TAG, "No Username");
             ((TextView)findViewById(R.id.usernameTextView)).setText(getString(R.string.username_username, username));
-            //              TODO Change to Dynomo
-//            tasksList = taskMasterDatabase.taskDao().findAll();
+
+            Amplify.API.query(
+                    ModelQuery.list(Task.class),
+                    success -> {
+                        Log.i(TAG, "Task successfully created");
+                        tasksList.clear();
+                        for (Task databaseTask :success.getData()) {
+                            tasksList.add(databaseTask);
+                        }
+                        runOnUiThread(() ->{
+                            myTasksListRecyclerViewAdapter.notifyDataSetChanged();
+                        });
+
+                    },
+                    failure -> Log.i(TAG, "Task creation failed ")
+            );
 
 
             myTasksListRecycleViewSetUp();

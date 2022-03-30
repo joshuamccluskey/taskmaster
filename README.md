@@ -7,6 +7,32 @@ Andorid task management application. Manage all your tasks from one app.
 - [app-debug.apk](app-debug.apk)
 
 
+
+# Daily Log 03.30.2022
+
+### Overview
+
+App will use teams. These teams will be assigned tasks specific tasks.
+
+### Updates
+- Update Add Task Form with team using a radio button
+
+  ![TBD]()
+- Update settings to choose team and conditionally render tasks for that team
+  ![TBD]()
+### Features
+- As a user I want an app that lets me assign taks to a team
+- As a user I want choose my team and see the taks assigned ot the team
+
+
+### Espresso Tests
+- taskNameTest assertion test that checks task name equals textView on Task Details page
+- uiElementsMyTaskActivityTest assertion test checking if critical elements exist on page rebuilt for reliability
+- usernameTest assertion test checking textview of username matches username entered on setting page
+
+### Work Time
+- Work time: TBD
+
 # Daily Log 03.29.2022
 
 ### Overview

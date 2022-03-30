@@ -14,13 +14,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.temporal.Temporal;
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
-import com.joshuamccluskey.taskmaster.model.StateEnum;
+
 import com.joshuamccluskey.taskmaster.model.Task;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+
 
 public class MyTasksActivity extends AppCompatActivity {
 
@@ -38,10 +44,23 @@ public class MyTasksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//              TODO Change to Dynomo
-//        tasksList = taskMasterDatabase.taskDao().findAll();
         tasksList = new ArrayList<>();
-        tasksList.add(new Task("Test", "Test", StateEnum.NEW, new java.util.Date()));
+
+//        tasksList = taskMasterDatabase.taskDao().findAll();
+        String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
+        com.amplifyframework.datastore.generated.model.Task tasker =
+            com.amplifyframework.datastore.generated.model.Task.builder()
+                .title("Taxes")
+                .body("Due this week!")
+                .state(com.amplifyframework.datastore.generated.model.StateEnum.New)
+                .date(new Temporal.DateTime(currentDate))
+                .build();
+        Amplify.API.mutate(
+                ModelMutation.create(tasker),
+                successResponse -> Log.i(TAG, "MyTaskActivity.onCreate: made a Task"),
+                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
+        );
+//        tasksList.add(new Task("Test", "Test", StateEnum.NEW, new java.util.Date()));
         addTaskButtonSetUp();
         allTasksButtonSetUp();
         settingsImageButtonSetUp();
@@ -60,6 +79,7 @@ public class MyTasksActivity extends AppCompatActivity {
             ((TextView)findViewById(R.id.usernameTextView)).setText(getString(R.string.username_username, username));
             //              TODO Change to Dynomo
 //            tasksList = taskMasterDatabase.taskDao().findAll();
+
 
             myTasksListRecycleViewSetUp();
         }

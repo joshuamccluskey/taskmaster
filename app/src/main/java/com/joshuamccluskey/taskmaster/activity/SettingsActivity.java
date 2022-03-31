@@ -38,7 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         Button settingsSaveButton = findViewById(R.id.settingsSaveButton);
-
+        teamSettingsSpinner = findViewById(R.id.teamSettingsSpinner);
         Amplify.API.query(
                 ModelQuery.list(Team.class),
                 success -> {
@@ -94,6 +94,13 @@ public class SettingsActivity extends AppCompatActivity {
         if (!username.isEmpty()) {
             EditText usernameEidtText = findViewById(R.id.usernameInputEditText);
             usernameEidtText.setText(username);
+        }
+
+        teamPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String team = teamPreferences.getString(USERNAME_TAG, "");
+        if (!team.isEmpty()) {
+            Spinner teamSpinner= findViewById(R.id.teamSpinner);
+//            teamSpinner.setSelected(team).toString;
         }
 
 

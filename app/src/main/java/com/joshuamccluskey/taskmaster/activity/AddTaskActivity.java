@@ -1,6 +1,7 @@
 package com.joshuamccluskey.taskmaster.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class AddTaskActivity extends AppCompatActivity {
+    SharedPreferences teamPreferences;
     public static final String TAG = "ADD TASK";
     Spinner teamSpinner = null;
     Spinner statusSpinner = null;

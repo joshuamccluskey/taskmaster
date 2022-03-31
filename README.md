@@ -17,9 +17,14 @@ App will use teams. These teams will be assigned tasks specific tasks.
 ### Updates
 - Update Add Task Form with team using a radio button
 
-  ![TBD]()
+  ![teamAddTaskLab33](screenshots/teamAddTaskLab33.png)
+  ![teamSelectedLab33](screenshots/teamSelectedLab33.png)
+  ![teamsDynamoLab33](screenshots/teamsDynamoLab33.png)
+  ![MyTasksLab33](screenshots/MyTasksLab33.png)
+  
 - Update settings to choose team and conditionally render tasks for that team
-  ![TBD]()
+  - *Bug on Setting adding team setting*
+  
 ### Features
 - As a user I want an app that lets me assign taks to a team
 - As a user I want choose my team and see the taks assigned ot the team
@@ -31,7 +36,7 @@ App will use teams. These teams will be assigned tasks specific tasks.
 - usernameTest assertion test checking textview of username matches username entered on setting page
 
 ### Work Time
-- Work time: TBD
+- Work time: 5 Hours
 
 # Daily Log 03.29.2022
 

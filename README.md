@@ -21,6 +21,7 @@ App will use teams. These teams will be assigned tasks specific tasks.
   ![teamSelectedLab33](screenshots/teamSelectedLab33.png)
   ![teamsDynamoLab33](screenshots/teamsDynamoLab33.png)
   ![MyTasksLab33](screenshots/MyTasksLab33.png)
+  ![MyTasksLab33](screenshots/tasksDynamoLab33.png)
   
 - Update settings to choose team and conditionally render tasks for that team
   - *Bug on Setting adding team setting*

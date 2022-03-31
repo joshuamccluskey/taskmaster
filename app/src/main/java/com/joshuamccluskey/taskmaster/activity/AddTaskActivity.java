@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amazonaws.util.DateUtils;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
@@ -24,11 +25,16 @@ import com.joshuamccluskey.taskmaster.R;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class AddTaskActivity extends AppCompatActivity {
     public static final String TAG = "ADD TASK";
-    public List<Task> tasksList = null;
-    public List<Team> teamList = null;
+    Spinner teamSpinner = null;
+    Spinner statusSpinner = null;
+    List<String> teamNames = new  ArrayList<>();
+    List<Team> teamList = new  ArrayList<>();
+    CompletableFuture<List<Team>> teamFuture = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,24 +42,28 @@ public class AddTaskActivity extends AppCompatActivity {
 
         TextView submittedText = findViewById(R.id.submittedText);
 
-
-        Spinner statusSpinner =  findViewById(R.id.statusSpinner);
+        teamFuture = new CompletableFuture<List<Team>>();
+        statusSpinner =  findViewById(R.id.statusSpinner);
         statusSpinner.setAdapter(new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
                 StateEnum.values()));
 
-        Spinner teamSpinner =  findViewById(R.id.teamSpinner);
+        teamSpinner =  findViewById(R.id.teamSpinner);
+
 
 
         Amplify.API.query(
                 ModelQuery.list(Team.class),
                 success -> {
                     Log.i(TAG, "Task successfully created");
-                    ArrayList<String> teamNames = new ArrayList<>();
+
+
                     for (Team databaseTeam :success.getData()) {
+                        teamList.add(databaseTeam);
                         teamNames.add(databaseTeam.getTeamName());
                     }
+                    teamFuture.complete(teamList);
                     runOnUiThread(() ->{
                         teamSpinner.setAdapter(new ArrayAdapter<>(
                             this,
@@ -64,7 +74,11 @@ public class AddTaskActivity extends AppCompatActivity {
                     });
 
                 },
-                failure -> Log.i(TAG, "Task creation failed ")
+                failure -> {
+                    teamFuture.complete(null);
+                    Log.i(TAG, "Task creation failed ");
+
+                }
         );
 
 
@@ -77,7 +91,7 @@ public class AddTaskActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String title = ((EditText)findViewById(R.id.taskTitleEditText)).getText().toString();
                 String body = ((EditText)findViewById(R.id.doSomethingEditText)).getText().toString();
-                String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
+                String currentDate = DateUtils.formatISO8601Date(new Date());
                 String selectedTeamString = teamSpinner.getSelectedItem().toString();
                 Team selectedTeam = teamList.stream().filter(team -> team.getTeamName().equals(selectedTeamString)).findAny().orElseThrow(RuntimeException::new);
 

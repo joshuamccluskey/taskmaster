@@ -19,6 +19,7 @@ import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.Team;
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
 
@@ -61,6 +62,33 @@ public class MyTasksActivity extends AppCompatActivity {
 //                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
 //        );
 
+//        Team codeForLife =
+//            Team.builder()
+//                .teamName("Code For Life")
+//                .build();
+//        Amplify.API.mutate(
+//                ModelMutation.create(codeForLife),
+//                successResponse -> Log.i(TAG, "MyTaskActivity.onCreate: made a Team"),
+//                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
+//        );
+//        Team codeNinjas =
+//                Team.builder()
+//                        .teamName("Code Ninjas")
+//                        .build();
+//        Amplify.API.mutate(
+//                ModelMutation.create(codeNinjas),
+//                successResponse -> Log.i(TAG, "MyTaskActivity.onCreate: made a Team"),
+//                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
+//        );
+//        Team codeBuilders =
+//                Team.builder()
+//                        .teamName("Code Builders")
+//                        .build();
+//        Amplify.API.mutate(
+//                ModelMutation.create(codeBuilders),
+//                successResponse -> Log.i(TAG, "MyTaskActivity.onCreate: made a Team"),
+//                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
+//        );
 
         addTaskButtonSetUp();
         allTasksButtonSetUp();

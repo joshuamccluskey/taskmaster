@@ -22,9 +22,10 @@
 
     <EditText
         android:id="@+id/doSomethingEditText"
-        android:layout_width="305dp"
+        android:layout_width="303dp"
         android:layout_height="68dp"
         android:layout_marginTop="24dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/do_something"
         android:inputType="textPersonName"
@@ -32,8 +33,7 @@
         app:layout_constraintHorizontal_bias="0.377"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskTitleEditText"
-        tools:ignore="TextContrastCheck"
-        android:autofillHints="" />
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/textTaskDescription"
@@ -50,9 +50,10 @@
 
     <EditText
         android:id="@+id/taskTitleEditText"
-        android:layout_width="302dp"
+        android:layout_width="303dp"
         android:layout_height="55dp"
         android:layout_marginTop="44dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/my_task"
         android:inputType="textPersonName"
@@ -60,8 +61,7 @@
         app:layout_constraintHorizontal_bias="0.394"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="TextContrastCheck"
-        android:autofillHints="" />
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/textTaskTitle"
@@ -76,40 +76,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <Button
+        android:id="@+id/submitTaskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teamSpinner"
+        tools:ignore="TextContrastCheck" />
+
     <TextView
         android:id="@+id/submittedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="140dp"
         android:text="@string/submitted"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.311"
+        app:layout_constraintHorizontal_bias="0.284"
         app:layout_constraintStart_toEndOf="@+id/submitTaskButton"
-        app:layout_constraintTop_toBottomOf="@+id/statusSpinner" />
-
-    <Button
-        android:id="@+id/submitTaskButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
-        android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusSpinner"
-        tools:ignore="TextContrastCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/teamSpinner" />
 
     <Spinner
         android:id="@+id/statusSpinner"
         android:layout_width="303dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="376dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.398"
+        app:layout_constraintHorizontal_bias="0.379"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doSomethingEditText"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <Spinner
+        android:id="@+id/teamSpinner"
+        android:layout_width="303dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

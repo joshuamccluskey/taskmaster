@@ -106,7 +106,7 @@ public class SettingsActivity extends AppCompatActivity {
                     this,
                     android.R.layout.simple_spinner_item,
                     teamNames));
-//            teamSpinner.setSelection(getSpinnerIndex(teamSpinner, get);
+            teamSpinner.setSelection(getSpinnerIndex(teamSpinner,teamSpinner.getSelectedItem().toString()));
         }
 
 

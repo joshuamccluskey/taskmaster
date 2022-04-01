@@ -28,6 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
     SharedPreferences teamPreferences;
     public static final String TAG = "CHOOSE TEAM";
     public static final String USERNAME_TAG = "username";
+    public static final String TEAM_TAG = "teamname";
     Spinner teamSettingsSpinner = null;
     List<String> teamNames = new ArrayList<>();
     List<Team> teamList = new  ArrayList<>();
@@ -99,7 +100,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         teamPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String team = teamPreferences.getString(USERNAME_TAG, "");
+        String team = teamPreferences.getString(TEAM_TAG, "");
         if (!team.isEmpty()) {
             Spinner teamSpinner= findViewById(R.id.teamSpinner);
             teamSpinner.setAdapter( new ArrayAdapter<>(

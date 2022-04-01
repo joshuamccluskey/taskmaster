@@ -15,6 +15,7 @@ import android.widget.Spinner;
 
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 import com.joshuamccluskey.taskmaster.R;
 
@@ -101,10 +102,24 @@ public class SettingsActivity extends AppCompatActivity {
         String team = teamPreferences.getString(USERNAME_TAG, "");
         if (!team.isEmpty()) {
             Spinner teamSpinner= findViewById(R.id.teamSpinner);
-//            teamSpinner.setSelected(team).toString;
+            teamSpinner.setAdapter( new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    teamNames));
+//            teamSpinner.setSelection(getSpinnerIndex(teamSpinner, get);
         }
 
 
     }
+    private int getSpinnerIndex(Spinner spinner, String stringValueToCheck){
+        for (int i = 0;i < spinner.getCount(); i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(stringValueToCheck)){
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
 
 }

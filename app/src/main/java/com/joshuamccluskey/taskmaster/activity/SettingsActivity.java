@@ -49,6 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
                         teamList.add(databaseTeam);
                         teamNames.add(databaseTeam.getTeamName());
                     }
+                    teamFuture = new CompletableFuture<>();
                     teamFuture.complete(teamList);
                     runOnUiThread(() ->{
                         teamSettingsSpinner.setAdapter(new ArrayAdapter<>(

@@ -6,7 +6,32 @@ Andorid task management application. Manage all your tasks from one app.
 - If needed app-debug.apk file in root taskmaster/
 - [app-debug.apk](app-debug.apk)
 
+# Daily Log 03.31.2022
 
+### Overview
+
+Polish app up with all features complete and deploy app to the Google Play Store
+
+### Updates
+- Publish to the Google Play Store
+
+
+- Update settings to choose team and conditionally render tasks for that team
+  - *Bug on Setting adding team setting*
+
+### Features
+- As a user I want to be able to update task information
+- As a user I want to be able to download the app from Google Play
+
+
+
+### Espresso Tests
+- taskNameTest assertion test that checks task name equals textView on Task Details page
+- uiElementsMyTaskActivityTest assertion test checking if critical elements exist on page rebuilt for reliability
+- usernameTest assertion test checking textview of username matches username entered on setting page
+
+### Work Time
+- TBD
 
 # Daily Log 03.30.2022
 

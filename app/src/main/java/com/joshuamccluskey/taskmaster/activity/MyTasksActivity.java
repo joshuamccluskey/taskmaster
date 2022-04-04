@@ -37,7 +37,6 @@ public class MyTasksActivity extends AppCompatActivity {
     public static String TASK_DETAIL_BODY_TAG = "TASK BODY";
     public static String TASK_DETAIL_STATE_TAG = "TASK STATE";
     SharedPreferences userPreferences;
-    SharedPreferences teamPreferences;
 
     MyTasksListRecyclerViewAdapter myTasksListRecyclerViewAdapter;
     List<Task> tasksList = null;
@@ -114,11 +113,12 @@ public class MyTasksActivity extends AppCompatActivity {
                     success -> {
                         Log.i(TAG, "Task successfully created");
                         tasksList.clear();
-                        String teamNameString = teamPreferences.getString(SettingsActivity.TEAM_TAG, "No Team Name");
+                        String teamNameString = userPreferences.getString(SettingsActivity.TEAM_TAG, "No Team Name");
                         for (Task databaseTask :success.getData()) {
 
 
-                            if (databaseTask.getTeam().getTeamName().equals(teamNameString)){
+                            if (databaseTask.getTeam().getTeamName().equals(teamNameString))
+                            {
                                 tasksList.add(databaseTask);
                             }
 

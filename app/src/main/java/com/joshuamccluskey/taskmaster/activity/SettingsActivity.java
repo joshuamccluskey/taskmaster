@@ -25,7 +25,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class SettingsActivity extends AppCompatActivity {
     SharedPreferences userPreferences;
-    SharedPreferences teamPreferences;
     public static final String TAG = "CHOOSE TEAM";
     public static final String USERNAME_TAG = "username";
     public static final String TEAM_TAG = "teamname";
@@ -33,6 +32,8 @@ public class SettingsActivity extends AppCompatActivity {
     List<String> teamNames = new ArrayList<>();
     List<Team> teamList = new  ArrayList<>();
     CompletableFuture<List<Team>> teamFuture = null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,6 @@ public class SettingsActivity extends AppCompatActivity {
 
 
                     });
-
                 },
                 failure -> {
                     teamFuture.complete(null);
@@ -71,56 +71,48 @@ public class SettingsActivity extends AppCompatActivity {
         );
 
 
-
         settingsSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
                 EditText usernameEditText = findViewById(R.id.usernameInputEditText);
                 String usernameStringify = usernameEditText.getText().toString();
                 userPreferencesEditor.putString(USERNAME_TAG, usernameStringify);
-                userPreferencesEditor.apply();
-
-                SharedPreferences.Editor teamPreferencesEditor = teamPreferences.edit();
                 teamSettingsSpinner = findViewById(R.id.teamSettingsSpinner);
                 String teamNameSelected = teamSettingsSpinner.getSelectedItem().toString();
-                teamPreferencesEditor.putString(TAG, teamNameSelected);
-                teamPreferencesEditor.apply();
+                userPreferencesEditor.putString(TEAM_TAG, teamNameSelected);
+                userPreferencesEditor.apply();
 
                 Intent goToMyTasksActivityIntent = new Intent(SettingsActivity.this, MyTasksActivity.class);
                 startActivity(goToMyTasksActivityIntent);
             }
         });
-
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String username = userPreferences.getString(USERNAME_TAG, "");
         if (!username.isEmpty()) {
-            EditText usernameEidtText = findViewById(R.id.usernameInputEditText);
-            usernameEidtText.setText(username);
+            EditText usernameEditText = findViewById(R.id.usernameInputEditText);
+            usernameEditText.setText(username);
         }
-
-        teamPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String team = teamPreferences.getString(TEAM_TAG, "");
+        String team = userPreferences.getString(TEAM_TAG, "");
         if (!team.isEmpty()) {
-            Spinner teamSpinner= findViewById(R.id.teamSpinner);
-            teamSpinner.setAdapter( new ArrayAdapter<>(
+            Spinner teamSpinner = findViewById(R.id.teamSettingsSpinner);
+            teamSettingsSpinner.setAdapter(new ArrayAdapter<>(
                     this,
                     android.R.layout.simple_spinner_item,
                     teamNames));
-            teamSpinner.setSelection(getSpinnerIndex(teamSpinner,teamSpinner.getSelectedItem().toString()));
+            teamSettingsSpinner.setSelection(teamList.indexOf(team));
         }
 
 
-    }
-    private int getSpinnerIndex(Spinner spinner, String stringValueToCheck){
-        for (int i = 0;i < spinner.getCount(); i++){
-            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(stringValueToCheck)){
-                return i;
-            }
-        }
+        userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        return 0;
+
+
+
+
     }
+
 
 
 }

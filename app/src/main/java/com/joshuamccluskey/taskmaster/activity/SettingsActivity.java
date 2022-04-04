@@ -1,21 +1,19 @@
 package com.joshuamccluskey.taskmaster.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 import com.joshuamccluskey.taskmaster.R;
 
@@ -54,14 +52,10 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                     teamFuture = new CompletableFuture<>();
                     teamFuture.complete(teamList);
-                    runOnUiThread(() ->{
-                        teamSettingsSpinner.setAdapter(new ArrayAdapter<>(
-                                this,
-                                android.R.layout.simple_spinner_item,
-                                teamNames));
-
-
-                    });
+                    runOnUiThread(() -> teamSettingsSpinner.setAdapter(new ArrayAdapter<>(
+                            this,
+                            android.R.layout.simple_spinner_item,
+                            teamNames)));
                 },
                 failure -> {
                     teamFuture.complete(null);
@@ -71,22 +65,19 @@ public class SettingsActivity extends AppCompatActivity {
         );
 
 
-        settingsSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        settingsSaveButton.setOnClickListener(view -> {
 
-                SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
-                EditText usernameEditText = findViewById(R.id.usernameInputEditText);
-                String usernameStringify = usernameEditText.getText().toString();
-                userPreferencesEditor.putString(USERNAME_TAG, usernameStringify);
-                teamSettingsSpinner = findViewById(R.id.teamSettingsSpinner);
-                String teamNameSelected = teamSettingsSpinner.getSelectedItem().toString();
-                userPreferencesEditor.putString(TEAM_TAG, teamNameSelected);
-                userPreferencesEditor.apply();
+            SharedPreferences.Editor userPreferencesEditor = userPreferences.edit();
+            EditText usernameEditText = findViewById(R.id.usernameInputEditText);
+            String usernameStringify = usernameEditText.getText().toString();
+            userPreferencesEditor.putString(USERNAME_TAG, usernameStringify);
+            teamSettingsSpinner = findViewById(R.id.teamSettingsSpinner);
+            String teamNameSelected = teamSettingsSpinner.getSelectedItem().toString();
+            userPreferencesEditor.putString(TEAM_TAG, teamNameSelected);
+            userPreferencesEditor.apply();
 
-                Intent goToMyTasksActivityIntent = new Intent(SettingsActivity.this, MyTasksActivity.class);
-                startActivity(goToMyTasksActivityIntent);
-            }
+            Intent goToMyTasksActivityIntent = new Intent(SettingsActivity.this, MyTasksActivity.class);
+            startActivity(goToMyTasksActivityIntent);
         });
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String username = userPreferences.getString(USERNAME_TAG, "");
@@ -96,11 +87,11 @@ public class SettingsActivity extends AppCompatActivity {
         }
         String team = userPreferences.getString(TEAM_TAG, "");
         if (!team.isEmpty()) {
-            Spinner teamSpinner = findViewById(R.id.teamSettingsSpinner);
             teamSettingsSpinner.setAdapter(new ArrayAdapter<>(
                     this,
                     android.R.layout.simple_spinner_item,
                     teamNames));
+            //noinspection SuspiciousMethodCalls
             teamSettingsSpinner.setSelection(teamList.indexOf(team));
         }
 

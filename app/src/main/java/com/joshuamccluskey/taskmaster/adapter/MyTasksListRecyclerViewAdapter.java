@@ -1,5 +1,6 @@
 package com.joshuamccluskey.taskmaster.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class MyTasksListRecyclerViewAdapter extends RecyclerView.Adapter<MyTasks
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyTasksListViewHolder holder, int position) {
         TextView taskFragmentTextView = holder.itemView.findViewById(R.id.taskFragmentTextView);
@@ -45,15 +47,12 @@ public class MyTasksListRecyclerViewAdapter extends RecyclerView.Adapter<MyTasks
                 ": " + task.getState());
 
         View myTaskViewHolder = holder.itemView;
-        myTaskViewHolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goTasksDetailsIntent = new Intent(gettingActivity, TaskDetailActivity.class);
-                goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_TITLE_TAG, task.getTitle());
-                goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_BODY_TAG, task.getBody());
-                goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_STATE_TAG, task.getState().toString());
-                gettingActivity.startActivity(goTasksDetailsIntent);
-            }
+        myTaskViewHolder.setOnClickListener(view -> {
+            Intent goTasksDetailsIntent = new Intent(gettingActivity, TaskDetailActivity.class);
+            goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_TITLE_TAG, task.getTitle());
+            goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_BODY_TAG, task.getBody());
+            goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_STATE_TAG, task.getState().toString());
+            gettingActivity.startActivity(goTasksDetailsIntent);
         });
 
 

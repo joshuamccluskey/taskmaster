@@ -1,11 +1,11 @@
 package com.joshuamccluskey.taskmaster.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,20 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Task;
-import com.amplifyframework.datastore.generated.model.Team;
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
 
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 
 public class MyTasksActivity extends AppCompatActivity {
@@ -101,6 +95,7 @@ public class MyTasksActivity extends AppCompatActivity {
 
 
         // onResume needs to be outside of on Create all methods taken out of onCreate
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         public void onResume(){
             super.onResume();
@@ -123,9 +118,7 @@ public class MyTasksActivity extends AppCompatActivity {
                             }
 
                         }
-                        runOnUiThread(() ->{
-                            myTasksListRecyclerViewAdapter.notifyDataSetChanged();
-                        });
+                        runOnUiThread(() -> myTasksListRecyclerViewAdapter.notifyDataSetChanged());
 
                     },
                     failure -> Log.i(TAG, "Task creation failed ")
@@ -137,41 +130,32 @@ public class MyTasksActivity extends AppCompatActivity {
 
         public void addTaskButtonSetUp(){
             Button addTaskButton = findViewById(R.id.goToAddTaskButton);
-            addTaskButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    System.out.println("Add Task Button!");
-                    Log.e(TAG, "onClick: Add Task Button!");
-                    Intent goToAddTaskIntent = new Intent(MyTasksActivity.this, AddTaskActivity.class);
-                    MyTasksActivity.this.startActivity(goToAddTaskIntent);
-                }
+            addTaskButton.setOnClickListener(view -> {
+                System.out.println("Add Task Button!");
+                Log.e(TAG, "onClick: Add Task Button!");
+                Intent goToAddTaskIntent = new Intent(MyTasksActivity.this, AddTaskActivity.class);
+                MyTasksActivity.this.startActivity(goToAddTaskIntent);
             });
         }
 
         public void allTasksButtonSetUp() {
 
             Button allTasksButton = findViewById(R.id.allTasksButton);
-            allTasksButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    System.out.println("All Tasks Button!");
-                    Log.e(TAG, "onClick: All Tasks Button!");
-                    Intent goToAllTasksIntent = new Intent(MyTasksActivity.this, AllTasksActivity.class);
-                    startActivity(goToAllTasksIntent);
-                }
+            allTasksButton.setOnClickListener(view -> {
+                System.out.println("All Tasks Button!");
+                Log.e(TAG, "onClick: All Tasks Button!");
+                Intent goToAllTasksIntent = new Intent(MyTasksActivity.this, AllTasksActivity.class);
+                startActivity(goToAllTasksIntent);
             });
         }
 
         public void settingsImageButtonSetUp() {
             ImageButton settingsImageButton = findViewById(R.id.settingsImageButton);
-            settingsImageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    System.out.println("Settings Image Button!");
-                    Log.e(TAG, "onClick: Settings Image Button!");
-                    Intent goToSettingsIntent = new Intent(MyTasksActivity.this, SettingsActivity.class);
-                    startActivity(goToSettingsIntent);
-                }
+            settingsImageButton.setOnClickListener(view -> {
+                System.out.println("Settings Image Button!");
+                Log.e(TAG, "onClick: Settings Image Button!");
+                Intent goToSettingsIntent = new Intent(MyTasksActivity.this, SettingsActivity.class);
+                startActivity(goToSettingsIntent);
             });
         }
 

@@ -42,7 +42,7 @@ public class MyTasksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_tasks);
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         tasksList = new ArrayList<>();
-//        tasksList = taskMasterDatabase.taskDao().findAll();
+
 //        String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
 //        com.amplifyframework.datastore.generated.model.Task tasker =
 //            com.amplifyframework.datastore.generated.model.Task.builder()

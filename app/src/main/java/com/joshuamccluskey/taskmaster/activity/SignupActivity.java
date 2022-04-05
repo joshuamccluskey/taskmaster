@@ -24,6 +24,9 @@ public class SignupActivity extends AppCompatActivity {
         signupButton.setOnClickListener(view -> {
             System.out.println("Signup signup Button!");
             Log.e(TAG, "onClick: Signup signup Button!");
+
+            //TODO Sign up
+            //TODO Send email to verify
             Intent goToVerifyIntent = new Intent(SignupActivity.this, VerifyAccountActivity.class);
             SignupActivity.this.startActivity(goToVerifyIntent);
         });

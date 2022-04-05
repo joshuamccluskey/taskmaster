@@ -131,7 +131,7 @@ public class MyTasksActivity extends AppCompatActivity {
 //                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
 //        );
         loginButtonSetUp();
-        logoutButtonSetup();
+//        logoutButtonSetup();
         addTaskButtonSetUp();
         allTasksButtonSetUp();
         settingsImageButtonSetUp();

@@ -43,6 +43,12 @@ public class MyTasksActivity extends AppCompatActivity {
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         tasksList = new ArrayList<>();
 
+        Amplify.Auth.fetchAuthSession(
+                result -> Log.i("AmplifyQuickstart", result.toString()),
+                error -> Log.e("AmplifyQuickstart", error.toString())
+        );
+
+
 //        String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
 //        com.amplifyframework.datastore.generated.model.Task tasker =
 //            com.amplifyframework.datastore.generated.model.Task.builder()

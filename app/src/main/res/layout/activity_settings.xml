@@ -69,8 +69,9 @@
         android:id="@+id/teamTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="36dp"
         android:text="@string/team_setting"
-        app:layout_constraintTop_toBottomOf="@+id/usernameInputEditText"
-        tools:layout_editor_absoluteX="56dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameInputEditText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

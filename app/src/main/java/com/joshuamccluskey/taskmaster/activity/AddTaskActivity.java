@@ -1,7 +1,6 @@
 package com.joshuamccluskey.taskmaster.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +28,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class AddTaskActivity extends AppCompatActivity {
-    SharedPreferences teamPreferences;
     public static final String TAG = "ADD TASK";
     Spinner teamSpinner = null;
     Spinner statusSpinner = null;
@@ -44,7 +42,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         TextView submittedText = findViewById(R.id.submittedText);
 
-        teamFuture = new CompletableFuture<List<Team>>();
+        teamFuture = new CompletableFuture<>();
         statusSpinner =  findViewById(R.id.statusSpinner);
         statusSpinner.setAdapter(new ArrayAdapter<>(
                 this,
@@ -66,14 +64,10 @@ public class AddTaskActivity extends AppCompatActivity {
                         teamNames.add(databaseTeam.getTeamName());
                     }
                     teamFuture.complete(teamList);
-                    runOnUiThread(() ->{
-                        teamSpinner.setAdapter(new ArrayAdapter<>(
-                            this,
-                            android.R.layout.simple_spinner_item,
-                            teamNames));
-
-
-                    });
+                    runOnUiThread(() -> teamSpinner.setAdapter(new ArrayAdapter<>(
+                        this,
+                        android.R.layout.simple_spinner_item,
+                        teamNames)));
 
                 },
                 failure -> {
@@ -87,39 +81,35 @@ public class AddTaskActivity extends AppCompatActivity {
 
 
         Button submitTaskButton = findViewById (R.id.submitTaskButton);
-        submitTaskButton.setOnClickListener(new View.OnClickListener(){
+        submitTaskButton.setOnClickListener(view -> {
+            String title = ((EditText)findViewById(R.id.taskTitleEditText)).getText().toString();
+            String body = ((EditText)findViewById(R.id.doSomethingEditText)).getText().toString();
+            String currentDate = DateUtils.formatISO8601Date(new Date());
+            String selectedTeamString = teamSpinner.getSelectedItem().toString();
+            Team selectedTeam = teamList.stream().filter(team -> team.getTeamName().equals(selectedTeamString)).findAny().orElseThrow(RuntimeException::new);
 
-            @Override
-            public void onClick(View view) {
-                String title = ((EditText)findViewById(R.id.taskTitleEditText)).getText().toString();
-                String body = ((EditText)findViewById(R.id.doSomethingEditText)).getText().toString();
-                String currentDate = DateUtils.formatISO8601Date(new Date());
-                String selectedTeamString = teamSpinner.getSelectedItem().toString();
-                Team selectedTeam = teamList.stream().filter(team -> team.getTeamName().equals(selectedTeamString)).findAny().orElseThrow(RuntimeException::new);
+            Task newTask  = Task.builder()
+                    .title(title)
+                    .body(body)
+                    .state((StateEnum)statusSpinner.getSelectedItem())
+                    .date(new Temporal.DateTime(currentDate))
+                    .team(selectedTeam)
+                    .build();
 
-                Task newTask  = Task.builder()
-                        .title(title)
-                        .body(body)
-                        .state((StateEnum)statusSpinner.getSelectedItem())
-                        .date(new Temporal.DateTime(currentDate))
-                        .team(selectedTeam)
-                        .build();
+    Amplify.API.mutate(
+            ModelMutation.create(newTask),
+            successResponse -> Log.i(TAG, "AddTaskActivity.onClick: made a Task"),
+            failureResponse -> Log.i(TAG, "AddTaskActivity.onClick: failed" + failureResponse)
+    );
 
-        Amplify.API.mutate(
-                ModelMutation.create(newTask),
-                successResponse -> Log.i(TAG, "AddTaskActivity.onClick: made a Task"),
-                failureResponse -> Log.i(TAG, "AddTaskActivity.onClick: failed" + failureResponse)
-        );
+            submittedText.setVisibility(View.VISIBLE);
+            Intent goToAllTasksIntent = new Intent(AddTaskActivity.this, MyTasksActivity.class);
 
-                submittedText.setVisibility(View.VISIBLE);
-                Intent goToAllTasksIntent = new Intent(AddTaskActivity.this, MyTasksActivity.class);
-
-                startActivity(goToAllTasksIntent);
+            startActivity(goToAllTasksIntent);
 
 
 
 
-            }
         });
 
 

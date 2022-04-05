@@ -14,7 +14,14 @@ Polish app up with all features complete and deploy app to the Google Play Store
 
 ### Updates
 - Publish to the Google Play Store
-
+- Publish complete under production review
+![googlePlayStoreLab34](screenshots/googlePlayStoreLab34.png)
+  
+- Team Conditional Render
+![mainActivityLab34](screenshots/mainActivityLab34.png)
+![addTaskLab34](screenshots/addTaskLab34.png)
+![teamChangeLab3](screenshots/teamChangeLab34.png)
+![teamTaskLab34](screenshots/teamTaskLab34.png)
 
 - Update settings to choose team and conditionally render tasks for that team
   - *Bug on Setting adding team setting*

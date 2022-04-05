@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_blue"
     tools:context=".activity.VerifyAccountActivity">
 
     <EditText
@@ -22,11 +23,11 @@
 
     <TextView
         android:id="@+id/passwordSignupTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="79dp"
+        android:layout_height="39dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="96dp"
-        android:text="@string/password"
+        android:layout_marginTop="88dp"
+        android:text="@string/verification"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailSignupTextView" />
 
@@ -36,10 +37,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:ems="10"
-        android:hint="@string/password"
+        android:hint="@string/verification"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.226"
+        app:layout_constraintHorizontal_bias="0.091"
         app:layout_constraintStart_toEndOf="@+id/passwordSignupTextView"
         app:layout_constraintTop_toBottomOf="@+id/verifyTextEmailAddress" />
 
@@ -54,21 +55,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/signupButton"
+        android:id="@+id/verifyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="104dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verifyTextPassword"
-        tools:text="@string/signup" />
+        tools:text="@string/verify" />
 
     <TextView
         android:id="@+id/verifyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
-        android:text="@string/signup"
+        android:text="@string/verify"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/verifyTextEmailAddress"
         app:layout_constraintStart_toStartOf="parent"

@@ -23,8 +23,11 @@ public class VerifyAccountActivity extends AppCompatActivity {
         verifyButton.setOnClickListener(view -> {
             System.out.println("Verify Button!");
             Log.e(TAG, "onClick: Verify Button!");
-            Intent goToMainIntent = new Intent(VerifyAccountActivity.this, MyTasksActivity.class);
+
+            Intent goToMainIntent = new Intent(VerifyAccountActivity.this, LoginActivity.class);
             VerifyAccountActivity.this.startActivity(goToMainIntent);
         });
     }
+
+
 }

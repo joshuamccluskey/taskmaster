@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.joshuamccluskey.taskmaster.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class VerifyAccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_verify_account);
     }
 }

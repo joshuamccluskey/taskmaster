@@ -13,7 +13,9 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.7536458333333333" />
         <entry key="app/src/main/res/layout/activity_my_tasks.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.4662036003644469" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.23599828986746474" />
         <entry key="app/src/main/res/layout/activity_task_detail.xml" value="0.6549807610089782" />
+        <entry key="app/src/main/res/layout/activity_verify_account.xml" value="0.5994090333474039" />
         <entry key="app/src/main/res/layout/fragment_my_tasks_list.xml" value="0.3373493975903614" />
       </map>
     </option>

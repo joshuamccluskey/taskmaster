@@ -50,22 +50,44 @@ public class MyTasksActivity extends AppCompatActivity {
 //                error -> Log.e("AmplifyQuickstart", error.toString())
 //        );
 
-        Amplify.Auth.signUp(
-                "jpiff57@gmail.com",
-                "123",
-                    AuthSignUpOptions.builder()
-                            .userAttribute(AuthUserAttributeKey.email(), "jpiff57@gmail.com")
-                            .userAttribute(AuthUserAttributeKey.preferredUsername(), "Josh")
-                            .build(),
-                        good -> {
-                          Log.i(TAG, "Signup completed: " + good.toString());
-                        },
-                        bad -> {
-                            Log.i(TAG, "Signup not completed: " + bad.toString());
-                        }
+//        Amplify.Auth.signUp(
+//                "jpiff57@gmail.com",
+//                "123",
+//                    AuthSignUpOptions.builder()
+//                            .userAttribute(AuthUserAttributeKey.email(), "jpiff57@gmail.com")
+//                            .userAttribute(AuthUserAttributeKey.preferredUsername(), "Josh")
+//                            .build(),
+//                        good -> {
+//                          Log.i(TAG, "Signup completed: " + good.toString());
+//                        },
+//                        bad -> {
+//                            Log.i(TAG, "Signup not completed: " + bad.toString());
+//                        }
+//
+//        );
+
+//        Amplify.Auth.signIn(
+//                "jpiff57@gmail.com",
+//                "123",
+//                success -> {
+//                    Log.i(TAG, "Login completed: " + success.toString());
+//                },
+//                failure -> {
+//                    Log.i(TAG, "Login not completed: " + failure.toString());
+//                }
+//
+//        );
+
+
+                Amplify.Auth.signOut(
+                        () -> {
+                    Log.i(TAG, "Logout completed: ");
+                },
+                failure -> {
+                    Log.i(TAG, "Logout not completed: " + failure.toString());
+                }
 
         );
-
 
 //        String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
 //        com.amplifyframework.datastore.generated.model.Task tasker =

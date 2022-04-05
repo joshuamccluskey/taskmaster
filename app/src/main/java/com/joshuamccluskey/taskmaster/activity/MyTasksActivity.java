@@ -130,7 +130,8 @@ public class MyTasksActivity extends AppCompatActivity {
 //                successResponse -> Log.i(TAG, "MyTaskActivity.onCreate: made a Team"),
 //                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
 //        );
-
+        loginButtonSetUp();
+        logoutButtonSetup();
         addTaskButtonSetUp();
         allTasksButtonSetUp();
         settingsImageButtonSetUp();
@@ -173,6 +174,16 @@ public class MyTasksActivity extends AppCompatActivity {
 
             myTasksListRecycleViewSetUp();
         }
+
+    public void loginButtonSetUp(){
+        Button loginMainButton = findViewById(R.id.logInMainButton);
+        loginMainButton.setOnClickListener(view -> {
+            System.out.println("Login Button!");
+            Log.e(TAG, "onClick: Login Button!");
+            Intent goToLoginIntent = new Intent(MyTasksActivity.this, LoginActivity.class);
+            MyTasksActivity.this.startActivity(goToLoginIntent);
+        });
+    }
 
         public void addTaskButtonSetUp(){
             Button addTaskButton = findViewById(R.id.goToAddTaskButton);

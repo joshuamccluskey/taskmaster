@@ -80,19 +80,19 @@
         app:layout_constraintVertical_bias="0.101" />
 
     <Button
-        android:id="@+id/logInButton"
+        android:id="@+id/logInMainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginBottom="28dp"
         android:text="@string/log_in"
         app:layout_constraintBottom_toTopOf="@+id/tasksListRecycleView"
-        app:layout_constraintEnd_toStartOf="@+id/logoutButton"
+        app:layout_constraintEnd_toStartOf="@+id/logoutMainButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/logoutButton"
+        android:id="@+id/logoutMainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

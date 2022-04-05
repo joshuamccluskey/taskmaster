@@ -62,7 +62,7 @@
         android:layout_marginTop="84dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTextPassword"
-        tools:text="@string/submit" />
+        tools:text="@string/log_in" />
 
     <TextView
         android:id="@+id/loginTextView"

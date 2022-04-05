@@ -79,15 +79,15 @@ public class MyTasksActivity extends AppCompatActivity {
 //        );
 
 
-                Amplify.Auth.signOut(
-                        () -> {
-                    Log.i(TAG, "Logout completed: ");
-                },
-                failure -> {
-                    Log.i(TAG, "Logout not completed: " + failure.toString());
-                }
-
-        );
+//                Amplify.Auth.signOut(
+//                        () -> {
+//                    Log.i(TAG, "Logout completed: ");
+//                },
+//                failure -> {
+//                    Log.i(TAG, "Logout not completed: " + failure.toString());
+//                }
+//
+//        );
 
 //        String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
 //        com.amplifyframework.datastore.generated.model.Task tasker =

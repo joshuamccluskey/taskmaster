@@ -16,7 +16,7 @@ import com.joshuamccluskey.taskmaster.R;
 
 public class SignupActivity extends AppCompatActivity {
     public final String TAG = "SignUpActivity";
-    public final String TAG_SIGNUP_EMAIL = "Signup_Email";
+    static String TAG_SIGNUP_EMAIL = "Signup_Email";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

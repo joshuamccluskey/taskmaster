@@ -50,21 +50,6 @@ public class MyTasksActivity extends AppCompatActivity {
 //                error -> Log.e("AmplifyQuickstart", error.toString())
 //        );
 
-//        Amplify.Auth.signUp(
-//                "jpiff57@gmail.com",
-//                "123",
-//                    AuthSignUpOptions.builder()
-//                            .userAttribute(AuthUserAttributeKey.email(), "jpiff57@gmail.com")
-//                            .userAttribute(AuthUserAttributeKey.preferredUsername(), "Josh")
-//                            .build(),
-//                        good -> {
-//                          Log.i(TAG, "Signup completed: " + good.toString());
-//                        },
-//                        bad -> {
-//                            Log.i(TAG, "Signup not completed: " + bad.toString());
-//                        }
-//
-//        );
 
 //        Amplify.Auth.signIn(
 //                "jpiff57@gmail.com",
@@ -131,7 +116,7 @@ public class MyTasksActivity extends AppCompatActivity {
 //                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
 //        );
         loginButtonSetUp();
-//        logoutButtonSetup();
+        logoutButtonSetup();
         addTaskButtonSetUp();
         allTasksButtonSetUp();
         settingsImageButtonSetUp();
@@ -180,6 +165,16 @@ public class MyTasksActivity extends AppCompatActivity {
         loginMainButton.setOnClickListener(view -> {
             System.out.println("Login Button!");
             Log.e(TAG, "onClick: Login Button!");
+            Intent goToLoginIntent = new Intent(MyTasksActivity.this, LoginActivity.class);
+            MyTasksActivity.this.startActivity(goToLoginIntent);
+        });
+    }
+
+    public void logoutButtonSetup(){
+        Button logoutMainButton = findViewById(R.id.logoutMainButton);
+        logoutMainButton.setOnClickListener(view -> {
+            System.out.println("LogoutButton!");
+            Log.e(TAG, "onClick: Logout Button!");
             Intent goToLoginIntent = new Intent(MyTasksActivity.this, LoginActivity.class);
             MyTasksActivity.this.startActivity(goToLoginIntent);
         });

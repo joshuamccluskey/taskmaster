@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.e(TAG, "onClick: Login Button!");
 
             //TODO Add Login
-            Intent goToLoginIntent = new Intent(LoginActivity.this, VerifyAccountActivity.class);
+            Intent goToLoginIntent = new Intent(LoginActivity.this, MyTasksActivity.class);
             LoginActivity.this.startActivity(goToLoginIntent);
         });
     }

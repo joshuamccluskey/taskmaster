@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUserAttributeKey;
+import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.joshuamccluskey.taskmaster.R;
@@ -43,9 +45,25 @@ public class MyTasksActivity extends AppCompatActivity {
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         tasksList = new ArrayList<>();
 
-        Amplify.Auth.fetchAuthSession(
-                result -> Log.i("AmplifyQuickstart", result.toString()),
-                error -> Log.e("AmplifyQuickstart", error.toString())
+//        Amplify.Auth.fetchAuthSession(
+//                result -> Log.i("AmplifyQuickstart", result.toString()),
+//                error -> Log.e("AmplifyQuickstart", error.toString())
+//        );
+
+        Amplify.Auth.signUp(
+                "jpiff57@gmail.com",
+                "123",
+                    AuthSignUpOptions.builder()
+                            .userAttribute(AuthUserAttributeKey.email(), "jpiff57@gmail.com")
+                            .userAttribute(AuthUserAttributeKey.preferredUsername(), "Josh")
+                            .build(),
+                        good -> {
+                          Log.i(TAG, "Signup completed: " + good.toString());
+                        },
+                        bad -> {
+                            Log.i(TAG, "Signup not completed: " + bad.toString());
+                        }
+
         );
 
 

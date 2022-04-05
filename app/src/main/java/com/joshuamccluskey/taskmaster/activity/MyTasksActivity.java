@@ -51,17 +51,6 @@ public class MyTasksActivity extends AppCompatActivity {
 //        );
 
 
-//        Amplify.Auth.signIn(
-//                "jpiff57@gmail.com",
-//                "123",
-//                success -> {
-//                    Log.i(TAG, "Login completed: " + success.toString());
-//                },
-//                failure -> {
-//                    Log.i(TAG, "Login not completed: " + failure.toString());
-//                }
-//
-//        );
 
 
 //                Amplify.Auth.signOut(

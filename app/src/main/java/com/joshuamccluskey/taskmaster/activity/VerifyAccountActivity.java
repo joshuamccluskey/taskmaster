@@ -14,7 +14,7 @@ import com.joshuamccluskey.taskmaster.R;
 
 public class VerifyAccountActivity extends AppCompatActivity {
     String TAG = "VerifyAccountActivity";
-    String VERIFY_TAG =  "VerifyAccountTAG";
+    static String TAG_VERIFY =  "VerifyAccountTAG";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

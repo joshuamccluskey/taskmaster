@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_blue"
-    tools:context=".activity.MyTasksActivity">
+    tools:context=".activity.EditTaskActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="36dp"
-        android:text="@string/add_task"
+        android:text="@string/edit_task"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.228"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/doSomethingEditText"
+        android:id="@+id/editDescriptionEditText"
         android:layout_width="303dp"
         android:layout_height="68dp"
         android:layout_marginTop="24dp"
@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.377"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taskTitleEditText"
+        app:layout_constraintTop_toBottomOf="@+id/editTaskNameEditText"
         tools:ignore="TextContrastCheck" />
 
     <TextView
@@ -46,10 +46,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taskTitleEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/editTaskNameEditText" />
 
     <EditText
-        android:id="@+id/taskTitleEditText"
+        android:id="@+id/editTaskNameEditText"
         android:layout_width="303dp"
         android:layout_height="55dp"
         android:layout_marginTop="44dp"
@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.188"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/editTeamSpinner"
         tools:ignore="TextContrastCheck" />
 
     <TextView
@@ -99,27 +99,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.284"
         app:layout_constraintStart_toEndOf="@+id/editSaveTaskButton"
-        app:layout_constraintTop_toBottomOf="@+id/teamSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/editTeamSpinner" />
 
     <Spinner
-        android:id="@+id/statusSpinner"
+        android:id="@+id/editStatusSpinner"
         android:layout_width="303dp"
         android:layout_height="48dp"
         android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.379"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doSomethingEditText"
+        app:layout_constraintTop_toBottomOf="@+id/editDescriptionEditText"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Spinner
-        android:id="@+id/teamSpinner"
+        android:id="@+id/editTeamSpinner"
         android:layout_width="303dp"
         android:layout_height="48dp"
         android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/editStatusSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

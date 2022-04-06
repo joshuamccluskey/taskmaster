@@ -80,7 +80,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
 
 
-        Button submitTaskButton = findViewById (R.id.submitTaskButton);
+        Button submitTaskButton = findViewById (R.id.editSaveTaskButton);
         submitTaskButton.setOnClickListener(view -> {
             String title = ((EditText)findViewById(R.id.taskTitleEditText)).getText().toString();
             String body = ((EditText)findViewById(R.id.doSomethingEditText)).getText().toString();

@@ -4,11 +4,14 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
@@ -33,11 +36,22 @@ public class EditTaskActivity extends AppCompatActivity {
     List<Team> teamList = new  ArrayList<>();
     List<String> teamNames = new  ArrayList<>();
     ActivityResultLauncher<Intent> activityResultLauncher;
+    SharedPreferences userPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
+        userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+        Intent callingIntent = getIntent();
+        String taskTitle = callingIntent.getStringExtra(MyTasksActivity.TASK_DETAIL_TITLE_TAG);
+        String taskBody = callingIntent.getStringExtra(MyTasksActivity.TASK_DETAIL_BODY_TAG);
+        String taskState = callingIntent.getStringExtra(MyTasksActivity.TASK_DETAIL_STATE_TAG);
+        ((EditText)findViewById(R.id.editDescriptionEditText)).setText(getString(R.string.task_title, taskTitle));
+//        ((EditText)findViewById(R.id.editDescriptionEditText).setText(getString(R.string.task_body, taskBody));
+//        ((TextView)findViewById(R.id.taskStateTextView)).setText(getString(R.string.task_state, taskState));
     }
 
 //    public void setupEditTaskData(){

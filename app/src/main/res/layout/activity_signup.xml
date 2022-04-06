@@ -12,12 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="60dp"
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintHorizontal_bias="0.023"
         app:layout_constraintStart_toEndOf="@+id/emailSignupTextView"
         app:layout_constraintTop_toBottomOf="@+id/signupTextUserame" />
 
@@ -25,12 +25,12 @@
         android:id="@+id/signupTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="60dp"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.217"
+        app:layout_constraintHorizontal_bias="0.243"
         app:layout_constraintStart_toEndOf="@+id/passwordSignupTextView"
         app:layout_constraintTop_toBottomOf="@+id/signupTextEmailAddress" />
 
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="72dp"
         android:text="@string/password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailSignupTextView" />
@@ -80,19 +80,22 @@
         android:id="@+id/signupTextUserame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="84dp"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/signupTextView"
-        tools:layout_editor_absoluteX="112dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupTextView" />
 
     <TextView
         android:id="@+id/signupTextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
+        android:layout_width="67dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="124dp"
+        android:text="@string/username"
         app:layout_constraintEnd_toStartOf="@+id/signupTextUserame"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signupTextView"
         tools:text="@string/username" />

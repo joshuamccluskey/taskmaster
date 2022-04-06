@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUser;
+import com.amplifyframework.auth.AuthUserAttribute;
 import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
@@ -42,7 +45,9 @@ public class MyTasksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
+
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         tasksList = new ArrayList<>();
 
 //        Amplify.Auth.fetchAuthSession(
@@ -121,8 +126,42 @@ public class MyTasksActivity extends AppCompatActivity {
         public void onResume(){
             super.onResume();
 
-            String username = userPreferences.getString(SettingsActivity.USERNAME_TAG, "No Username");
-            ((TextView)findViewById(R.id.usernameTextView)).setText(getString(R.string.username_username, username));
+//            String username = userPreferences.getString(SettingsActivity.USERNAME_TAG, "No Username");
+//            ((TextView)findViewById(R.id.usernameTextView)).setText(getString(R.string.username_username, username));
+
+            AuthUser currentUser = Amplify.Auth.getCurrentUser();
+            String preferredUserName = "";
+            Button loginButton = findViewById(R.id.logInMainButton);
+            Button logoutButton = findViewById(R.id.logoutMainButton);
+
+            if(currentUser == null){
+                loginButton.setVisibility(View.VISIBLE);
+                logoutButton.setVisibility(View.INVISIBLE);
+            } else {
+                Log.i(TAG, "onCreate: Username:  " + preferredUserName);
+                loginButton.setVisibility(View.INVISIBLE);
+                logoutButton.setVisibility(View.VISIBLE);
+
+
+                Amplify.Auth.fetchUserAttributes(
+                        success ->
+                        {
+                            for (AuthUserAttribute userInfo : success) {
+                                if (userInfo.getKey().getKeyString().equals("preferred_username")) {
+                                    String usersName = userInfo.getValue();
+                                    runOnUiThread(() -> {
+                                        ((TextView) findViewById(R.id.usernameTextView)).setText(usersName);
+                                    });
+
+
+                                }
+                            }
+                        },
+                        failure -> {
+                            Log.i(TAG, "onCreate: Username not found : " + failure);
+                        }
+                );
+            }
 
             Amplify.API.query(
                     ModelQuery.list(Task.class),

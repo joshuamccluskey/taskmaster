@@ -7,6 +7,25 @@ Andoroid task management application. Manage all your tasks from one app.
 - [app-debug.apk](app-debug.apk)
 
 
+
+# Daily Log 04.05.2022
+
+### Overview
+
+Setup S3 to allow user to store images for each task on the app
+
+### Updates
+- Build Log in Log out flow
+
+![TBD]()
+
+### Features
+- As a user I want to upload files to each task
+
+### Work Time
+- TBD
+
+
 # Daily Log 04.04.2022
 
 ### Overview

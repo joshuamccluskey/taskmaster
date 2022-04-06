@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.joshuamccluskey.taskmaster.R;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class EditTaskActivity extends AppCompatActivity {
     String TAG = "editTaskActivity";
@@ -42,23 +44,79 @@ public class EditTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
-        userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
-        Intent callingIntent = getIntent();
-        String taskTitle = callingIntent.getStringExtra(MyTasksActivity.TASK_DETAIL_TITLE_TAG);
-        String taskBody = callingIntent.getStringExtra(MyTasksActivity.TASK_DETAIL_BODY_TAG);
-        String taskState = callingIntent.getStringExtra(MyTasksActivity.TASK_DETAIL_STATE_TAG);
-        ((EditText)findViewById(R.id.editDescriptionEditText)).setText(getString(R.string.task_title, taskTitle));
-//        ((EditText)findViewById(R.id.editDescriptionEditText).setText(getString(R.string.task_body, taskBody));
-//        ((TextView)findViewById(R.id.taskStateTextView)).setText(getString(R.string.task_state, taskState));
+
     }
 
-//    public void setupEditTaskData(){
-//        Intent
-//    }
+ public void elementsSetUp(){
+     Intent gettingIntent = getIntent();
+     String taskId = null;
+     if (gettingIntent != null){
+         taskId = gettingIntent.getStringExtra(MyTasksActivity.TASK_ID_TAG);
+     }
 
-    public void setupEditSpinners(){
+     String taskIdFix = taskId;
+     Amplify.API.query(
+             ModelQuery.list(Task.class),
+             good -> {
+                 Log.i(TAG, "elementsSetUp: everytihing is good");
+                 for (Task databaseTask : good.getData()){
+                     if (databaseTask.getId().equals(taskIdFix)){
+                         taskCompletableFuture.complete(databaseTask);
+                     }
+                 }
+                 runOnUiThread(() ->{
+
+                 });
+
+             },
+             bad -> {
+                 Log.i(TAG, "elementsSetUp: somehting went wrong can't get task", bad);
+             }
+     );
+    try {
+        taskToEdit = taskCompletableFuture.get();
+    }catch (InterruptedException interruptedException) {
+        Log.e(TAG, "elementsSetUp: There is an error ", interruptedException);
+        Thread.currentThread().interrupt();
+    }catch (ExecutionException executionException) {
+        Log.e(TAG, "elementsSetUp: There is an error ", executionException );
+    }
+
+    editTaskNameEditText = ((EditText) findViewById(R.id.editTaskNameEditText));
+    editTaskNameEditText.setText(taskToEdit.getTitle());
+    editDescriptionEditText = ((EditText) findViewById(R.id.editDescriptionEditText));
+    editDescriptionEditText.setText(taskToEdit.getBody());
+    editSpinnerSetup();
+
+   }
+    public void editSaveButtonSetup(){
+        Button editSaveTaskButton = findViewById(R.id.editSaveTaskButton);
+        editSaveTaskButton.setOnClickListener(view -> {
+            saveTask("");
+        });
+    }
+
+    public void saveTask(String S3Key) {
+        teamList = null;
+        String getTeamToSave = editTeamSpinner.getSelectedItem().toString();
+        try {
+            teamList = teamListFuture.get();
+        }catch (InterruptedException interruptedException) {
+            Log.e(TAG, "saveTask: Didn't work task not retrieved",interruptedException);
+            Thread.currentThread().interrupt();
+        } catch (ExecutionException executionException){
+            Log.e(TAG, "saveTask: Didn't work task encountered execution exception", executionException);
+        }
+        Team teamToSave = teamList.stream().filter(team -> team.getTeamName().equals(getTeamToSave)).findAny().orElseThrow(RuntimeException::new);
+        Task taskToSave = Task.builder()
+                .title(editTaskNameEditText.getText().toString())
+                .id(taskToEdit.getId())
+                .body(editDescriptionEditText.getText().toString())
+                .state(teamToSave);
+    }
+    public void editSpinnerSetup(){
         editStatusSpinner = findViewById(R.id.editStatusSpinner);
 
         teamListFuture = new CompletableFuture<>();

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -15,6 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUser;
+import com.amplifyframework.auth.AuthUserAttribute;
+import com.amplifyframework.auth.AuthUserAttributeKey;
+import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.joshuamccluskey.taskmaster.R;
@@ -40,8 +45,28 @@ public class MyTasksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
+
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         tasksList = new ArrayList<>();
+
+//        Amplify.Auth.fetchAuthSession(
+//                result -> Log.i("AmplifyQuickstart", result.toString()),
+//                error -> Log.e("AmplifyQuickstart", error.toString())
+//        );
+
+
+
+
+//                Amplify.Auth.signOut(
+//                        () -> {
+//                    Log.i(TAG, "Logout completed: ");
+//                },
+//                failure -> {
+//                    Log.i(TAG, "Logout not completed: " + failure.toString());
+//                }
+//
+//        );
 
 //        String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
 //        com.amplifyframework.datastore.generated.model.Task tasker =
@@ -84,7 +109,8 @@ public class MyTasksActivity extends AppCompatActivity {
 //                successResponse -> Log.i(TAG, "MyTaskActivity.onCreate: made a Team"),
 //                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
 //        );
-
+        loginButtonSetUp();
+        logoutButtonSetup();
         addTaskButtonSetUp();
         allTasksButtonSetUp();
         settingsImageButtonSetUp();
@@ -100,8 +126,42 @@ public class MyTasksActivity extends AppCompatActivity {
         public void onResume(){
             super.onResume();
 
-            String username = userPreferences.getString(SettingsActivity.USERNAME_TAG, "No Username");
-            ((TextView)findViewById(R.id.usernameTextView)).setText(getString(R.string.username_username, username));
+//            String username = userPreferences.getString(SettingsActivity.USERNAME_TAG, "No Username");
+//            ((TextView)findViewById(R.id.usernameTextView)).setText(getString(R.string.username_username, username));
+
+            AuthUser currentUser = Amplify.Auth.getCurrentUser();
+            String preferredUserName = "";
+            Button loginButton = findViewById(R.id.logInMainButton);
+            Button logoutButton = findViewById(R.id.logoutMainButton);
+
+            if(currentUser == null){
+                loginButton.setVisibility(View.VISIBLE);
+                logoutButton.setVisibility(View.INVISIBLE);
+            } else {
+                Log.i(TAG, "onCreate: Username:  " + preferredUserName);
+                loginButton.setVisibility(View.INVISIBLE);
+                logoutButton.setVisibility(View.VISIBLE);
+
+
+                Amplify.Auth.fetchUserAttributes(
+                        success ->
+                        {
+                            for (AuthUserAttribute userInfo : success) {
+                                if (userInfo.getKey().getKeyString().equals("preferred_username")) {
+                                    String usersName = userInfo.getValue();
+                                    runOnUiThread(() -> {
+                                        ((TextView) findViewById(R.id.usernameTextView)).setText(usersName);
+                                    });
+
+
+                                }
+                            }
+                        },
+                        failure -> {
+                            Log.i(TAG, "onCreate: Username not found : " + failure);
+                        }
+                );
+            }
 
             Amplify.API.query(
                     ModelQuery.list(Task.class),
@@ -127,6 +187,26 @@ public class MyTasksActivity extends AppCompatActivity {
 
             myTasksListRecycleViewSetUp();
         }
+
+    public void loginButtonSetUp(){
+        Button loginMainButton = findViewById(R.id.logInMainButton);
+        loginMainButton.setOnClickListener(view -> {
+            System.out.println("Login Button!");
+            Log.e(TAG, "onClick: Login Button!");
+            Intent goToLoginIntent = new Intent(MyTasksActivity.this, LoginActivity.class);
+            MyTasksActivity.this.startActivity(goToLoginIntent);
+        });
+    }
+
+    public void logoutButtonSetup(){
+        Button logoutMainButton = findViewById(R.id.logoutMainButton);
+        logoutMainButton.setOnClickListener(view -> {
+            System.out.println("LogoutButton!");
+            Log.e(TAG, "onClick: Logout Button!");
+            Intent goToLoginIntent = new Intent(MyTasksActivity.this, LoginActivity.class);
+            MyTasksActivity.this.startActivity(goToLoginIntent);
+        });
+    }
 
         public void addTaskButtonSetUp(){
             Button addTaskButton = findViewById(R.id.goToAddTaskButton);

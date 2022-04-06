@@ -1,10 +1,35 @@
 # Task Master
-Andorid task management application. Manage all your tasks from one app.
+Andoroid task management application. Manage all your tasks from one app.
 
 ## Implementation
 - You can run in app from app/
 - If needed app-debug.apk file in root taskmaster/
 - [app-debug.apk](app-debug.apk)
+
+
+# Daily Log 04.04.2022
+
+### Overview
+
+Setup log in and security for TaskMaster
+
+### Updates
+- Build Log in Log out flow
+
+![loginLab36](screenshots/loginLab36.png)
+![signupLab36](screenshots/signupLab36.png)
+![verifyEmailLab36](screenshots/verifyEmailLab36.png)
+![verificationLab36](screenshots/verificationLab36.png)
+![loginAuthLab36](screenshots/loginAuthLab36.png)
+![loginSuccessLab36](screenshots/loginSuccessLab36.png)
+![awsUserAccountLab36](screenshots/awsUserAccountLab36.png)
+
+### Features
+- As a user I want to login and protect my account and task information
+
+### Work Time
+- 7 hours
+
 
 # Daily Log 03.31.2022
 
@@ -38,7 +63,9 @@ Polish app up with all features complete and deploy app to the Google Play Store
 - usernameTest assertion test checking textview of username matches username entered on setting page
 
 ### Work Time
-- TBD
+- 6 Hours
+
+- 4 hours 04.04.2022  Debugged app crash on settings page in order to publish on Google Play
 
 # Daily Log 03.30.2022
 

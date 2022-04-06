@@ -27,5 +27,13 @@
     <string name="task_title_label">Task Title</string>
     <string name="team_setting">Team</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="log_in">Log In</string>
+    <string name="log_out">Log Out</string>
+    <string name="password">Password</string>
+    <string name="verification">Verification Code</string>
+    <string name="email">Email</string>
     <string name="todo">TODO</string>
+    <string name="submit">Submit</string>
+    <string name="signup">Sign Up</string>
+    <string name="verify">Verify</string>
 </resources>

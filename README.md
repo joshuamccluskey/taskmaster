@@ -1,5 +1,5 @@
 # Task Master
-Andoroid task management application. Manage all your tasks from one app.
+Android task management application. Manage all your tasks from one app.
 
 ## Implementation
 - You can run in app from app/

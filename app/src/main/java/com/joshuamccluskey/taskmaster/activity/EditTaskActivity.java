@@ -28,15 +28,13 @@ import java.util.concurrent.ExecutionException;
 
 public class EditTaskActivity extends AppCompatActivity {
     String TAG = "editTaskActivity";
-    Task taskToEdit = null;
-    CompletableFuture<Task> taskCompletableFuture = null;
+    Task taskToEdit;
+    CompletableFuture<Task> taskCompletableFuture;
     Spinner editStatusSpinner = null;
     Spinner editTeamSpinner = null;
     CompletableFuture<List<Team>> teamListFuture = null;
     EditText editTaskNameEditText;
     EditText editDescriptionEditText;
-    List<Team> teamList = new  ArrayList<>();
-    List<String> teamNames = new  ArrayList<>();
     ActivityResultLauncher<Intent> activityResultLauncher;
     SharedPreferences userPreferences;
 
@@ -44,9 +42,15 @@ public class EditTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
+        taskCompletableFuture = new CompletableFuture<>();
+        teamListFuture = new CompletableFuture<>();
+        elementsSetUp();
+
+        Intent gettingIntent = getIntent();
+//        if((gettingIntent != null) && (gettingIntent.getType() != null) && (gettingIntent.getType().startsWith("image")))
 
 
-
+//        editSaveButtonSetup();
     }
 
  public void elementsSetUp(){
@@ -55,24 +59,26 @@ public class EditTaskActivity extends AppCompatActivity {
      if (gettingIntent != null){
          taskId = gettingIntent.getStringExtra(MyTasksActivity.TASK_ID_TAG);
      }
+     String taskId2 = taskId;
 
-     String taskIdFix = taskId;
      Amplify.API.query(
              ModelQuery.list(Task.class),
-             good -> {
-                 Log.i(TAG, "elementsSetUp: everytihing is good");
-                 for (Task databaseTask : good.getData()){
-                     if (databaseTask.getId().equals(taskIdFix)){
+             success -> {
+                 Log.i(TAG, "elementsSetUp: everything is good");
+                 boolean taskFound = false;
+                 for (Task databaseTask : success.getData()){
+                     if (databaseTask.getId().equals(taskId2)){
                          taskCompletableFuture.complete(databaseTask);
+                         taskFound = true;
                      }
                  }
-                 runOnUiThread(() ->{
-
-                 });
+                if (!taskFound){
+                    taskCompletableFuture.complete(null);
+                }
 
              },
-             bad -> {
-                 Log.i(TAG, "elementsSetUp: somehting went wrong can't get task", bad);
+             failure -> {
+                 Log.i(TAG, "elementsSetUp: somehting went wrong can't get task", failure);
              }
      );
     try {
@@ -83,70 +89,41 @@ public class EditTaskActivity extends AppCompatActivity {
     }catch (ExecutionException executionException) {
         Log.e(TAG, "elementsSetUp: There is an error ", executionException );
     }
+    if(taskId != null){
+        editTaskNameEditText = ((EditText) findViewById(R.id.editTaskNameEditText));
+        editTaskNameEditText.setText(taskToEdit.getTitle());
+        editDescriptionEditText = ((EditText) findViewById(R.id.editDescriptionEditText));
+        editDescriptionEditText.setText(taskToEdit.getBody());
+        editSpinnerSetup();
+    }
 
-    editTaskNameEditText = ((EditText) findViewById(R.id.editTaskNameEditText));
-    editTaskNameEditText.setText(taskToEdit.getTitle());
-    editDescriptionEditText = ((EditText) findViewById(R.id.editDescriptionEditText));
-    editDescriptionEditText.setText(taskToEdit.getBody());
-    editSpinnerSetup();
+
+
 
    }
-    public void editSaveButtonSetup(){
-        Button editSaveTaskButton = findViewById(R.id.editSaveTaskButton);
-        editSaveTaskButton.setOnClickListener(view -> {
-            saveTask("");
-        });
-    }
 
-    public void saveTask(String S3Key) {
-        teamList = null;
-        String getTeamToSave = editTeamSpinner.getSelectedItem().toString();
-        try {
-            teamList = teamListFuture.get();
-        }catch (InterruptedException interruptedException) {
-            Log.e(TAG, "saveTask: Didn't work task not retrieved",interruptedException);
-            Thread.currentThread().interrupt();
-        } catch (ExecutionException executionException){
-            Log.e(TAG, "saveTask: Didn't work task encountered execution exception", executionException);
-        }
-        Team teamToSave = teamList.stream().filter(team -> team.getTeamName().equals(getTeamToSave)).findAny().orElseThrow(RuntimeException::new);
-        Task taskToSave = Task.builder()
-                .title(editTaskNameEditText.getText().toString())
-                .id(taskToEdit.getId())
-                .body(editDescriptionEditText.getText().toString())
-                .state(teamToSave);
-    }
     public void editSpinnerSetup(){
-        editStatusSpinner = findViewById(R.id.editStatusSpinner);
-
-        teamListFuture = new CompletableFuture<>();
-        editStatusSpinner =  findViewById(R.id.editStatusSpinner);
-        editStatusSpinner.setAdapter(new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_item,
-                StateEnum.values()));
-
         editTeamSpinner =  findViewById(R.id.editTeamSpinner);
-
-        editStatusSpinner.setSelection(getSpinnerIndex(editStatusSpinner, taskToEdit.getState().toString()));
-
-
 
         Amplify.API.query(
                 ModelQuery.list(Team.class),
                 success -> {
                     Log.i(TAG, "Spinner Info Retrieved");
-
-
-                    for (Team databaseTeam :success.getData()) {
-                        teamList.add(databaseTeam);
-                        teamNames.add(databaseTeam.getTeamName());
+                    List<String> teamNames = new  ArrayList<>();
+                    List<Team> teamList = new  ArrayList<>();
+                    for (Team team :success.getData()) {
+                        teamList.add(team);
+                        teamNames.add(team.getTeamName());
                     }
                     teamListFuture.complete(teamList);
-                    runOnUiThread(() -> editTeamSpinner.setAdapter(new ArrayAdapter<>(
-                            this,
-                            android.R.layout.simple_spinner_item,
-                            teamNames)));
+                    runOnUiThread(() -> {
+                        editTeamSpinner.setAdapter(new ArrayAdapter<>(
+                                this,
+                                android.R.layout.simple_spinner_item,
+                                teamNames));
+                        editTeamSpinner.setSelection(getSpinnerIndex(editTeamSpinner, taskToEdit.getTeam().getTeamName()));
+                    });
+
 
                 },
                 failure -> {
@@ -156,8 +133,41 @@ public class EditTaskActivity extends AppCompatActivity {
                 }
         );
 
-
+        editStatusSpinner = findViewById(R.id.editStatusSpinner);
+        editStatusSpinner.setAdapter(new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                StateEnum.values()));
+        editStatusSpinner.setSelection(getSpinnerIndex(editStatusSpinner, taskToEdit.getState().toString()));
     }
+//    public void editSaveButtonSetup(){
+//        Button editSaveTaskButton = findViewById(R.id.editSaveTaskButton);
+//        editSaveTaskButton.setOnClickListener(view -> {
+//            saveTask("");
+//        });
+//    }
+
+//    public void saveTask(String S3Key) {
+//        teamList = null;
+//        String getTeamToSave = editTeamSpinner.getSelectedItem().toString();
+//        try {
+//            teamList = teamListFuture.get();
+//        }catch (InterruptedException interruptedException) {
+//            Log.e(TAG, "saveTask: Didn't work task not retrieved",interruptedException);
+//            Thread.currentThread().interrupt();
+//        } catch (ExecutionException executionException){
+//            Log.e(TAG, "saveTask: Didn't work task encountered execution exception", executionException);
+//        }
+//        Team teamToSave = teamList.stream().filter(team -> team.getTeamName().equals(getTeamToSave)).findAny().orElseThrow(RuntimeException::new);
+//        Task taskToSave = Task.builder()
+//                .title(editTaskNameEditText.getText().toString())
+//                .id(taskToEdit.getId())
+//                .body(editDescriptionEditText.getText().toString())
+//                .state(teamToSave);
+//    }
+
+
+
 
 
 

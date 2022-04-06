@@ -38,11 +38,7 @@ public class MyTasksActivity extends AppCompatActivity {
 
     public final String TAG = "MainActivity";
     public static String TASK_ID_TAG = "TASK ID TAG";
-    public static String TASK_DETAIL_TITLE_TAG = "TASK DETAIL TITLE";
-    public static String TASK_DETAIL_BODY_TAG = "TASK BODY";
-    public static String TASK_DETAIL_STATE_TAG = "TASK STATE";
     SharedPreferences userPreferences;
-
     MyTasksListRecyclerViewAdapter myTasksListRecyclerViewAdapter;
     List<Task> tasksList = null;
 
@@ -56,29 +52,29 @@ public class MyTasksActivity extends AppCompatActivity {
 
         tasksList = new ArrayList<>();
 
-    File blankFile = new File(getApplicationContext().getFilesDir(), "blankTestFileName");
-    String blankFileName =  "blankFile";
-    try
-    {
-        BufferedWriter blankFileBufferWriter = new  BufferedWriter(new FileWriter(blankFile));
-        blankFileBufferWriter.append("this is some test text");
-        blankFileBufferWriter.close();
-    } catch (IOException ioException){
-        Log.e(TAG, "onCreate: File could not be created or written:  " + blankFileName, ioException);
-    }
-
-    String blankFileS3Key = "testS3File";
-
-    Amplify.Storage.uploadFile(
-            blankFileS3Key,
-            blankFile,
-            winning -> {
-                Log.i(TAG, "onCreate: S3 was created winning! " + winning.getKey());
-            },
-            losing -> {
-                Log.i(TAG, "onCreate: S3 failed and its a loss " + losing.getMessage());
-            }
-    );
+//    File blankFile = new File(getApplicationContext().getFilesDir(), "blankTestFileName");
+//    String blankFileName =  "blankFile";
+//    try
+//    {
+//        BufferedWriter blankFileBufferWriter = new  BufferedWriter(new FileWriter(blankFile));
+//        blankFileBufferWriter.append("this is some test text");
+//        blankFileBufferWriter.close();
+//    } catch (IOException ioException){
+//        Log.e(TAG, "onCreate: File could not be created or written:  " + blankFileName, ioException);
+//    }
+//
+//    String blankFileS3Key = "testS3File";
+//
+//    Amplify.Storage.uploadFile(
+//            blankFileS3Key,
+//            blankFile,
+//            winning -> {
+//                Log.i(TAG, "onCreate: S3 was created winning! " + winning.getKey());
+//            },
+//            losing -> {
+//                Log.i(TAG, "onCreate: S3 failed and its a loss " + losing.getMessage());
+//            }
+//    );
 
 
 //        Amplify.Auth.fetchAuthSession(

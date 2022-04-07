@@ -6,6 +6,7 @@ type Task @model @auth(rules: [{allow: public}]) {
   date: AWSDateTime
   teamId: ID! @index(name: "byTeam", sortKeyFields: ["id"])
   team: Team @belongsTo(fields: ["teamId"])
+  taskImgS3Key: String
 }
 
 enum StateEnum {

@@ -37,4 +37,7 @@
     <string name="signup">Sign Up</string>
     <string name="verify">Verify</string>
     <string name="edit_task">Edit Task</string>
+    <string name="delete">Delete</string>
+    <string name="add_img">Add Img</string>
+    <string name="delete_img">Delete Img</string>
 </resources>

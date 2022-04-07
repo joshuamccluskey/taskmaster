@@ -53,13 +53,13 @@
         android:id="@+id/editTaskNameEditText"
         android:layout_width="303dp"
         android:layout_height="55dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="48dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/my_task"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.394"
+        app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:ignore="TextContrastCheck" />
@@ -77,16 +77,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <ImageView
+        android:id="@+id/taskImageView"
+        android:layout_width="115dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deleteImgButton"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="104dp"
+        android:text="@string/delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/editSaveTaskButton"
+        app:layout_constraintTop_toBottomOf="@+id/taskImageView" />
+
     <Button
         android:id="@+id/editSaveTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="36dp"
         android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.188"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTeamSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/taskImageView"
         tools:ignore="TextContrastCheck" />
 
     <TextView
@@ -94,33 +116,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="76dp"
         android:text="@string/submitted"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.284"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/editSaveTaskButton"
-        app:layout_constraintTop_toBottomOf="@+id/editTeamSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/deleteButton" />
+
+    <Spinner
+        android:id="@+id/editTeamSpinner"
+        android:layout_width="303dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editStatusSpinner" />
 
     <Spinner
         android:id="@+id/editStatusSpinner"
         android:layout_width="303dp"
         android:layout_height="48dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.379"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editDescriptionEditText"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <Spinner
-        android:id="@+id/editTeamSpinner"
-        android:layout_width="303dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="52dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.37"
+    <Button
+        android:id="@+id/addImgButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/add_img"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editStatusSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/editTeamSpinner" />
+
+    <Button
+        android:id="@+id/deleteImgButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
+        android:text="@string/delete_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addImgButton"
+        app:layout_constraintTop_toBottomOf="@+id/editTeamSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

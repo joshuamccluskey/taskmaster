@@ -1,9 +1,14 @@
 package com.joshuamccluskey.taskmaster.activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -27,6 +32,8 @@ import com.amplifyframework.datastore.generated.model.Team;
 import com.google.android.material.snackbar.Snackbar;
 import com.joshuamccluskey.taskmaster.R;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -51,6 +58,8 @@ public class EditTaskActivity extends AppCompatActivity {
         taskCompletableFuture = new CompletableFuture<>();
         teamListFuture = new CompletableFuture<>();
         elementsSetUp();
+        addImgButtonSetup();
+        deleteImgButtonSetup();
         editSaveButtonSetup();
         deleteButtonSetup();
 
@@ -102,8 +111,9 @@ public class EditTaskActivity extends AppCompatActivity {
             editTaskNameEditText.setText(taskToEdit.getTitle());
             editDescriptionEditText = ((EditText) findViewById(R.id.editDescriptionEditText));
             editDescriptionEditText.setText(taskToEdit.getBody());
-            editSpinnerSetup();
+
         }
+     editSpinnerSetup();
     }
 
     public void editSpinnerSetup(){
@@ -146,7 +156,59 @@ public class EditTaskActivity extends AppCompatActivity {
 
 
     }
+    public ActivityResultLauncher<Intent> getImgActivityResultLauncher() {
+        ActivityResultLauncher<Intent> imgActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            if (result.getData() != null) {
+                                Uri pickedImageFileUri = result.getData().getData();
+                                try {
+                                    InputStream pickedImageInputStream = getContentResolver().openInputStream(pickedImageFileUri);
+                                    String pickedImgFilename = getFileNameFromUri(pickedImageFileUri);
+                                    Log.i(TAG, "onActivityResult: Success on image input" + pickedImgFilename);
+                                    uploadInputStreamToS3(pickedImageInputStream, pickedImgFilename);
+                                } catch (FileNotFoundException fileNotFoundException) {
+                                    Log.e(TAG, "onActivityResult: There was an errror uploading an image", fileNotFoundException);
+                                }
+                            }
+                        } else {
+                            Log.e(TAG, "onActivityResult: There is an error in ActivityLauncher.onActivityResult");
+                        }
+                    }
+                });
+        return imgActivityResultLauncher;
+    }
 
+    public void uploadInputStreamToS3 (InputStream pickedImageInputStream, String pickedImgFilename){
+            Amplify.Storage.uploadInputStream(
+                    pickedImgFilename,
+                    pickedImageInputStream,
+                    success ->
+                    {
+                        Log.i(TAG, "uploadInputStreamToS3: Upload was successful");
+                        saveTask(success.getKey());
+                    },
+                    failure ->
+                    {
+                        Log.e(TAG, "uploadInputStreamToS3: There was an error uploading file" + failure.getMessage());
+                    }
+            );
+    }
+
+    public void addImgButtonSetup(){
+        Button addImgButton = findViewById(R.id.addImgButton);
+        addImgButton.setOnClickListener(view -> {
+            launchImgSelection();
+        });
+    }
+
+    public void deleteImgButtonSetup(){
+        Button deleteImgButton = findViewById(R.id.deleteImgButton);
+        String s3ImgKey = "";
+    }
     public void launchImgSelection(){
         Intent imgFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
         imgFileIntent.setType("*/*");
@@ -154,7 +216,7 @@ public class EditTaskActivity extends AppCompatActivity {
         activityResultLauncher.launch(imgFileIntent);
     }
 
-    // SStackOverflow https://stackoverflow.com/a/25005243/16889809
+    // StackOverflow https://stackoverflow.com/a/25005243/16889809
     @SuppressLint("Range")
     public String getFileNameFromUri(Uri uri) {
         String result = null;
@@ -178,21 +240,16 @@ public class EditTaskActivity extends AppCompatActivity {
         return result;
     }
 
-    public void addImgButtonSetup(){
-        Button addImgButton = findViewById(R.id.addImgButton);
-        addImgButton.setOnClickListener(view -> {
-            launchImgSelection();
-        });
-    }
+
     public void editSaveButtonSetup(){
         Button editSaveTaskButton = findViewById(R.id.editSaveTaskButton);
         editSaveTaskButton.setOnClickListener(view -> {
-            saveTask();
+            saveTask("");
 
         });
     }
 
-    public void saveTask() {
+    public void saveTask(String s3Key) {
         List<Team> teamList = null;
         String getTeamToSave = editTeamSpinner.getSelectedItem().toString();
         try {
@@ -210,6 +267,7 @@ public class EditTaskActivity extends AppCompatActivity {
                 .body(editDescriptionEditText.getText().toString())
                 .state(taskStateString(editStatusSpinner.getSelectedItem().toString()))
                 .team(teamToSave)
+                .taskImgS3Key(s3Key)
                 .build();
         
         Amplify.API.mutate(

@@ -3,10 +3,14 @@ package com.joshuamccluskey.taskmaster.activity;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -139,6 +143,46 @@ public class EditTaskActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item,
                 StateEnum.values()));
         editStatusSpinner.setSelection(getSpinnerIndex(editStatusSpinner, taskToEdit.getState().toString()));
+
+
+    }
+
+    public void launchImgSelection(){
+        Intent imgFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        imgFileIntent.setType("*/*");
+        imgFileIntent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/jpeg", "image/png"});
+        activityResultLauncher.launch(imgFileIntent);
+    }
+
+    // SStackOverflow https://stackoverflow.com/a/25005243/16889809
+    @SuppressLint("Range")
+    public String getFileNameFromUri(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
+    public void addImgButtonSetup(){
+        Button addImgButton = findViewById(R.id.addImgButton);
+        addImgButton.setOnClickListener(view -> {
+            launchImgSelection();
+        });
     }
     public void editSaveButtonSetup(){
         Button editSaveTaskButton = findViewById(R.id.editSaveTaskButton);

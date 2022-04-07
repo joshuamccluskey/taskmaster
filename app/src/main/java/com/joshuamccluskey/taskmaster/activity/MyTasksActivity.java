@@ -192,7 +192,7 @@ public class MyTasksActivity extends AppCompatActivity {
                         for (Task databaseTask :success.getData()) {
 
 
-                            if (databaseTask.getTeam().getTeamName().equals(teamNameString))
+                            if (teamNameString.equals("No Team Name") || databaseTask.getTeam().getTeamName().equals(teamNameString))
                             {
                                 tasksList.add(databaseTask);
                             }

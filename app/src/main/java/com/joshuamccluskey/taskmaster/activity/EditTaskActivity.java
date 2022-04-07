@@ -48,6 +48,7 @@ public class EditTaskActivity extends AppCompatActivity {
         teamListFuture = new CompletableFuture<>();
         elementsSetUp();
         editSaveButtonSetup();
+        deleteButtonSetup();
 
 //        Intent gettingIntent = getIntent();
 //        if((gettingIntent != null) && (gettingIntent.getType() != null) && (gettingIntent.getType().startsWith("image")))
@@ -92,18 +93,14 @@ public class EditTaskActivity extends AppCompatActivity {
     }catch (ExecutionException executionException) {
         Log.e(TAG, "elementsSetUp: There is an error ", executionException );
     }
-    if(taskId != null){
-        editTaskNameEditText = ((EditText) findViewById(R.id.editTaskNameEditText));
-        editTaskNameEditText.setText(taskToEdit.getTitle());
-        editDescriptionEditText = ((EditText) findViewById(R.id.editDescriptionEditText));
-        editDescriptionEditText.setText(taskToEdit.getBody());
-        editSpinnerSetup();
+        if(taskId != null){
+            editTaskNameEditText = ((EditText) findViewById(R.id.editTaskNameEditText));
+            editTaskNameEditText.setText(taskToEdit.getTitle());
+            editDescriptionEditText = ((EditText) findViewById(R.id.editDescriptionEditText));
+            editDescriptionEditText.setText(taskToEdit.getBody());
+            editSpinnerSetup();
+        }
     }
-
-
-
-
-   }
 
     public void editSpinnerSetup(){
         editTeamSpinner =  findViewById(R.id.editTeamSpinner);
@@ -147,6 +144,7 @@ public class EditTaskActivity extends AppCompatActivity {
         Button editSaveTaskButton = findViewById(R.id.editSaveTaskButton);
         editSaveTaskButton.setOnClickListener(view -> {
             saveTask();
+
         });
     }
 
@@ -181,10 +179,23 @@ public class EditTaskActivity extends AppCompatActivity {
                 }
         );
     }
-
-
-
-
+    public void deleteButtonSetup(){
+        Button deleteButton = findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(view -> {
+            Amplify.API.mutate(
+                    ModelMutation.delete(taskToEdit),
+                    success -> {
+                        Log.i(TAG, "deleteButtonSetup: Task was deleted");
+//                        deleteS3();
+                        Intent goToMyTasksActivity = new Intent(EditTaskActivity.this, MyTasksActivity.class);
+                        startActivity(goToMyTasksActivity);
+                    },
+                    failure -> {
+                        Log.i(TAG, "deleteButtonSetup: Task deletion failed!", failure);
+                    }
+            );
+        });
+    }
 
 
     public int getSpinnerIndex(Spinner editStatusSpinner, String stringCheck){

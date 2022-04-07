@@ -6,7 +6,23 @@ Android task management application. Manage all your tasks from one app.
 - If needed app-debug.apk file in root taskmaster/
 - [app-debug.apk](app-debug.apk)
 
+# Daily Log 04.06.2022
 
+### Overview
+
+Feature to upload information or outside files
+
+### Updates
+
+
+- ![TBD]()
+
+
+### Features
+- As a user I want to upload or share files from an outside source
+
+### Work Time
+- TBD
 
 # Daily Log 04.05.2022
 
@@ -15,15 +31,19 @@ Android task management application. Manage all your tasks from one app.
 Setup S3 to allow user to store images for each task on the app
 
 ### Updates
-- Build Log in Log out flow
+- Allows user to upload image files to each task
 
-![TBD]()
+- ![imageAddLab37](screenshots/imageAddLab37.png)
+- ![imageViewLab37](screenshots/imageViewLab37.png)
+- ![s3Savedlab37](screenshots/s3Savedlab37.png)
+
 
 ### Features
 - As a user I want to upload files to each task
 
 ### Work Time
-- TBD
+- Work Time 8 Hours
+
 
 
 # Daily Log 04.04.2022

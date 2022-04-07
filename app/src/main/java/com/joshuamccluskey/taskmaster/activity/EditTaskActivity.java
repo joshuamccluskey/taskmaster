@@ -321,7 +321,7 @@ public class EditTaskActivity extends AppCompatActivity {
                 ModelMutation.update(taskToSave),
                 success -> {
                     Log.i(TAG, "saveTask: updated task success!" + success);
-                    Snackbar.make(findViewById(R.id.editTaskActivity), "Product saved!", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(R.id.editTaskActivity), "Task saved!", Snackbar.LENGTH_SHORT).show();
                 },
                 failure -> {
                     Log.i(TAG, "saveTask: your task didin't update" + failure);

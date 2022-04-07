@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -200,6 +201,7 @@ public class EditTaskActivity extends AppCompatActivity {
                         } catch (FileNotFoundException fileNotFoundException){
                             Log.e(TAG, "uploadInputStreamToS3: Couldn't receive file uri ",fileNotFoundException );
                         }
+                        taskImageView.setImageBitmap(BitmapFactory.decodeStream(pickedImgInputStreamCopy));
                     },
                     failure ->
                     {

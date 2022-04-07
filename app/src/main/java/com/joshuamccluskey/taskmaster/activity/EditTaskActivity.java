@@ -34,6 +34,7 @@ import com.amplifyframework.datastore.generated.model.Team;
 import com.google.android.material.snackbar.Snackbar;
 import com.joshuamccluskey.taskmaster.R;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -53,6 +54,8 @@ public class EditTaskActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> activityResultLauncher;
     SharedPreferences userPreferences;
 
+    String imageS3Key = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +70,8 @@ public class EditTaskActivity extends AppCompatActivity {
         editSaveButtonSetup();
         deleteButtonSetup();
 
-//        Intent gettingIntent = getIntent();
-//        if((gettingIntent != null) && (gettingIntent.getType() != null) && (gettingIntent.getType().startsWith("image")))
+        Intent gettingIntent = getIntent();
+        if((gettingIntent != null) && (gettingIntent.getType() != null) && (gettingIntent.getType().startsWith("image")))
 
 
 
@@ -116,8 +119,24 @@ public class EditTaskActivity extends AppCompatActivity {
             editDescriptionEditText = ((EditText) findViewById(R.id.editDescriptionEditText));
             editDescriptionEditText.setText(taskToEdit.getBody());
 
+            imageS3Key = taskToEdit.getTaskImgS3Key();
         }
-     editSpinnerSetup();
+        if(imageS3Key != null && !imageS3Key.isEmpty()) {
+            Amplify.Storage.downloadFile(
+                    imageS3Key,
+                    new File(getApplication().getFilesDir(), imageS3Key),
+                    good -> {
+                        ImageView taskImageView = findViewById(R.id.taskImageView);
+                        taskImageView.setImageBitmap(BitmapFactory.decodeFile(good.getFile().getPath()));
+                    },
+                    bad -> {
+                        Log.e(TAG, "elementsSetUp: something went wrong with the S3 key for the image " + bad.getMessage());
+                    }
+                    );
+        }
+        if ( taskId != null){
+            editSpinnerSetup();
+        }
     }
 
     public void editSpinnerSetup(){

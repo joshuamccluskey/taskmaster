@@ -71,7 +71,24 @@ public class EditTaskActivity extends AppCompatActivity {
         deleteButtonSetup();
 
         Intent gettingIntent = getIntent();
-        if((gettingIntent != null) && (gettingIntent.getType() != null) && (gettingIntent.getType().startsWith("image")))
+        if((gettingIntent != null) && (gettingIntent.getType() != null) && (gettingIntent.getType().startsWith("image"))){
+            Uri incomingImageFileUri = gettingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
+            if (incomingImageFileUri != null)
+            {
+                InputStream incomingImageFileInputStream = null;
+                try
+                {
+                    incomingImageFileInputStream = getContentResolver().openInputStream(incomingImageFileUri);
+                }
+                catch (FileNotFoundException fileNotFoundException)
+                {
+                    Log.e(TAG, "onCreate: There was an error witht he imageFile View" + fileNotFoundException.getMessage());
+                }
+
+                ImageView productImageView = findViewById(R.id.taskImageView);
+                productImageView.setImageBitmap(BitmapFactory.decodeStream(incomingImageFileInputStream));
+            }
+        }
 
 
 
@@ -131,8 +148,7 @@ public class EditTaskActivity extends AppCompatActivity {
                     },
                     bad -> {
                         Log.e(TAG, "elementsSetUp: something went wrong with the S3 key for the image " + bad.getMessage());
-                    }
-                    );
+                    });
         }
         if ( taskId != null){
             editSpinnerSetup();

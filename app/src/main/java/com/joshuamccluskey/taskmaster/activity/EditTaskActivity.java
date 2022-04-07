@@ -20,6 +20,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -57,6 +58,8 @@ public class EditTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_task);
         taskCompletableFuture = new CompletableFuture<>();
         teamListFuture = new CompletableFuture<>();
+        activityResultLauncher = getImgActivityResultLauncher();
+
         elementsSetUp();
         addImgButtonSetup();
         deleteImgButtonSetup();
@@ -164,12 +167,12 @@ public class EditTaskActivity extends AppCompatActivity {
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             if (result.getData() != null) {
-                                Uri pickedImageFileUri = result.getData().getData();
+                                Uri pickedImgFileUri = result.getData().getData();
                                 try {
-                                    InputStream pickedImageInputStream = getContentResolver().openInputStream(pickedImageFileUri);
-                                    String pickedImgFilename = getFileNameFromUri(pickedImageFileUri);
+                                    InputStream pickedImageInputStream = getContentResolver().openInputStream(pickedImgFileUri);
+                                    String pickedImgFilename = getFileNameFromUri(pickedImgFileUri);
                                     Log.i(TAG, "onActivityResult: Success on image input" + pickedImgFilename);
-                                    uploadInputStreamToS3(pickedImageInputStream, pickedImgFilename);
+                                    uploadInputStreamToS3(pickedImageInputStream, pickedImgFilename, pickedImgFileUri);
                                 } catch (FileNotFoundException fileNotFoundException) {
                                     Log.e(TAG, "onActivityResult: There was an errror uploading an image", fileNotFoundException);
                                 }
@@ -182,7 +185,7 @@ public class EditTaskActivity extends AppCompatActivity {
         return imgActivityResultLauncher;
     }
 
-    public void uploadInputStreamToS3 (InputStream pickedImageInputStream, String pickedImgFilename){
+    public void uploadInputStreamToS3 (InputStream pickedImageInputStream, String pickedImgFilename, Uri pickedImgFileUri){
             Amplify.Storage.uploadInputStream(
                     pickedImgFilename,
                     pickedImageInputStream,
@@ -190,6 +193,13 @@ public class EditTaskActivity extends AppCompatActivity {
                     {
                         Log.i(TAG, "uploadInputStreamToS3: Upload was successful");
                         saveTask(success.getKey());
+                        ImageView taskImageView = findViewById(R.id.taskImageView);
+                        InputStream pickedImgInputStreamCopy = null;
+                        try {
+                            pickedImgInputStreamCopy = getContentResolver().openInputStream(pickedImgFileUri);
+                        } catch (FileNotFoundException fileNotFoundException){
+                            Log.e(TAG, "uploadInputStreamToS3: Couldn't receive file uri ",fileNotFoundException );
+                        }
                     },
                     failure ->
                     {

@@ -14,11 +14,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.StateEnum;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
+import com.google.android.material.snackbar.Snackbar;
 import com.joshuamccluskey.taskmaster.R;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class EditTaskActivity extends AppCompatActivity {
-    String TAG = "editTaskActivity";
+    public static String TAG = "editTaskActivity";
     Task taskToEdit;
     CompletableFuture<Task> taskCompletableFuture;
     Spinner editStatusSpinner = null;
@@ -45,12 +47,13 @@ public class EditTaskActivity extends AppCompatActivity {
         taskCompletableFuture = new CompletableFuture<>();
         teamListFuture = new CompletableFuture<>();
         elementsSetUp();
+        editSaveButtonSetup();
 
-        Intent gettingIntent = getIntent();
+//        Intent gettingIntent = getIntent();
 //        if((gettingIntent != null) && (gettingIntent.getType() != null) && (gettingIntent.getType().startsWith("image")))
 
 
-//        editSaveButtonSetup();
+
     }
 
  public void elementsSetUp(){
@@ -140,31 +143,44 @@ public class EditTaskActivity extends AppCompatActivity {
                 StateEnum.values()));
         editStatusSpinner.setSelection(getSpinnerIndex(editStatusSpinner, taskToEdit.getState().toString()));
     }
-//    public void editSaveButtonSetup(){
-//        Button editSaveTaskButton = findViewById(R.id.editSaveTaskButton);
-//        editSaveTaskButton.setOnClickListener(view -> {
-//            saveTask("");
-//        });
-//    }
+    public void editSaveButtonSetup(){
+        Button editSaveTaskButton = findViewById(R.id.editSaveTaskButton);
+        editSaveTaskButton.setOnClickListener(view -> {
+            saveTask();
+        });
+    }
 
-//    public void saveTask(String S3Key) {
-//        teamList = null;
-//        String getTeamToSave = editTeamSpinner.getSelectedItem().toString();
-//        try {
-//            teamList = teamListFuture.get();
-//        }catch (InterruptedException interruptedException) {
-//            Log.e(TAG, "saveTask: Didn't work task not retrieved",interruptedException);
-//            Thread.currentThread().interrupt();
-//        } catch (ExecutionException executionException){
-//            Log.e(TAG, "saveTask: Didn't work task encountered execution exception", executionException);
-//        }
-//        Team teamToSave = teamList.stream().filter(team -> team.getTeamName().equals(getTeamToSave)).findAny().orElseThrow(RuntimeException::new);
-//        Task taskToSave = Task.builder()
-//                .title(editTaskNameEditText.getText().toString())
-//                .id(taskToEdit.getId())
-//                .body(editDescriptionEditText.getText().toString())
-//                .state(teamToSave);
-//    }
+    public void saveTask() {
+        List<Team> teamList = null;
+        String getTeamToSave = editTeamSpinner.getSelectedItem().toString();
+        try {
+            teamList = teamListFuture.get();
+        }catch (InterruptedException interruptedException) {
+            Log.e(TAG, "saveTask: Didn't work task not retrieved",interruptedException);
+            Thread.currentThread().interrupt();
+        } catch (ExecutionException executionException){
+            Log.e(TAG, "saveTask: Didn't work task encountered execution exception", executionException);
+        }
+        Team teamToSave = teamList.stream().filter(team -> team.getTeamName().equals(getTeamToSave)).findAny().orElseThrow(RuntimeException::new);
+        Task taskToSave = Task.builder()
+                .title(editTaskNameEditText.getText().toString())
+                .id(taskToEdit.getId())
+                .body(editDescriptionEditText.getText().toString())
+                .state(taskStateString(editStatusSpinner.getSelectedItem().toString()))
+                .team(teamToSave)
+                .build();
+        
+        Amplify.API.mutate(
+                ModelMutation.update(taskToSave),
+                success -> {
+                    Log.i(TAG, "saveTask: updated task success!" + success);
+                    Snackbar.make(findViewById(R.id.editTaskActivity), "Product saved!", Snackbar.LENGTH_SHORT).show();
+                },
+                failure -> {
+                    Log.i(TAG, "saveTask: your task didin't update" + failure);
+                }
+        );
+    }
 
 
 

@@ -1,5 +1,7 @@
 package com.joshuamccluskey.taskmaster.adapter;
 
+import static com.joshuamccluskey.taskmaster.activity.MyTasksActivity.TASK_ID_TAG;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.amplifyframework.datastore.generated.model.Task;
 import com.joshuamccluskey.taskmaster.R;
-import com.joshuamccluskey.taskmaster.activity.MyTasksActivity;
-import com.joshuamccluskey.taskmaster.activity.TaskDetailActivity;
-
+import com.joshuamccluskey.taskmaster.activity.EditTaskActivity;
 
 import java.util.List;
 
@@ -48,11 +48,9 @@ public class MyTasksListRecyclerViewAdapter extends RecyclerView.Adapter<MyTasks
 
         View myTaskViewHolder = holder.itemView;
         myTaskViewHolder.setOnClickListener(view -> {
-            Intent goTasksDetailsIntent = new Intent(gettingActivity, TaskDetailActivity.class);
-            goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_TITLE_TAG, task.getTitle());
-            goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_BODY_TAG, task.getBody());
-            goTasksDetailsIntent.putExtra(MyTasksActivity.TASK_DETAIL_STATE_TAG, task.getState().toString());
-            gettingActivity.startActivity(goTasksDetailsIntent);
+            Intent goToEditTaskActivityIntent = new Intent(gettingActivity, EditTaskActivity.class);
+            goToEditTaskActivityIntent.putExtra(TASK_ID_TAG, task.getId());
+            gettingActivity.startActivity(goToEditTaskActivityIntent);
         });
 
 

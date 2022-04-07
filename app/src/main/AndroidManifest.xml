@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskMaster">
         <activity
+            android:name=".activity.EditTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.VerifyAccountActivity"
             android:exported="false" />
         <activity

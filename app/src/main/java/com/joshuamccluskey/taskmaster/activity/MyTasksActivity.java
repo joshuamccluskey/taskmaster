@@ -25,6 +25,11 @@ import com.amplifyframework.datastore.generated.model.Task;
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +37,7 @@ import java.util.List;
 public class MyTasksActivity extends AppCompatActivity {
 
     public final String TAG = "MainActivity";
+    public static String TASK_ID_TAG = "TASK ID TAG";
     public static String TASK_DETAIL_TITLE_TAG = "TASK DETAIL TITLE";
     public static String TASK_DETAIL_BODY_TAG = "TASK BODY";
     public static String TASK_DETAIL_STATE_TAG = "TASK STATE";
@@ -50,22 +56,34 @@ public class MyTasksActivity extends AppCompatActivity {
 
         tasksList = new ArrayList<>();
 
+//    File blankFile = new File(getApplicationContext().getFilesDir(), "blankTestFileName");
+//    String blankFileName =  "blankFile";
+//    try
+//    {
+//        BufferedWriter blankFileBufferWriter = new  BufferedWriter(new FileWriter(blankFile));
+//        blankFileBufferWriter.append("this is some test text");
+//        blankFileBufferWriter.close();
+//    } catch (IOException ioException){
+//        Log.e(TAG, "onCreate: File could not be created or written:  " + blankFileName, ioException);
+//    }
+//
+//    String blankFileS3Key = "testS3File";
+//
+//    Amplify.Storage.uploadFile(
+//            blankFileS3Key,
+//            blankFile,
+//            winning -> {
+//                Log.i(TAG, "onCreate: S3 was created winning! " + winning.getKey());
+//            },
+//            losing -> {
+//                Log.i(TAG, "onCreate: S3 failed and its a loss " + losing.getMessage());
+//            }
+//    );
+
+
 //        Amplify.Auth.fetchAuthSession(
 //                result -> Log.i("AmplifyQuickstart", result.toString()),
 //                error -> Log.e("AmplifyQuickstart", error.toString())
-//        );
-
-
-
-
-//                Amplify.Auth.signOut(
-//                        () -> {
-//                    Log.i(TAG, "Logout completed: ");
-//                },
-//                failure -> {
-//                    Log.i(TAG, "Logout not completed: " + failure.toString());
-//                }
-//
 //        );
 
 //        String currentDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
@@ -109,6 +127,8 @@ public class MyTasksActivity extends AppCompatActivity {
 //                successResponse -> Log.i(TAG, "MyTaskActivity.onCreate: made a Team"),
 //                failureResponse -> Log.i(TAG, "MyTaskActivity.onCreate: failed" + failureResponse)
 //        );
+
+
         loginButtonSetUp();
         logoutButtonSetup();
         addTaskButtonSetUp();
@@ -203,6 +223,15 @@ public class MyTasksActivity extends AppCompatActivity {
         logoutMainButton.setOnClickListener(view -> {
             System.out.println("LogoutButton!");
             Log.e(TAG, "onClick: Logout Button!");
+            Amplify.Auth.signOut(
+                        () -> {
+                    Log.i(TAG, "Logout completed: ");
+                },
+                failure -> {
+                    Log.i(TAG, "Logout not completed: " + failure.toString());
+                }
+
+        );
             Intent goToLoginIntent = new Intent(MyTasksActivity.this, LoginActivity.class);
             MyTasksActivity.this.startActivity(goToLoginIntent);
         });

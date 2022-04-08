@@ -80,10 +80,10 @@ public class AddTaskActivity extends AppCompatActivity {
 
 
 
-        Button submitTaskButton = findViewById (R.id.editSaveTaskButton);
+        Button submitTaskButton = findViewById (R.id.saveTaskButton);
         submitTaskButton.setOnClickListener(view -> {
-            String title = ((EditText)findViewById(R.id.taskTitleEditText)).getText().toString();
-            String body = ((EditText)findViewById(R.id.doSomethingEditText)).getText().toString();
+            String title = ((EditText)findViewById(R.id.taskNameEditText)).getText().toString();
+            String body = ((EditText)findViewById(R.id.descriptionEditText)).getText().toString();
             String currentDate = DateUtils.formatISO8601Date(new Date());
             String selectedTeamString = teamSpinner.getSelectedItem().toString();
             Team selectedTeam = teamList.stream().filter(team -> team.getTeamName().equals(selectedTeamString)).findAny().orElseThrow(RuntimeException::new);

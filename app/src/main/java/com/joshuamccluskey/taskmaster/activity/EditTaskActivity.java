@@ -143,8 +143,10 @@ public class EditTaskActivity extends AppCompatActivity {
                     imageS3Key,
                     new File(getApplication().getFilesDir(), imageS3Key),
                     good -> {
-                        ImageView taskImageView = findViewById(R.id.taskImageView);
-                        taskImageView.setImageBitmap(BitmapFactory.decodeFile(good.getFile().getPath()));
+                        runOnUiThread(()-> {
+                            ImageView taskImageView = findViewById(R.id.taskImageView);
+                            taskImageView.setImageBitmap(BitmapFactory.decodeFile(good.getFile().getPath()));
+                        });
                     },
                     bad -> {
                         Log.e(TAG, "elementsSetUp: something went wrong with the S3 key for the image " + bad.getMessage());
@@ -254,8 +256,32 @@ public class EditTaskActivity extends AppCompatActivity {
 
     public void deleteImgButtonSetup(){
         Button deleteImgButton = findViewById(R.id.deleteImgButton);
-        String s3ImgKey = "";
+        deleteImgButton.setOnClickListener(view -> {
+
+        });
+
     }
+
+    public void deleteImageFromS3(){
+        if (imageS3Key.isEmpty()){
+            Amplify.Storage.remove(
+                    imageS3Key,
+                    good ->
+                    {
+                        imageS3Key = "";
+                        saveTask();
+                        ImageView taskImageView = findViewById(R.id.taskImageView);
+                        taskImageView.setImageResource(android.R.color.transparent);
+                        Log.i(TAG, "deleteImageFromS3: success" + good.getKey());
+                    },
+                    bad ->{
+                        Log.e(TAG, "deleteImageFromS3: failed " + bad.getMessage();
+                    }
+            )
+        }
+
+    }
+
     public void launchImgSelection(){
         Intent imgFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
         imgFileIntent.setType("*/*");

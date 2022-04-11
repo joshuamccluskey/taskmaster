@@ -6,6 +6,29 @@ Android task management application. Manage all your tasks from one app.
 - If needed app-debug.apk file in root taskmaster/
 - [app-debug.apk](app-debug.apk)
 
+# Daily Log 04.10.2022
+
+### Overview
+
+Refactor fix bugs on outside intent image and lat lon location
+
+### Updates
+- Add Lat lon location of the user and add it to each task
+- Feature to upload outside files to each task
+![imageIntentLab38](screenshots/imageIntentLab38.png)
+![imageIntent2Lab38](screenshots/imageIntent2Lab38.png)
+![addTaskLab38](screenshots/addTaskLab38.png)
+![imageEditLab38](screenshots/imageEditLab38.png)
+
+
+
+### Features
+- As a user I want to record my lat lon on a task
+- As a user I want to upload images from an outside source
+
+### Work Time
+- 6 Hours
+
 # Daily Log 04.06.2022
 
 ### Overview
@@ -13,16 +36,14 @@ Android task management application. Manage all your tasks from one app.
 Feature to upload information or outside files
 
 ### Updates
-
-
-- ![TBD]()
+- Feature to upload outside files to each task
 
 
 ### Features
-- As a user I want to upload or share files from an outside source
+- As a user I want to record my lat lon on a task
 
 ### Work Time
-- TBD
+- 1 Hour
 
 # Daily Log 04.05.2022
 

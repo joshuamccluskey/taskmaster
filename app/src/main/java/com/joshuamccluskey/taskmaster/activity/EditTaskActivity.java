@@ -3,7 +3,6 @@ package com.joshuamccluskey.taskmaster.activity;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +14,6 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -23,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
@@ -70,25 +67,6 @@ public class EditTaskActivity extends AppCompatActivity {
         editSaveButtonSetup();
         deleteButtonSetup();
 
-        Intent gettingIntent = getIntent();
-        if((gettingIntent != null) && (gettingIntent.getType() != null) && (gettingIntent.getType().startsWith("image"))){
-            Uri incomingImageFileUri = gettingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
-            if (incomingImageFileUri != null)
-            {
-                InputStream incomingImageFileInputStream = null;
-                try
-                {
-                    incomingImageFileInputStream = getContentResolver().openInputStream(incomingImageFileUri);
-                }
-                catch (FileNotFoundException fileNotFoundException)
-                {
-                    Log.e(TAG, "onCreate: There was an error witht he imageFile View" + fileNotFoundException.getMessage());
-                }
-
-                ImageView productImageView = findViewById(R.id.taskImageView);
-                productImageView.setImageBitmap(BitmapFactory.decodeStream(incomingImageFileInputStream));
-            }
-        }
 
 
 
@@ -131,9 +109,9 @@ public class EditTaskActivity extends AppCompatActivity {
         Log.e(TAG, "elementsSetUp: There is an error ", executionException );
     }
         if(taskId != null){
-            editTaskNameEditText = ((EditText) findViewById(R.id.editTaskNameEditText));
+            editTaskNameEditText = (findViewById(R.id.editTaskNameEditText));
             editTaskNameEditText.setText(taskToEdit.getTitle());
-            editDescriptionEditText = ((EditText) findViewById(R.id.editDescriptionEditText));
+            editDescriptionEditText = (findViewById(R.id.editDescriptionEditText));
             editDescriptionEditText.setText(taskToEdit.getBody());
 
             imageS3Key = taskToEdit.getTaskImgS3Key();
@@ -143,8 +121,10 @@ public class EditTaskActivity extends AppCompatActivity {
                     imageS3Key,
                     new File(getApplication().getFilesDir(), imageS3Key),
                     good -> {
-                        ImageView taskImageView = findViewById(R.id.taskImageView);
-                        taskImageView.setImageBitmap(BitmapFactory.decodeFile(good.getFile().getPath()));
+                        runOnUiThread(()-> {
+                            ImageView taskImageView = findViewById(R.id.taskImageView);
+                            taskImageView.setImageBitmap(BitmapFactory.decodeFile(good.getFile().getPath()));
+                        });
                     },
                     bad -> {
                         Log.e(TAG, "elementsSetUp: something went wrong with the S3 key for the image " + bad.getMessage());
@@ -196,7 +176,8 @@ public class EditTaskActivity extends AppCompatActivity {
 
     }
     public ActivityResultLauncher<Intent> getImgActivityResultLauncher() {
-        ActivityResultLauncher<Intent> imgActivityResultLauncher = registerForActivityResult(
+        ActivityResultLauncher<Intent> imgActivityResultLauncher =
+                registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -210,7 +191,7 @@ public class EditTaskActivity extends AppCompatActivity {
                                     Log.i(TAG, "onActivityResult: Success on image input" + pickedImgFilename);
                                     uploadInputStreamToS3(pickedImageInputStream, pickedImgFilename, pickedImgFileUri);
                                 } catch (FileNotFoundException fileNotFoundException) {
-                                    Log.e(TAG, "onActivityResult: There was an errror uploading an image", fileNotFoundException);
+                                    Log.e(TAG, "onActivityResult: There was an error uploading an image", fileNotFoundException);
                                 }
                             }
                         } else {
@@ -228,7 +209,8 @@ public class EditTaskActivity extends AppCompatActivity {
                     success ->
                     {
                         Log.i(TAG, "uploadInputStreamToS3: Upload was successful");
-                        saveTask(success.getKey());
+                        imageS3Key = success.getKey();
+                        saveTask();
                         ImageView taskImageView = findViewById(R.id.taskImageView);
                         InputStream pickedImgInputStreamCopy = null;
                         try {
@@ -246,16 +228,41 @@ public class EditTaskActivity extends AppCompatActivity {
     }
 
     public void addImgButtonSetup(){
-        Button addImgButton = findViewById(R.id.addImgButton);
+        Button addImgButton = findViewById(R.id.editAddImgButton);
         addImgButton.setOnClickListener(view -> {
             launchImgSelection();
         });
     }
 
     public void deleteImgButtonSetup(){
-        Button deleteImgButton = findViewById(R.id.deleteImgButton);
-        String s3ImgKey = "";
+        Button deleteImgButton = findViewById(R.id.editDeleteImgButton);
+        deleteImgButton.setOnClickListener(view -> {
+            deleteImageFromS3();
+
+        });
+
     }
+
+    public void deleteImageFromS3(){
+        if (imageS3Key.isEmpty()){
+            Amplify.Storage.remove(
+                    imageS3Key,
+                    good ->
+                    {
+                        imageS3Key = "";
+                        saveTask();
+                        ImageView taskImageView = findViewById(R.id.taskImageView);
+                        taskImageView.setImageResource(android.R.color.transparent);
+                        Log.i(TAG, "deleteImageFromS3: success" + good.getKey());
+                    },
+                    bad ->{
+                        Log.e(TAG, "deleteImageFromS3: failed " + bad.getMessage());
+                    }
+            );
+        }
+
+    }
+
     public void launchImgSelection(){
         Intent imgFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
         imgFileIntent.setType("*/*");
@@ -291,12 +298,13 @@ public class EditTaskActivity extends AppCompatActivity {
     public void editSaveButtonSetup(){
         Button editSaveTaskButton = findViewById(R.id.editSaveTaskButton);
         editSaveTaskButton.setOnClickListener(view -> {
-            saveTask("");
-
+            saveTask();
+            Intent goToMyTasksActivity = new Intent(EditTaskActivity.this, MyTasksActivity.class);
+            startActivity(goToMyTasksActivity);
         });
     }
 
-    public void saveTask(String s3Key) {
+    public void saveTask() {
         List<Team> teamList = null;
         String getTeamToSave = editTeamSpinner.getSelectedItem().toString();
         try {
@@ -314,7 +322,7 @@ public class EditTaskActivity extends AppCompatActivity {
                 .body(editDescriptionEditText.getText().toString())
                 .state(taskStateString(editStatusSpinner.getSelectedItem().toString()))
                 .team(teamToSave)
-                .taskImgS3Key(s3Key)
+                .taskImgS3Key(imageS3Key)
                 .build();
         
         Amplify.API.mutate(
@@ -335,7 +343,7 @@ public class EditTaskActivity extends AppCompatActivity {
                     ModelMutation.delete(taskToEdit),
                     success -> {
                         Log.i(TAG, "deleteButtonSetup: Task was deleted");
-//                        deleteS3();
+                        deleteImageFromS3();
                         Intent goToMyTasksActivity = new Intent(EditTaskActivity.this, MyTasksActivity.class);
                         startActivity(goToMyTasksActivity);
                     },

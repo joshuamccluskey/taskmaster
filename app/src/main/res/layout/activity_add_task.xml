@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/descriptionEditText"
+        android:id="@+id/taskDescriptionEditText"
         android:layout_width="303dp"
         android:layout_height="68dp"
         android:layout_marginTop="24dp"
@@ -120,7 +120,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.379"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionEditText"
+        app:layout_constraintTop_toBottomOf="@+id/taskDescriptionEditText"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button

@@ -51,6 +51,7 @@ public class AddTaskActivity extends AppCompatActivity {
     CompletableFuture<List<Team>> teamFuture = null;
     ActivityResultLauncher<Intent> activityResultLauncher;
     String imageS3Key = "";
+    String pickedImgFilename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,9 @@ public class AddTaskActivity extends AppCompatActivity {
                 try
                 {
                     incomingImageFileInputStream = getContentResolver().openInputStream(incomingImageFileUri);
+                    pickedImgFilename = getFileNameFromUri(incomingImageFileUri);
+                    uploadInputStreamToS3(incomingImageFileInputStream, pickedImgFilename, incomingImageFileUri);
+
                 }
                 catch (FileNotFoundException fileNotFoundException)
                 {
@@ -81,6 +85,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         addImgButtonSetup();
         deleteImgButtonSetup();
+        saveButtonSetup();
 
         teamFuture = new CompletableFuture<>();
         statusSpinner =  findViewById(R.id.statusSpinner);
@@ -119,10 +124,8 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     public void saveTask () {
-        Button submitTaskButton = findViewById(R.id.saveTaskButton);
-        submitTaskButton.setOnClickListener(view -> {
             String title = ((EditText) findViewById(R.id.taskNameEditText)).getText().toString();
-            String body = ((EditText) findViewById(R.id.descriptionEditText)).getText().toString();
+            String body = ((EditText) findViewById(R.id.taskDescriptionEditText)).getText().toString();
             String currentDate = DateUtils.formatISO8601Date(new Date());
             String selectedTeamString = teamSpinner.getSelectedItem().toString();
             Team selectedTeam = teamList.stream().filter(team -> team.getTeamName().equals(selectedTeamString)).findAny().orElseThrow(RuntimeException::new);
@@ -138,18 +141,33 @@ public class AddTaskActivity extends AppCompatActivity {
 
             Amplify.API.mutate(
                     ModelMutation.create(newTask),
-                    successResponse -> Log.i(TAG, "AddTaskActivity.onClick: made a Task"),
-                    failureResponse -> Log.i(TAG, "AddTaskActivity.onClick: failed" + failureResponse)
+                    success -> {
+
+                            Log.i(TAG, "saveTask: updated task success!" + success);
+
+                            Snackbar.make(findViewById(R.id.addTaskActivity), "Task saved!", Snackbar.LENGTH_SHORT).show();
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException interruptedException) {
+                            interruptedException.printStackTrace();
+                        }
+                        Intent goToMyTasksActivity = new Intent(AddTaskActivity.this, MyTasksActivity.class);
+                            startActivity(goToMyTasksActivity);
+
+                    },
+                    failure -> {
+                        Log.i(TAG, "saveTask: your task didin't update" + failure);
+                    }
             );
-            Snackbar.make(findViewById(R.id.addTaskActivity), "Product saved!", Snackbar.LENGTH_SHORT).show();
-            Intent goToAllTasksIntent = new Intent(AddTaskActivity.this, MyTasksActivity.class);
-
-            startActivity(goToAllTasksIntent);
-
-
-        });
-
     }
+
+    public void saveButtonSetup(){
+        Button saveTaskButton = findViewById(R.id.saveTaskButton);
+        saveTaskButton.setOnClickListener(view -> {
+            saveTask();
+        });
+    }
+
     public ActivityResultLauncher<Intent> getImgActivityResultLauncher() {
         ActivityResultLauncher<Intent> imgActivityResultLauncher =
                 registerForActivityResult(
@@ -162,7 +180,7 @@ public class AddTaskActivity extends AppCompatActivity {
                                         Uri pickedImgFileUri = result.getData().getData();
                                         try {
                                             InputStream pickedImageInputStream = getContentResolver().openInputStream(pickedImgFileUri);
-                                            String pickedImgFilename = getFileNameFromUri(pickedImgFileUri);
+                                            pickedImgFilename = getFileNameFromUri(pickedImgFileUri);
                                             Log.i(TAG, "onActivityResult: Success on image input" + pickedImgFilename);
                                             uploadInputStreamToS3(pickedImageInputStream, pickedImgFilename, pickedImgFileUri);
                                         } catch (FileNotFoundException fileNotFoundException) {

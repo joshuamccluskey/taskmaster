@@ -299,6 +299,8 @@ public class EditTaskActivity extends AppCompatActivity {
         Button editSaveTaskButton = findViewById(R.id.editSaveTaskButton);
         editSaveTaskButton.setOnClickListener(view -> {
             saveTask();
+            Intent goToMyTasksActivity = new Intent(EditTaskActivity.this, MyTasksActivity.class);
+            startActivity(goToMyTasksActivity);
         });
     }
 

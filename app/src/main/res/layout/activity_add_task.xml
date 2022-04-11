@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addTaskActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_blue"
@@ -77,27 +78,15 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageView
-        android:id="@+id/taskImageView"
+        android:id="@+id/addTaskImageView"
         android:layout_width="115dp"
         android:layout_height="120dp"
-        android:layout_marginStart="108dp"
         android:layout_marginTop="32dp"
+        android:contentDescription="@string/task_image"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deleteImgButton"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="@string/task_image" />
-
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="104dp"
-        android:text="@string/delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/saveTaskButton"
-        app:layout_constraintTop_toBottomOf="@+id/taskImageView" />
+        tools:srcCompat="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/saveTaskButton"
@@ -105,24 +94,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintHorizontal_bias="0.185"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taskImageView"
+        app:layout_constraintTop_toBottomOf="@+id/addTaskImageView"
+        app:layout_constraintVertical_bias="0.185"
         tools:ignore="TextContrastCheck" />
-
-    <TextView
-        android:id="@+id/submittedText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="76dp"
-        android:text="@string/submitted"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/saveTaskButton"
-        app:layout_constraintTop_toBottomOf="@+id/deleteButton" />
 
     <Spinner
         android:id="@+id/teamSpinner"

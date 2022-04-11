@@ -1,10 +1,12 @@
 package com.joshuamccluskey.taskmaster.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
@@ -31,6 +33,8 @@ import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.StateEnum;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.snackbar.Snackbar;
 import com.joshuamccluskey.taskmaster.R;
 
@@ -50,6 +54,8 @@ public class AddTaskActivity extends AppCompatActivity {
     List<Team> teamList = new  ArrayList<>();
     CompletableFuture<List<Team>> teamFuture = null;
     ActivityResultLauncher<Intent> activityResultLauncher;
+    FusedLocationProviderClient locationProvider = null;
+    Geocoder geocoder;
     String imageS3Key = "";
     String pickedImgFilename;
 
@@ -58,6 +64,10 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         activityResultLauncher = getImgActivityResultLauncher();
+        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+        locationProvider = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+        locationProvider.flushLocations();
 
         Intent gettingIntent = getIntent();
         if((gettingIntent != null) && (gettingIntent.getType() != null) && (gettingIntent.getType().startsWith("image"))){
@@ -124,17 +134,20 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     public void saveTask () {
+
             String title = ((EditText) findViewById(R.id.taskNameEditText)).getText().toString();
             String body = ((EditText) findViewById(R.id.taskDescriptionEditText)).getText().toString();
             String currentDate = DateUtils.formatISO8601Date(new Date());
             String selectedTeamString = teamSpinner.getSelectedItem().toString();
             Team selectedTeam = teamList.stream().filter(team -> team.getTeamName().equals(selectedTeamString)).findAny().orElseThrow(RuntimeException::new);
 
+
             Task newTask = Task.builder()
                     .title(title)
                     .body(body)
                     .state((StateEnum) statusSpinner.getSelectedItem())
-                    .date(new Temporal.DateTime(currentDate))
+//                    .taskLat(lat)
+//                    .taskLon(lon)
                     .team(selectedTeam)
                     .taskImgS3Key(imageS3Key)
                     .build();
@@ -164,9 +177,56 @@ public class AddTaskActivity extends AppCompatActivity {
     public void saveButtonSetup(){
         Button saveTaskButton = findViewById(R.id.saveTaskButton);
         saveTaskButton.setOnClickListener(view -> {
+
             saveTask();
-        });
+                });
     }
+//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+//            {
+//                // TODO: Consider calling
+//                //    ActivityCompat#requestPermissions
+//                // here to request the missing permissions, and then overriding
+//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                //                                          int[] grantResults)
+//                // to handle the case where the user grants the permission. See the documentation
+//                // for ActivityCompat#requestPermissions for more details.
+//                Log.e(TAG, "Application does not have access to either ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION!");
+//                return;
+//            }
+//
+//            String title = ((EditText) findViewById(R.id.taskNameEditText)).getText().toString();
+//            String body = ((EditText) findViewById(R.id.taskDescriptionEditText)).getText().toString();
+//            String currentDate = DateUtils.formatISO8601Date(new Date());
+//            String selectedTeamString = teamSpinner.getSelectedItem().toString();
+//            Team selectedTeam = teamList.stream().filter(team -> team.getTeamName().equals(selectedTeamString)).findAny().orElseThrow(RuntimeException::new);
+//
+//            locationProvider.getLastLocation().addOnSuccessListener(location ->  // "location" here could be null if no one else has request a location prior!
+//                            // Try running Google Maps first if you have a null callback here!
+//                    {
+//                        if (location == null)
+//                        {
+//                            Log.e(TAG, "Location callback was null!");
+//                        }
+//                        String currentLatitude = Double.toString(location.getLatitude());
+//                        String currentLongitude = Double.toString(location.getLongitude());
+//                        Log.i(TAG, "Our latitude: " + location.getLatitude());
+//                        Log.i(TAG, "Our longitude: " + location.getLongitude());
+//                        saveTask(title, description, currentLatitude, currentLongitude, selectedContact);
+//                    }
+//            ).addOnCanceledListener(() ->
+//            {
+//                Log.e(TAG, "Location request was canceled!");
+//            })
+//                    .addOnFailureListener(failure ->
+//                    {
+//                        Log.e(TAG, "Location request failed! Error was: " + failure.getMessage(), failure.getCause());
+//                    })
+//                    .addOnCompleteListener(complete ->
+//                    {
+//                        Log.e(TAG, "Location request completed!");
+//                    });
+//        });
+
 
     public ActivityResultLauncher<Intent> getImgActivityResultLauncher() {
         ActivityResultLauncher<Intent> imgActivityResultLauncher =

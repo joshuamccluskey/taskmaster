@@ -6,6 +6,27 @@ Android task management application. Manage all your tasks from one app.
 - If needed app-debug.apk file in root taskmaster/
 - [app-debug.apk](app-debug.apk)
 
+# Daily Log 04.11.2022
+
+### Overview
+
+Refactor fix bugs on outside intent image and lat lon location
+
+### Updates
+- Add Lat lon location of the user and add it to each task
+- Add analytics to activity
+- Add text speech to a tak
+
+
+
+
+### Features
+- As a user I want to record my lat lon on a task
+- As a user I want to upload images from an outside source
+
+### Work Time
+- 6 Hours
+
 # Daily Log 04.10.2022
 
 ### Overview

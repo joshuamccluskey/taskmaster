@@ -29,5 +29,12 @@ export type AmplifyDependentResourcesAttributes = {
             "Id": "string",
             "appName": "string"
         }
+    },
+    "predictions": {
+        "speechGenerator80c463f0": {
+            "region": "string",
+            "language": "string",
+            "voice": "string"
+        }
     }
 }

@@ -58,5 +58,12 @@
       "service": "Pinpoint",
       "providerPlugin": "awscloudformation"
     }
+  },
+  "predictions": {
+    "speechGenerator80c463f0": {
+      "providerPlugin": "awscloudformation",
+      "service": "Polly",
+      "convertType": "speechGenerator"
+    }
   }
 }

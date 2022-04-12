@@ -34,6 +34,8 @@ public final class Task implements Model {
   public static final QueryField DATE = field("Task", "date");
   public static final QueryField TEAM = field("Task", "teamId");
   public static final QueryField TASK_IMG_S3_KEY = field("Task", "taskImgS3Key");
+  public static final QueryField LAT = field("Task", "lat");
+  public static final QueryField LON = field("Task", "lon");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String") String body;
@@ -41,6 +43,8 @@ public final class Task implements Model {
   private final @ModelField(targetType="AWSDateTime") Temporal.DateTime date;
   private final @ModelField(targetType="Team") @BelongsTo(targetName = "teamId", type = Team.class) Team team;
   private final @ModelField(targetType="String") String taskImgS3Key;
+  private final @ModelField(targetType="String") String lat;
+  private final @ModelField(targetType="String") String lon;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -71,6 +75,14 @@ public final class Task implements Model {
       return taskImgS3Key;
   }
   
+  public String getLat() {
+      return lat;
+  }
+  
+  public String getLon() {
+      return lon;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -79,7 +91,7 @@ public final class Task implements Model {
       return updatedAt;
   }
   
-  private Task(String id, String title, String body, StateEnum state, Temporal.DateTime date, Team team, String taskImgS3Key) {
+  private Task(String id, String title, String body, StateEnum state, Temporal.DateTime date, Team team, String taskImgS3Key, String lat, String lon) {
     this.id = id;
     this.title = title;
     this.body = body;
@@ -87,6 +99,8 @@ public final class Task implements Model {
     this.date = date;
     this.team = team;
     this.taskImgS3Key = taskImgS3Key;
+    this.lat = lat;
+    this.lon = lon;
   }
   
   @Override
@@ -104,6 +118,8 @@ public final class Task implements Model {
               ObjectsCompat.equals(getDate(), task.getDate()) &&
               ObjectsCompat.equals(getTeam(), task.getTeam()) &&
               ObjectsCompat.equals(getTaskImgS3Key(), task.getTaskImgS3Key()) &&
+              ObjectsCompat.equals(getLat(), task.getLat()) &&
+              ObjectsCompat.equals(getLon(), task.getLon()) &&
               ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt());
       }
@@ -119,6 +135,8 @@ public final class Task implements Model {
       .append(getDate())
       .append(getTeam())
       .append(getTaskImgS3Key())
+      .append(getLat())
+      .append(getLon())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -136,6 +154,8 @@ public final class Task implements Model {
       .append("date=" + String.valueOf(getDate()) + ", ")
       .append("team=" + String.valueOf(getTeam()) + ", ")
       .append("taskImgS3Key=" + String.valueOf(getTaskImgS3Key()) + ", ")
+      .append("lat=" + String.valueOf(getLat()) + ", ")
+      .append("lon=" + String.valueOf(getLon()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -162,6 +182,8 @@ public final class Task implements Model {
       null,
       null,
       null,
+      null,
+      null,
       null
     );
   }
@@ -173,7 +195,9 @@ public final class Task implements Model {
       state,
       date,
       team,
-      taskImgS3Key);
+      taskImgS3Key,
+      lat,
+      lon);
   }
   public interface TitleStep {
     BuildStep title(String title);
@@ -188,6 +212,8 @@ public final class Task implements Model {
     BuildStep date(Temporal.DateTime date);
     BuildStep team(Team team);
     BuildStep taskImgS3Key(String taskImgS3Key);
+    BuildStep lat(String lat);
+    BuildStep lon(String lon);
   }
   
 
@@ -199,6 +225,8 @@ public final class Task implements Model {
     private Temporal.DateTime date;
     private Team team;
     private String taskImgS3Key;
+    private String lat;
+    private String lon;
     @Override
      public Task build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -210,7 +238,9 @@ public final class Task implements Model {
           state,
           date,
           team,
-          taskImgS3Key);
+          taskImgS3Key,
+          lat,
+          lon);
     }
     
     @Override
@@ -250,6 +280,18 @@ public final class Task implements Model {
         return this;
     }
     
+    @Override
+     public BuildStep lat(String lat) {
+        this.lat = lat;
+        return this;
+    }
+    
+    @Override
+     public BuildStep lon(String lon) {
+        this.lon = lon;
+        return this;
+    }
+    
     /** 
      * @param id id
      * @return Current Builder instance, for fluent method chaining
@@ -262,14 +304,16 @@ public final class Task implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String body, StateEnum state, Temporal.DateTime date, Team team, String taskImgS3Key) {
+    private CopyOfBuilder(String id, String title, String body, StateEnum state, Temporal.DateTime date, Team team, String taskImgS3Key, String lat, String lon) {
       super.id(id);
       super.title(title)
         .body(body)
         .state(state)
         .date(date)
         .team(team)
-        .taskImgS3Key(taskImgS3Key);
+        .taskImgS3Key(taskImgS3Key)
+        .lat(lat)
+        .lon(lon);
     }
     
     @Override
@@ -300,6 +344,16 @@ public final class Task implements Model {
     @Override
      public CopyOfBuilder taskImgS3Key(String taskImgS3Key) {
       return (CopyOfBuilder) super.taskImgS3Key(taskImgS3Key);
+    }
+    
+    @Override
+     public CopyOfBuilder lat(String lat) {
+      return (CopyOfBuilder) super.lat(lat);
+    }
+    
+    @Override
+     public CopyOfBuilder lon(String lon) {
+      return (CopyOfBuilder) super.lon(lon);
     }
   }
   

@@ -17,6 +17,8 @@ subscription OnCreateTask {
       updatedAt
     }
     taskImgS3Key
+    lat
+    lon
     createdAt
     updatedAt
   }
@@ -39,6 +41,8 @@ subscription OnUpdateTask {
       updatedAt
     }
     taskImgS3Key
+    lat
+    lon
     createdAt
     updatedAt
   }
@@ -61,6 +65,8 @@ subscription OnDeleteTask {
       updatedAt
     }
     taskImgS3Key
+    lat
+    lon
     createdAt
     updatedAt
   }
@@ -78,6 +84,8 @@ subscription OnCreateTeam {
         date
         teamId
         taskImgS3Key
+        lat
+        lon
         createdAt
         updatedAt
       }
@@ -100,6 +108,8 @@ subscription OnUpdateTeam {
         date
         teamId
         taskImgS3Key
+        lat
+        lon
         createdAt
         updatedAt
       }
@@ -122,6 +132,8 @@ subscription OnDeleteTeam {
         date
         teamId
         taskImgS3Key
+        lat
+        lon
         createdAt
         updatedAt
       }

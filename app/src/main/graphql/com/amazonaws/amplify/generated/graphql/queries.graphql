@@ -17,6 +17,8 @@ query GetTask($id: ID!) {
       updatedAt
     }
     taskImgS3Key
+    lat
+    lon
     createdAt
     updatedAt
   }
@@ -41,6 +43,8 @@ query ListTasks(
         updatedAt
       }
       taskImgS3Key
+      lat
+      lon
       createdAt
       updatedAt
     }
@@ -60,6 +64,8 @@ query GetTeam($id: ID!) {
         date
         teamId
         taskImgS3Key
+        lat
+        lon
         createdAt
         updatedAt
       }

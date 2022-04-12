@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.analytics.AnalyticsEvent;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.auth.AuthUser;
 import com.amplifyframework.auth.AuthUserAttribute;
@@ -31,6 +32,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -55,6 +57,14 @@ public class MyTasksActivity extends AppCompatActivity {
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         tasksList = new ArrayList<>();
+
+        AnalyticsEvent event = AnalyticsEvent.builder()
+                .name("App Opened")
+                .addProperty("openTime", Long.toString(new Date().getTime()))
+                .addProperty("activityDescription", "MyTaskActivity Opened")
+                .build();
+
+        Amplify.Analytics.recordEvent(event);
 
 //    File blankFile = new File(getApplicationContext().getFilesDir(), "blankTestFileName");
 //    String blankFileName =  "blankFile";

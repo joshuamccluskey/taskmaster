@@ -114,6 +114,7 @@ public class EditTaskActivity extends AppCompatActivity {
             editDescriptionEditText = (findViewById(R.id.editDescriptionEditText));
             editDescriptionEditText.setText(taskToEdit.getBody());
 
+
             imageS3Key = taskToEdit.getTaskImgS3Key();
         }
         if(imageS3Key != null && !imageS3Key.isEmpty()) {

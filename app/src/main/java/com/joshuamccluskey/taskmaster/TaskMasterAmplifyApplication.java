@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.amplifyframework.AmplifyException;
+import com.amplifyframework.analytics.pinpoint.AWSPinpointAnalyticsPlugin;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
@@ -20,6 +21,7 @@ public class TaskMasterAmplifyApplication extends Application {
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
             Amplify.addPlugin(new AWSS3StoragePlugin());
             Amplify.addPlugin(new AWSLocationGeoPlugin());
+            Amplify.addPlugin(new AWSPinpointAnalyticsPlugin(this));
             Amplify.configure(getApplicationContext());
         } catch (AmplifyException ae) {
             Log.e(TAG, "onCreate: " + ae.getMessage(), ae);

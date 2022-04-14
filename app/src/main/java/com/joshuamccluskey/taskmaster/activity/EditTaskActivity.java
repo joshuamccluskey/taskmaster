@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
@@ -32,8 +33,12 @@ import com.google.android.material.snackbar.Snackbar;
 import com.joshuamccluskey.taskmaster.R;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -50,6 +55,7 @@ public class EditTaskActivity extends AppCompatActivity {
     EditText editDescriptionEditText;
     ActivityResultLauncher<Intent> activityResultLauncher;
     SharedPreferences userPreferences;
+    private MediaPlayer mp = null;
 
     String imageS3Key = "";
 
@@ -60,7 +66,8 @@ public class EditTaskActivity extends AppCompatActivity {
         taskCompletableFuture = new CompletableFuture<>();
         teamListFuture = new CompletableFuture<>();
         activityResultLauncher = getImgActivityResultLauncher();
-
+        mp = new MediaPlayer();
+        readerButtonSetUp();
         elementsSetUp();
         addImgButtonSetup();
         deleteImgButtonSetup();
@@ -70,6 +77,18 @@ public class EditTaskActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void readerButtonSetUp(){
+        Button readerButton = findViewById(R.id.readerButton);
+        readerButton.setOnClickListener(r -> {
+            String taskName = editTaskNameEditText.getText().toString();
+            Amplify.Predictions.convertTextToSpeech(
+                    taskName,
+                    result -> playAudio(result.getAudioData()),
+                    error -> Log.e(TAG, "Conversion failed", error)
+            );
+        });
     }
 
  public void elementsSetUp(){
@@ -373,5 +392,22 @@ public class EditTaskActivity extends AppCompatActivity {
             }
         }
         return null;
+    }
+    private void playAudio(InputStream data) {
+        File mp3File = new File(getCacheDir(), "audio.mp3");
+
+        try (OutputStream out = new FileOutputStream(mp3File)) {
+            byte[] buffer = new byte[8 * 1_024];
+            int bytesRead;
+            while ((bytesRead = data.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+            mp.reset();
+            mp.setOnPreparedListener(MediaPlayer::start);
+            mp.setDataSource(new FileInputStream(mp3File).getFD());
+            mp.prepareAsync();
+        } catch (IOException error) {
+            Log.e("MyAmplifyApp", "Error writing audio file", error);
+        }
     }
 }

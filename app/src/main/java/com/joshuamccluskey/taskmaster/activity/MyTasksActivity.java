@@ -23,6 +23,11 @@ import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
 
@@ -66,6 +71,14 @@ public class MyTasksActivity extends AppCompatActivity {
 
         Amplify.Analytics.recordEvent(event);
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        AdView mainBannerAdView = findViewById(R.id.mainBannerAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mainBannerAdView.loadAd(adRequest);
 //    File blankFile = new File(getApplicationContext().getFilesDir(), "blankTestFileName");
 //    String blankFileName =  "blankFile";
 //    try

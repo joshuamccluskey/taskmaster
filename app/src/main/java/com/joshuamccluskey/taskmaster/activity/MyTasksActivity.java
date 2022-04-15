@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,9 +26,12 @@ import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
 
@@ -52,6 +56,7 @@ public class MyTasksActivity extends AppCompatActivity {
 
     MyTasksListRecyclerViewAdapter myTasksListRecyclerViewAdapter;
     List<Task> tasksList = null;
+    private InterstitialAd mainInterstitialAd;
 
 
     @Override
@@ -76,9 +81,34 @@ public class MyTasksActivity extends AppCompatActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
+        AdRequest adInterstitialRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adInterstitialRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mainInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i(TAG, loadAdError.getMessage());
+                        mainInterstitialAd = null;
+                    }
+                });
+
+        if (mainInterstitialAd != null){
+            mainInterstitialAd.show(MyTasksActivity.this);
+        }
         AdView mainBannerAdView = findViewById(R.id.mainBannerAdView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mainBannerAdView.loadAd(adRequest);
+        AdRequest adBannerRequest = new AdRequest.Builder().build();
+        mainBannerAdView.loadAd(adBannerRequest);
+
+
+
 //    File blankFile = new File(getApplicationContext().getFilesDir(), "blankTestFileName");
 //    String blankFileName =  "blankFile";
 //    try

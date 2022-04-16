@@ -11,10 +11,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.analytics.AnalyticsEvent;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.auth.AuthUser;
 import com.amplifyframework.auth.AuthUserAttribute;
@@ -22,6 +24,14 @@ import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.joshuamccluskey.taskmaster.R;
 import com.joshuamccluskey.taskmaster.adapter.MyTasksListRecyclerViewAdapter;
 
@@ -31,6 +41,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -45,6 +56,7 @@ public class MyTasksActivity extends AppCompatActivity {
 
     MyTasksListRecyclerViewAdapter myTasksListRecyclerViewAdapter;
     List<Task> tasksList = null;
+    private InterstitialAd mainInterstitialAd;
 
 
     @Override
@@ -55,6 +67,47 @@ public class MyTasksActivity extends AppCompatActivity {
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         tasksList = new ArrayList<>();
+
+        AnalyticsEvent event = AnalyticsEvent.builder()
+                .name("App Opened")
+                .addProperty("openTime", Long.toString(new Date().getTime()))
+                .addProperty("activityDescription", "MyTaskActivity Opened")
+                .build();
+
+        Amplify.Analytics.recordEvent(event);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        AdRequest adInterstitialRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adInterstitialRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mainInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i(TAG, loadAdError.getMessage());
+                        mainInterstitialAd = null;
+                    }
+                });
+
+        if (mainInterstitialAd != null){
+            mainInterstitialAd.show(MyTasksActivity.this);
+        }
+        AdView mainBannerAdView = findViewById(R.id.mainBannerAdView);
+        AdRequest adBannerRequest = new AdRequest.Builder().build();
+        mainBannerAdView.loadAd(adBannerRequest);
+
+
 
 //    File blankFile = new File(getApplicationContext().getFilesDir(), "blankTestFileName");
 //    String blankFileName =  "blankFile";

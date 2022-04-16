@@ -15,7 +15,7 @@ Refactor fix bugs on outside intent image and lat lon location
 ### Updates
 - Add Lat lon location of the user and add it to each task
 - Add analytics to activity
-- Add text speech to a tak
+- Add text speech to a read task
 
 
 
@@ -25,7 +25,7 @@ Refactor fix bugs on outside intent image and lat lon location
 - As a user I want to upload images from an outside source
 
 ### Work Time
-- 6 Hours
+- TBD
 
 # Daily Log 04.10.2022
 

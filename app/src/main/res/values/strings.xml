@@ -41,4 +41,6 @@
     <string name="add_img">Add Img</string>
     <string name="delete_img">Delete Img</string>
     <string name="task_image">Task Image</string>
+    <string name="reader">Reader</string>
+    <string name="ad">Ad</string>
 </resources>

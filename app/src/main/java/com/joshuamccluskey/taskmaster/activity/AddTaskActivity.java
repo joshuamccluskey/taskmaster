@@ -56,7 +56,7 @@ public class AddTaskActivity extends AppCompatActivity {
     List<Team> teamList = new ArrayList<>();
     CompletableFuture<List<Team>> teamFuture = null;
     ActivityResultLauncher<Intent> activityResultLauncher;
-    FusedLocationProviderClient locationProvider = null;
+    FusedLocationProviderClient locationProviderClient = null;
     Geocoder geocoder;
     String imageS3Key = "";
     String pickedImgFilename;
@@ -67,10 +67,6 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         activityResultLauncher = getImgActivityResultLauncher();
-        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-        locationProvider = LocationServices.getFusedLocationProviderClient(getApplicationContext());
-        locationProvider.flushLocations();
 
         Intent gettingIntent = getIntent();
         if ((gettingIntent != null) && (gettingIntent.getType() != null) && (gettingIntent.getType().startsWith("image"))) {
@@ -91,6 +87,30 @@ public class AddTaskActivity extends AppCompatActivity {
             }
 
         }
+
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            Log.e(TAG, "onCreate: Cannot get permission to the location");
+//            return;
+//        }
+//
+//        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+//
+//        locationProviderClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+//        locationProviderClient.flushLocations();
+//
+//        locationProviderClient.getLastLocation().addOnSuccessListener(location ->{
+//            Log.i(TAG, "onCreate: This is the location " + location.getLatitude());
+//            Log.i(TAG, "onCreate: This is the location " + location.getLongitude());
+//        });
+
+
 
 
         addImgButtonSetup();
@@ -171,47 +191,46 @@ public class AddTaskActivity extends AppCompatActivity {
     public void saveButtonSetup() {
         Button saveTaskButton = findViewById(R.id.saveTaskButton);
         saveTaskButton.setOnClickListener(view -> {
-//
-//            if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED &&ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED)
-//
-//            {
-//                // TODO: Consider calling
-//                //    ActivityCompat#requestPermissions
-//                // here to request the missing permissions, and then overriding
-//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                //                                          int[] grantResults)
-//                // to handle the case where the user grants the permission. See the documentation
-//                // for ActivityCompat#requestPermissions for more details.
-//                Log.e(TAG, "Application does not have access to either ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION!");
-//                return;
-//            }
-//            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-//            locationProvider.getLastLocation().addOnSuccessListener(location ->  // "location" here could be null if no one else has request a location prior!
-//                            // Try running Google Maps first if you have a null callback here!
-//                    {
-//                        if (location == null)
-//                        {
-//                            Log.e(TAG, "Location callback was null!");
-//                        }
-//                        String lat = Double.toString(location.getLatitude());
-//                        String lon = Double.toString(location.getLongitude());
-//                        Log.i(TAG, "Our latitude: " + location.getLatitude());
-//                        Log.i(TAG, "Our longitude: " + location.getLongitude());
-//                        saveTask(lat, lon);
-//                    }
-//            ).addOnCanceledListener(() ->
-//            {
-//                Log.e(TAG, "Location request was canceled!");
-//            })
-//                    .addOnFailureListener(failure ->
-//                    {
-//                        Log.e(TAG, "Location request failed! Error was: " + failure.getMessage(), failure.getCause());
-//                    })
-//                    .addOnCompleteListener(complete ->
-//                    {
-//                        Log.e(TAG, "Location request completed!");
-//
-//                    });
+
+            if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED &&ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED)
+
+            {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                Log.e(TAG, "Application does not have access to either ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION!");
+                return;
+            }
+            locationProviderClient.getLastLocation().addOnSuccessListener(location ->  // "location" here could be null if no one else has request a location prior!
+                            // Try running Google Maps first if you have a null callback here!
+                    {
+                        if (location == null)
+                        {
+                            Log.e(TAG, "Location callback was null!");
+                        }
+                        String lat = Double.toString(location.getLatitude());
+                        String lon = Double.toString(location.getLongitude());
+                        Log.i(TAG, "Our latitude: " + location.getLatitude());
+                        Log.i(TAG, "Our longitude: " + location.getLongitude());
+                        saveTask(lat, lon);
+                    }
+            ).addOnCanceledListener(() ->
+            {
+                Log.e(TAG, "Location request was canceled!");
+            })
+                    .addOnFailureListener(failure ->
+                    {
+                        Log.e(TAG, "Location request failed! Error was: " + failure.getMessage(), failure.getCause());
+                    })
+                    .addOnCompleteListener(complete ->
+                    {
+                        Log.e(TAG, "Location request completed!");
+
+                    });
             saveMainTask();
         });
 
